@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link id="codyframe" rel="stylesheet" href="gulp/css/minify/style.css">
+  <!-- browsers not supporting CSS variables -->
+  <script>
+    if (!('CSS' in window) || !CSS.supports('color', 'var(--color-var)')) { var cfStyle = document.getElementById('codyframe'); if (cfStyle) { var href = cfStyle.getAttribute('href'); href = href.replace('style.css', 'style-fallback.css'); cfStyle.setAttribute('href', href); } }
+  </script>
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+</head>
+
+<body>
+
+  <header class="dr-nav-header">
+    <div class="container position-relative height-100% flex items-center">
+
+    </div>
+  </header>
+
+  <div class="dr-nav-control-wrapper">
+    <div class="container height-100% flex items-center">
+      <button
+        class="reset margin-left-auto dr-nav-control anim-menu-btn js-anim-menu-btn js-dr-nav-control js-tab-focus"
+        aria-label="Toggle navigation" aria-controls="dr-nav-id">
+        <svg class="dr-nav-control__bg" aria-hidden="true" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="22" stroke-miterlimit="10" /></svg>
+        <i class="anim-menu-btn__icon anim-menu-btn__icon--arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer js-drawer" id="dr-nav-id">
+    <div class="drawer__content" role="alertdialog" aria-labelledby="dr-nav-title">
+      <div class="drawer__body flex flex-column js-drawer__body">
+        <header class="dr-nav-drawer-header padding-x-md">
+          <h4 id="dr-nav-title">Menu</h4>
+        </header>
+
+        <nav class="dr-nav padding-md" aria-label="Main">
+          <ul>
+            <li>
+              <a class="dr-nav__link" href="#0">
+                <span>News</span>
+                <span>35</span>
+              </a>
+            </li>
+
+            <li>
+              <a class="dr-nav__link" href="#0">
+                <span>Creative Industry</span>
+                <span>17</span>
+              </a>
+            </li>
+
+            <li>
+              <a class="dr-nav__link" href="#0">
+                <span>Video</span>
+                <span>12</span>
+              </a>
+            </li>
+
+            <li>
+              <a class="dr-nav__link" href="#0">
+                <span>Photography</span>
+                <span>24</span>
+              </a>
+            </li>
+
+            <li>
+              <a class="dr-nav__link" href="#0">
+                <span>Tutorials</span>
+                <span>18</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <footer class="padding-md margin-top-auto">
+          <div class="switch padding-md ">
+            <input class="switch__input" type="checkbox" id="themeSwitch">
+            <label aria-hidden="true" class="switch__label" for="themeSwitch">On</label>
+            <div aria-hidden="true" class="switch__marker"></div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+
+
+  % include(including_page, *args, **kwargs)
+
+  <script src="gulp/js/minify/all.min.js"></script>
+
+</body>
+
+</html>
