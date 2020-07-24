@@ -1,60 +1,48 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var minify = require('gulp-minify');
-var cleanCSS = require('gulp-clean-css');
+var sassGlob = require('gulp-sass-glob');
+var postcss      = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var cssvariables = require('postcss-css-variables');
+var calc = require('postcss-calc');
 var concat = require('gulp-concat');
-var del = require('del');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+
+// js file paths
+var utilJsPath = 'src/js'; // util.js path - you may need to update this if including the framework as external node module
+var componentsJsPath = 'src/js/components/*.js'; // component js files
+var scriptsJsPath = 'public/js'; //folder for final scripts.js/scripts.min.js files
+
+// css file paths
+var cssFolder = 'public/css'; // folder for final style.css/style-custom-prop-fallbac.css files
+var scssFilesPath = 'src/scss/**/*.scss'; // scss files to watch
 
 
-const compile_sass = () => {
-    return gulp.src(['public/scss/*.scss', 'public/scss/**/*.scss'])
-        .pipe(sass({ outputStyle: 'compressed' }))
-        .pipe(gulp.dest('public/gulp/css'));
-}
+gulp.task('sass', function() {
+  return gulp.src(scssFilesPath)
+  .pipe(sassGlob())
+  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  .pipe(postcss([autoprefixer()]))
+  .pipe(gulp.dest(cssFolder))
+  .pipe(rename('style-fallback.css'))
+  .pipe(postcss([cssvariables(), calc()]))
+  .pipe(gulp.dest(cssFolder));
+});
+
+gulp.task('scripts', function() {
+  return gulp.src([utilJsPath+'/util.js', componentsJsPath])
+  .pipe(concat('scripts.js'))
+  .pipe(gulp.dest(scriptsJsPath))
+  .pipe(rename('scripts.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest(scriptsJsPath))
+});
 
 
-const minify_css = () => {
-    return gulp.src('public/gulp/css/*.css')
-        .pipe(cleanCSS({ compatibility: 'ie8' }))
-        .pipe(gulp.dest('public/gulp/css/minify'));
-}
+gulp.task('watch', gulp.series(['sass', 'scripts'], function () {
+  gulp.watch(scssFilesPath, gulp.series(['sass']));
+  gulp.watch(componentsJsPath, gulp.series(['scripts']));
+}));
 
-
-const minify_js = () => {
-    return gulp.src(['public/js/*.js', 'public/js/**/*.js'])
-        .pipe(minify({
-            ext: {
-                min: '.min.js'
-            },
-            ignoreFiles: ['-min.js']
-        }))
-        .pipe(gulp.dest('public/gulp/js'))
-}
-
-
-const concat_js = () => {
-    return gulp.src(['public/gulp/js/*.min.js', 'public/gulp/js/**/*.min.js'])
-        .pipe(concat('all.min.js'))
-        .pipe(gulp.dest('public/gulp/js/minify'))
-}
-
-
-const clean = () => {
-    return del('public/gulp', {force:true});
-}
-
-
-gulp.task('compile-sass', compile_sass);
-
-gulp.task('minify-css', minify_css);
-
-gulp.task('minify-js', minify_js);
-
-gulp.task('concat-js', concat_js);
-
-gulp.task('clean', clean);
-
-
-gulp.task('default', gulp.series(
-    clean, compile_sass,  minify_css, minify_js, concat_js
-));
+gulp.task('default', gulp.series(['sass', 'scripts']));
