@@ -1,24 +1,17 @@
 from lib import *
-from requests import post
 
-# pylint: disable=no-member
 
 @route("/", method=["get", "post"])
 def main_page():
-
     if request.method == POST:
-
         message = "Имя:\n" + request.forms.name + "\n\nПочта:\n" + request.forms.email + "\n\nСообщение:\n" + request.forms.inputEmail1
         print(message)
-
-        
 
     return template(
         "main",
         template_title="title tag",
         template_description="description tag"
     )
-
 
 
 @route("/<file:path>")

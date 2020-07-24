@@ -1,10 +1,8 @@
 # /usr/bin/python3
+import os
 from functools import wraps
 from os.path import join
-from hashlib import pbkdf2_hmac
 from sys import stderr
-import binascii
-from typing import Dict, List
 
 import bottle
 from bottle import response, request
@@ -12,7 +10,8 @@ from bottle import response, request
 try:
     from ujson import load, dump, loads, dumps
 except ImportError:
-    print("Please, install ujson module (pip3 install ujson)", file=stderr)
+    if os.getenv("IGNORE_UJSON") is None:
+        print("Please, install ujson module (pip3 install ujson)", file=stderr)
     from json import load, dump, loads, dumps
 
 GET, POST, DELETE, PATCH = "GET", "POST", "DELETE", "PATCH"
