@@ -1,3 +1,5 @@
+from bottle import HTTPResponse
+
 from lib import *
 
 
@@ -18,9 +20,12 @@ def main_page():
 def static(file):
     f = bottle.static_file(file, "./public")
     if f.status_code == 404:
-        return template(
-            "error",
-            template_title="404",
+        return HTTPResponse(
+            body=template(
+                "error",
+                template_title="404",
+            ),
+            status=404
         )
     return f
 

@@ -58,7 +58,7 @@ ADMIN_COOKIE_SECRET = "o6fIcd0dcWSiV8BJYpdF"
 # https://www.random.org/strings/?num=1&len=20&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new
 
 
-# #   MAIN   # #
+# === MAIN === #
 def template(source, template_title="", template_description="", extension=".html", including_page=None,
              alert: Alert = None, self_stationary_page=False,  *args, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
@@ -81,7 +81,7 @@ def template(source, template_title="", template_description="", extension=".htm
 
     if self_stationary_page:
         return bottle.template(join("view", source + extension), **k)
-    return bottle.template("view/layout/skeleton.html",
+    return bottle.template("view/layout/index.html",
                            including_page=including_page or join("view", source + extension),
                            **k
                            )
@@ -100,7 +100,7 @@ def redirect(url, code=None, alert: Alert = None, **kwargs):
 def route(p=None, method='GET', callback=None, name=None,
           apply=None, skip=None, **config):
 
-    def _(func):
+    def decorate(func):
         app.route(p, method, callback, name,
                   apply, skip, **config)(func)
 
@@ -108,5 +108,5 @@ def route(p=None, method='GET', callback=None, name=None,
         app.route(path, method, callback, name,
                   apply, skip, **config)(func)
         return func
-    return _
+    return decorate
 
