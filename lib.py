@@ -41,10 +41,7 @@ class Alert:
         }
 
     def __dir__(self):
-        return {
-            "content": self.content,
-            "type": self.alert_type
-        }
+        return self.conv
 
     def __str__(self):
         return 'Alert(%s): "%s"' % (self.alert_type.capitalize(), self.content)

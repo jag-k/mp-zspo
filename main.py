@@ -1,6 +1,6 @@
-from bottle import HTTPResponse
-
 from lib import *
+
+from bottle import HTTPResponse, static_file, run, request
 
 
 @route("/", method=["get", "post"])
@@ -18,7 +18,7 @@ def main_page():
 
 @route("/<file:path>")
 def static(file):
-    f = bottle.static_file(file, "./public")
+    f = static_file(file, "./public")
     if f.status_code == 404:
         return HTTPResponse(
             body=template(
@@ -31,4 +31,4 @@ def static(file):
 
 
 if __name__ == '__main__':
-    bottle.run(app=app, host="0.0.0.0", port=8080, quiet=False, reloader=True)
+    run(app=app, host="0.0.0.0", port=8080, quiet=False, reloader=True)
