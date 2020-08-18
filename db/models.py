@@ -38,7 +38,6 @@ class News(db.Entity):
 
 # ===== END MODELS =====
 db.generate_mapping(
-    allow_auto_upgrade=True,
     create_tables=True
 )
 
