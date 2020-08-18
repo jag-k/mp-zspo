@@ -16,6 +16,28 @@ def main_page():
     )
 
 
+@admin_route("/ckeditor/upload_photo/<path:path>", POST)
+def upload_photo(path):
+    try:
+        file = save_img(path=path, name_in_form="upload", overwrite=False)
+        return {
+            "url": file
+        }
+    except OSError:
+        return {
+            "error": {
+                "message": "Изображение с таким именем существует. "
+                           "Пожалуйста, переименуйте изображение и попробуйте снова."
+            }
+        }
+    except Exception as err:
+        return {
+            "error": {
+                "message": "Ошибка во время загрузки!\n(%s: %s)" % (type(err).__name__, err)
+            }
+        }
+
+
 @route("/<file:path>")
 def static(file):
     f = static_file(file, "./public")
