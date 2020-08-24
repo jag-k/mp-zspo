@@ -1,14 +1,9 @@
+from bottle import HTTPResponse, static_file, run, request
 from lib import *
 
-from bottle import HTTPResponse, static_file, run, request
 
-
-@route("/", method=["get", "post"])
+@route("/")
 def main_page():
-    if request.method == POST:
-        message = "Имя:\n" + request.forms.name + "\n\nПочта:\n" + request.forms.email + "\n\nСообщение:\n" + request.forms.inputEmail1
-        print(message)
-
     return template(
         "main",
         template_title="title tag",
