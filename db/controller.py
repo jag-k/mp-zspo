@@ -3,11 +3,11 @@ docs: https://docs.ponyorm.org/
 """
 from os import urandom
 
-from .models import *
+from db.models import *
 from hashlib import pbkdf2_hmac
 import binascii
 
-SALT = "QCIGSDwfnTOaoF1MFkzFZfFzbAhmlrnU"
+SALT = b"QCIGSDwfnTOaoF1MFkzFZfFzbAhmlrnU"
 
 # ==============================================================================
 # ===== CONTROLLER =====
@@ -15,9 +15,9 @@ SALT = "QCIGSDwfnTOaoF1MFkzFZfFzbAhmlrnU"
 # ==============================================================================
 # ADMIN FUNCS
 
-def hash_admin(email, pwd):
+def hash_admin(login, pwd):
     dk = pbkdf2_hmac(hash_name='sha256',
-                     password=bytes("%s ---- %s" % (email, pwd), 'utf-8'),
+                     password=bytes("%s ---- %s" % (login, pwd), 'utf-8'),
                      salt=SALT,
                      iterations=100000)
     return str(binascii.hexlify(dk), encoding="utf-8")
@@ -29,12 +29,12 @@ def is_admin(login, pwd):
 
 @db_session
 def is_hash_admin(h):
-    return h and exists(h == a.hash for a in Admin)
+    return h and get(h == a.hash for a in Admin)
 
 
 @db_session
-def get_admin_by_email(email: str) -> Admin:
-    return select(a for a in Admin if a.email == email).first()
+def get_admin_by_login(login: str) -> Admin:
+    return select(a for a in Admin if a.login == login).first()
 
 
 @db_session
@@ -48,26 +48,26 @@ def get_admin_by_id(id: int) -> Admin:
 
 
 @db_session
-def get_admin(email_hash_id):
-    return select(a for a in Admin if email_hash_id in (a.email, a.hash, a.id)).first()
+def get_admin(login_hash_id):
+    return select(a for a in Admin if login_hash_id in (a.login, a.hash, a.id)).first()
 
 
 @db_session
-def create_admin(email: str, password: str, name: str = "") -> Admin or None:
+def create_admin(login: str, password: str, name: str = "") -> Admin or None:
     if not password:
         return None
-    h = hash_admin(email, password)
+    h = hash_admin(login, password)
     admin = get_admin_by_hash(h)
 
-    if not admin and not select(a.email == email for a in Admin).first():
-            return Admin(email=email, hash=h, name=name or email.split("@")[0])
+    if not admin and not select(a.login == login for a in Admin).first():
+            return Admin(login=login, hash=h, name=name or login.split("@")[0])
     else:
         return admin
 
 
 @db_session
-def del_admin(email_hash_id):
-    a = get_admin(email_hash_id)
+def del_admin(login_hash_id):
+    a = get_admin(login_hash_id)
     if a:
         a.delete()
         return True
@@ -75,20 +75,20 @@ def del_admin(email_hash_id):
 
 
 @db_session
-def edit_admin_password(email_hash_id, password: str):
-    a = get_admin(email_hash_id)
-    a.hash = hash_admin(a.email, password)
+def edit_admin_password(login_hash_id, password: str):
+    a = get_admin(login_hash_id)
+    a.hash = hash_admin(a.login, password)
     return a
 
 
 @db_session
-def edit_admin_data(admin: Admin, name: str = None, email: str = None, password: str = None, **kwargs) -> Admin:
+def edit_admin_data(admin: Admin, name: str = None, login: str = None, password: str = None, **kwargs) -> Admin:
     if name:
         admin.name = name
-    if email:
-        admin.email = email
+    if login:
+        admin.login = login
     if password:
-        admin.hash = hash_admin(admin.email, password)
+        admin.hash = hash_admin(admin.login, password)
     return admin
 
 
@@ -120,6 +120,12 @@ def update_settings(key: str, value: dict):
 
 
 if __name__ == '__main__':
+
+    print(hash_admin(None, None))
+    print(hash_admin("jag-k", "1234"))
+    print(hash_admin("", ""))
+    print(hash_admin("jasdad", "asdawdw"))
+
     with db_session:
         Admin.select().show()
         """

@@ -14,7 +14,7 @@ db = Database("sqlite", "db.sqlite3", create_db=CREATE_DB or "-c" in argv or "--
 
 class Admin(db.Entity):
     id = PrimaryKey(int, auto=True)
-    email = Required(str, unique=True)
+    login = Required(str, unique=True)
     name = Optional(str)
     hash = Required(str, unique=True)
 

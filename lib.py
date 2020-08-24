@@ -73,16 +73,17 @@ class Alert:
 ADMIN_LOGIN_ROUTE = "/login"
 ADMIN_COOKIE_KEY = "user"
 ADMIN_COOKIE_SECRET = SALT
+ADMIN_ROUTE = "/admin"
 
 
 def admin_route(url, method="GET"):
     def wrap(func):
-        @route("/admin" + url.rstrip("/"), method)
+        @route(ADMIN_ROUTE + url.rstrip("/"), method)
         def wrapped(*args, **kwargs):
             user = request.get_cookie(ADMIN_COOKIE_KEY, None, ADMIN_COOKIE_SECRET)
             if is_hash_admin(user):
                 return func(*args, **kwargs)
-            bottle.redirect(ADMIN_LOGIN_ROUTE + "?from=/admin" + url.rstrip("/"))
+            bottle.redirect(ADMIN_LOGIN_ROUTE + "?from=" + ADMIN_ROUTE + url.rstrip("/"))
         return wrapped
     return wrap
 
@@ -102,7 +103,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
         admins=admins,
         user=user,
         request=request,
-        url=request.urlparts.path.split("/admin/", 1)[1],
+        url=request.urlparts.path.split(ADMIN_ROUTE + "/", 1)[1],
         db_session=db_session,
         *args, **kwargs)
 
@@ -111,7 +112,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 # MAIN
 
 def template(source, template_title="", extension=".html", including_page=None,
-             alert: Alert = None, self_stationary_page=False, index="view/layout/index.html",
+             alert: Alert = None, self_stationary_page=False, index=join("view", "layout", "index.html"),
              *args, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
     if alert:
