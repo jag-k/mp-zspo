@@ -17,7 +17,6 @@ class Admin(db.Entity):
     email = Required(str, unique=True)
     name = Optional(str)
     hash = Required(str, unique=True)
-    news_list = Set('News', cascade_delete=True)
 
 
 class Settings(db.Entity):
@@ -25,15 +24,36 @@ class Settings(db.Entity):
     value = Required(Json)
 
 
-class News(db.Entity):
+class Blog(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)
+    description = Required(str)
+    direction_type = Optional(int, default=0)
     date = Required(date)
     draft = Optional(bool, default=True)
     content = Required(str)
     image = Optional(str)
-    old_link = Optional(str)
-    admin = Required(Admin)
+    custom_link = Optional(str)
+
+
+class Feature(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    title = Required(str)
+    description = Required(str)
+    icon = Optional(str)
+    sub_features = Set("SubFeature", cascade_delete=True)
+
+
+class SubFeature(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    feature = Required(Feature)
+    title = Required(str)
+    date = Required(date)
+    content = Required(str)
+    image = Optional(str)
+    link = Optional(str)
+
+
 
 
 # ===== END MODELS =====
