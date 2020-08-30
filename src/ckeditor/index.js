@@ -3,6 +3,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.
 
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
+import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
@@ -41,6 +42,7 @@ class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
+    Autosave,
     Alignment,
     Autoformat,
     BlockQuote,
@@ -117,8 +119,12 @@ Editor.defaultConfig = {
       uploadUrl: "/admin/ckeditor/upload_photo/news/media"
     },
 
-    // language=css
-    button: 'button.btn[type="submit"], button.btnBlue[type="submit"]',
+    autosave: {
+        save( editor ) {
+            editor.updateSourceElement();
+            return editor;
+        }
+    },
 
     language: 'ru',
 

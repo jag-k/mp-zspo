@@ -11,6 +11,16 @@ def main_page():
     )
 
 
+@route("/edit")
+def main_page():
+    return template(
+        "admin/edit",
+        template_title="title tag",
+        template_description="description tag",
+        data={}
+    )
+
+
 @route(ADMIN_LOGIN_ROUTE, method=GET_POST)
 def login():
     alert = None

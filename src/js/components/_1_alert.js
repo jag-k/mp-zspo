@@ -1,5 +1,5 @@
 // File#: _1_alert
-// Usage: codyhouse.co/license
+// Usage: codyframe.co/license
 (function() {
   var alertClose = document.getElementsByClassName('js-alert__close-btn');
   if( alertClose.length > 0 ) {

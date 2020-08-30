@@ -1,5 +1,5 @@
 // File#: _1_password
-// Usage: codyhouse.co/license
+// Usage: codyframe.co/license
 (function() {
   var Password = function(element) {
     this.element = element;

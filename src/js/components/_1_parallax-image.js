@@ -1,5 +1,5 @@
 // File#: _1_parallax-image
-// Usage: codyhouse.co/license
+// Usage: codyframe.co/license
 (function() {
     var ParallaxImg = function(element, rotationLevel) {
       this.element = element;
@@ -12,7 +12,7 @@
       initParallax(this);
       initParallaxEvents(this);
     };
-  
+
     function initParallax(element) {
       element.count = 0;
       window.requestAnimationFrame(checkImageLoaded.bind(element));
@@ -28,7 +28,7 @@
         }
       })(i);}
     };
-  
+
     function checkImageLoaded() {
       if(this.count >= this.imgs.length) {
         initScale(this);
@@ -40,14 +40,14 @@
         this.loaded = window.requestAnimationFrame(checkImageLoaded.bind(this));
       }
     };
-  
+
     function initScale(element) {
       var maxImgResize = getMaxScale(element);
       element.scale = maxImgResize/(Math.sin(Math.PI / 2 - element.maxRotation*Math.PI/180));
-      element.figure.style.transform = 'scale('+element.scale+')';  
-      Util.addClass(element.element, 'parallax-img--loaded');  
+      element.figure.style.transform = 'scale('+element.scale+')';
+      Util.addClass(element.element, 'parallax-img--loaded');
     };
-  
+
     function getMaxScale(element) {
       var minWidth = 0;
       var maxWidth = 0;
@@ -60,7 +60,7 @@
       if(scale < 1.1) scale = 1.1;
       return scale;
     }
-  
+
     function initParallaxEvents(element) {
       element.element.addEventListener('mousemove', function(event){
         if(element.animating) return;
@@ -68,12 +68,12 @@
         window.requestAnimationFrame(moveImage.bind(element, event));
       });
     };
-  
+
     function moveImage(event, timestamp) {
       var wrapperPosition = this.element.getBoundingClientRect();
       var rotateY = 2*(this.maxRotation/wrapperPosition.width)*(wrapperPosition.left - event.clientX + wrapperPosition.width/2);
       var rotateX = 2*(this.maxRotation/wrapperPosition.height)*(event.clientY - wrapperPosition.top - wrapperPosition.height/2);
-  
+
       if(rotateY > this.maxRotation) rotateY = this.maxRotation;
       if(rotateY < -1*this.maxRotation) rotateY = -this.maxRotation;
       if(rotateX > this.maxRotation) rotateX = this.maxRotation;
@@ -81,9 +81,9 @@
       this.figure.style.transform = 'scale('+this.scale+') rotateX('+rotateX+'deg) rotateY('+rotateY+'deg)';
       this.animating = false;
     };
-  
+
     window.ParallaxImg = ParallaxImg;
-  
+
     //initialize the ParallaxImg objects
     var parallaxImgs = document.getElementsByClassName('js-parallax-img');
     if( parallaxImgs.length > 0 && Util.cssSupports('transform', 'translateZ(0px)')) {

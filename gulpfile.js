@@ -45,4 +45,4 @@ gulp.task('watch', gulp.series(['sass', 'scripts'], function () {
   gulp.watch(componentsJsPath, gulp.series(['scripts']));
 }));
 
-gulp.task('default', gulp.series(['sass', 'scripts']));
+gulp.task('codyframe', gulp.series(['sass', 'scripts']));

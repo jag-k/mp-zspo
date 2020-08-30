@@ -1,5 +1,5 @@
 // File#: _2_drawer-navigation
-// Usage: codyhouse.co/license
+// Usage: codyframe.co/license
 (function() {
   function initDrNavControl(element) {
     var circle = element.getElementsByTagName('circle');
@@ -12,7 +12,7 @@
       drawer = document.getElementById(drawerId);
     if(drawer) {
       // when the drawer is closed without click (e.g., user presses 'Esc') -> reset trigger status
-      drawer.addEventListener('drawerIsClose', function(event){ 
+      drawer.addEventListener('drawerIsClose', function(event){
         if(!event.detail || (event.detail && !event.detail.closest('.js-dr-nav-control[aria-controls="'+drawerId+'"]')) ) resetTrigger(element);
       });
     }
@@ -27,7 +27,7 @@
   };
 
   function resetTrigger(element) {
-    Util.removeClass(element, 'anim-menu-btn--state-b'); 
+    Util.removeClass(element, 'anim-menu-btn--state-b');
   };
 
   var drNavControl = document.getElementsByClassName('js-dr-nav-control');

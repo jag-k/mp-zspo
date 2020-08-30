@@ -1,20 +1,20 @@
-/* -------------------------------- 
+/* --------------------------------
 
 File#: _1_anim-menu-btn
 Title: Animated Menu Button
 Descr: A menu button w/ a morphing icon
-Usage: codyhouse.co/license
+Usage: codyframe.co/license
 
 -------------------------------- */
 
 :root {
     --anim-menu-btn-size: 48px;
-    
+
     // 🍔 icon
     --anim-menu-btn-icon-size: 32px;
     --anim-menu-btn-icon-stroke: 2px;
   }
-  
+
   .anim-menu-btn {
     display: flex;
     justify-content: center;
@@ -23,7 +23,7 @@ Usage: codyhouse.co/license
     height: var(--anim-menu-btn-size);
     color: var(--color-contrast-high); // icon color
   }
-  
+
   // icons
   .anim-menu-btn__icon {
     position: relative;
@@ -35,7 +35,7 @@ Usage: codyhouse.co/license
     background-image: linear-gradient(currentColor, currentColor);
     background-repeat: no-repeat;
     transform: scale(1);
-    
+
     &::before, &::after {
       content: '';
       position: absolute;
@@ -47,45 +47,45 @@ Usage: codyhouse.co/license
       border-radius: inherit;
     }
   }
-  
+
   // menu to 'X' close
   .anim-menu-btn__icon--close {
     background-size: 100% 100%;
     will-change: transform, background-size;
     transition: transform .2s, background-size .2s;
-  
+
     .anim-menu-btn:active & {
       transform: scale(0.9);
     }
-  
+
     &::before, &::after {
       will-change: inherit;
       transition: inherit;
     }
-  
+
     &::before { // line top
       transform: translateY(-0.25em) rotate(0);
     }
-  
+
     &::after { // line bottom
       transform: translateY(0.25em) rotate(0);
     }
   }
-  
+
   .anim-menu-btn--state-b {
     .anim-menu-btn__icon--close {
       background-size: 0% 100%;
-  
+
       &::before {
         transform: translateY(0) rotate(45deg);
       }
-  
+
       &::after {
         transform: translateY(0) rotate(-45deg);
       }
     }
   }
-  
+
   // menu to arrow
   .anim-menu-btn__icon--arrow-left,
   .anim-menu-btn__icon--arrow-right,
@@ -94,34 +94,34 @@ Usage: codyhouse.co/license
     border-radius: 50em;
     will-change: transform;
     transition: transform .2s;
-  
+
     .anim-menu-btn:active & {
       transform: scale(0.9);
     }
-  
+
     &::before, &::after {
       transform-origin: calc(var(--anim-menu-btn-icon-stroke)/2) 50%;
       will-change: transform, width;
       transition: transform .2s, width .2s;
     }
-  
+
     &::before { // line top
       transform: translateY(-0.25em) rotate(0);
     }
-  
+
     &::after { // line bottom
       transform: translateY(0.25em) rotate(0);
     }
   }
-  
+
   .anim-menu-btn__icon--arrow-right {
     transform: rotate(180deg);
-  
+
     .anim-menu-btn:active & {
       transform: rotate(180deg) scale(0.9);
     }
   }
-  
+
   .anim-menu-btn--state-b {
     .anim-menu-btn__icon--arrow-left,
     .anim-menu-btn__icon--arrow-right,
@@ -130,28 +130,28 @@ Usage: codyhouse.co/license
       &::before, &::after {
         width: 50%;
       }
-  
+
       &::before {
         transform: translateY(0) rotate(-45deg);
       }
-  
+
       &::after {
         transform: translateY(0) rotate(45deg);
       }
     }
-  
+
     &:active .anim-menu-btn__icon--arrow-up {
       transform: rotate(90deg) scale(0.9);
     }
-  
+
     .anim-menu-btn__icon--arrow-up {
       transform: rotate(90deg);
     }
-  
+
     &:active .anim-menu-btn__icon--arrow-down {
       transform: rotate(-90deg) scale(0.9);
     }
-  
+
     .anim-menu-btn__icon--arrow-down {
       transform: rotate(-90deg);
     }
