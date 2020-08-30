@@ -46,6 +46,6 @@ jobs:
           # port
           PORT: 22
           # local path
-          SOURCE: ./
+          SOURCE: './'
           # remote target
           TARGET: ${{ secrets.TARGET }}
