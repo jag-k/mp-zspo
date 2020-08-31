@@ -11,6 +11,15 @@ def main_page():
     )
 
 
+@route("/blog")
+def blog_page():
+    return template(
+        "blog",
+        template_title="title tag",
+        template_description="description tag"
+    )
+
+
 @route("/edit")
 def main_page():
     return template(
