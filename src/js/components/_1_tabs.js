@@ -9,6 +9,7 @@
       this.panelsList = this.element.getElementsByClassName('js-tabs__panels')[0];
       this.panels = Util.getChildrenByClassName(this.panelsList, 'js-tabs__panel');
       this.hideClass = 'is-hidden';
+
       this.customShowClass = this.element.getAttribute('data-show-panel-class') ? this.element.getAttribute('data-show-panel-class') : false;
       this.initTab();
     };

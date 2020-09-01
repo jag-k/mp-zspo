@@ -13,6 +13,9 @@ from pony.orm.core import Query
 import bottle
 from bottle import response, request
 
+from htmlmin.decorator import htmlmin
+
+
 try:
     from ujson import load, dump, loads, dumps
 except ImportError:
@@ -103,7 +106,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
         admins=admins,
         user=user,
         request=request,
-        url=request.urlparts.path.split(ADMIN_ROUTE + "/", 1)[1],
+        # url=request.urlparts.path.split(ADMIN_ROUTE + "/", 1)[1],
         db_session=db_session,
         *args, **kwargs)
 
@@ -111,6 +114,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 # ==============================================================================
 # MAIN
 
+@htmlmin(remove_comments=True)
 def template(source, template_title="", extension=".html", including_page=None,
              alert: Alert = None, self_stationary_page=False, index=join("view", "layout", "index.html"),
              *args, **kwargs):
@@ -218,7 +222,7 @@ def normal_news(content: str):
 
 @db_session
 def get_news(pagenum=1, pagesize=10):
-    n = pagination(list(select(n for n in News if not n.draft and n.date <= datetime.now()).sort_by(News.date))[::-1],
+    n = pagination(list(select(n for n in Blog if not n.draft and n.date <= datetime.now()).sort_by(Blog.date))[::-1],
                    pagenum, pagesize)
     return n
 
@@ -267,4 +271,4 @@ def get_files(path: str):
 
 if __name__ == '__main__':
     with db_session:
-        pprint(get_json(News[1]))
+        pprint(get_json(Blog[1]))

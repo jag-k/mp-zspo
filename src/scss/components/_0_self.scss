@@ -1,0 +1,23 @@
+:root {
+  --shadow: #0000001c
+}
+
+.carousel__control--button {
+  @extend .carousel__control;
+
+  width: 100% !important;
+  border-radius: 50em !important;
+
+  padding: var(--space-sm);
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+.big-card {
+  margin: var(--space-lg) auto;
+  background: var(--conlor-bg);
+  border-radius: 32px;
+  box-shadow: 0 8px 30px var(--shadow);
+  padding: 64px 80px;
+}

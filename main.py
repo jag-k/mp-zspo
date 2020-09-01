@@ -53,6 +53,31 @@ def login():
                     )
 
 
+@admin_route("/")
+def admin():
+    return admin_temp(
+        "edit",
+        description="None"
+    )
+
+
+if os.getenv("DEVELOP") == "True":
+    @route("/create_admin", GET_POST)
+    def create_admin_page():
+        if request.POST:
+            create_admin(
+                request.forms.get("login"),
+                request.forms.get("password"),
+                request.forms.get("name", ""),
+            )
+
+            return redirect("/")
+
+        return template(
+            "create_user"
+        )
+
+
 @admin_route("/ckeditor/upload_photo/<path:path>", POST)
 def upload_photo(path):
     try:
