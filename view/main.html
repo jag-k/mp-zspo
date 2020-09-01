@@ -97,59 +97,60 @@ Blog
 
 <!--Choose-->
 <section class="container max-width-adaptive big-card choose-block flex flex-column flex-row@sm gap-md">
-    <div class="col-4@lg col-12">
-      <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
-      <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
-      <a class="choose-btn" href="/doctors">Выбрать психолога</a>
+  <div class="col-4@lg col-12">
+    <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
+    <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
+    <a class="choose-btn" href="/doctors">Выбрать психолога</a>
+  </div>
+  <div class="col-8@lg col-12 flex flex-column flex-row@sm flex-center gap-sm">
+    <div class="col">
+      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
+      <span class="choose-item-header">Общение и оплата<br> на сайте</span>
     </div>
-    <div class="col-8@lg col-12 flex flex-column flex-row@sm flex-center gap-sm">
-      <div class="col">
-        <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-        <span class="choose-item-header">Общение и оплата<br> на сайте</span>
-      </div>
-      <div class="col">
-        <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-        <span class="choose-item-header">Из любой<br> точки мира</span>
-      </div>
-      <div class="col">
-        <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-        <span class="choose-item-header">Профессиональная<br> этика</span>
-      </div>
+    <div class="col">
+      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
+      <span class="choose-item-header">Из любой<br> точки мира</span>
     </div>
+    <div class="col">
+      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
+      <span class="choose-item-header">Профессиональная<br> этика</span>
+    </div>
+  </div>
 </section>
 
 <!--Directions-->
 <section class="container max-width-adaptive margin-y-md">
   <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
-  <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра “initium”</h3>
+  <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
+    “initium”</h3>
   <div class="tabs js-tabs">
     % tabs = ["Ментальные вопросы и чувства", "Семья и отношения", "Tab 3"]
     <%
     tab_cards = [
-        [
-            {"link": "/about", "text": "1фывфы"},
-            {"link": "/about", "text": "2фывфы"},
-            {"link": "/about", "text": "3фывфы"},
-        ],
-        [
-            {"link": "/about", "text": "4фывфы"},
-            {"link": "/about", "text": "5фывфы"},
-            {"link": "/about", "text": "6фывфы"},
-        ],
-        [
-            {"link": "/about", "text": "7фывфы"},
-            {"link": "/about", "text": "8фывфы"},
-            {"link": "/about", "text": "9фывфы"},
-            {"link": "/about", "text": "10фывфы"},
-            {"link": "/about", "text": "11фывфы"},
-        ],
+    [
+    {"link": "/about", "text": "1фывфы"},
+    {"link": "/about", "text": "2фывфы"},
+    {"link": "/about", "text": "3фывфы"},
+    ],
+    [
+    {"link": "/about", "text": "4фывфы"},
+    {"link": "/about", "text": "5фывфы"},
+    {"link": "/about", "text": "6фывфы"},
+    ],
+    [
+    {"link": "/about", "text": "7фывфы"},
+    {"link": "/about", "text": "8фывфы"},
+    {"link": "/about", "text": "9фывфы"},
+    {"link": "/about", "text": "10фывфы"},
+    {"link": "/about", "text": "11фывфы"},
+    ],
     ]
     %>
     <div class="s-tabs">
       <ul aria-label="Tabs Interface" class="s-tabs__list js-tabs__controls">
         <li><a aria-selected="true" class="s-tabs__link" href="#tab1Panel0">{{tabs[0]}}</a></li>
         % for t_index in range(1, len(tabs)):
-          <li><a class="s-tabs__link" href="#tab1Panel{{t_index}}">{{tabs[t_index]}}</a></li>
+        <li><a class="s-tabs__link" href="#tab1Panel{{t_index}}">{{tabs[t_index]}}</a></li>
         % end
       </ul>
     </div>
@@ -158,73 +159,73 @@ Blog
     <div class="js-tabs__panels">
       % for cards_index in range(len(tab_cards)):
       <section class="padding-top-md js-tabs__panel" id="tab1Panel{{cards_index}}">
-          <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
-               data-navigation-class="carousel__navigation order-2">
-            <div class="carousel__wrapper order-1 overflow-hidden">
-              <ol class="carousel__list">
-                % for card in tab_cards[cards_index]:
-                <li class="carousel__item">
-                  <div class="card margin-xs">
-                    <a class="card__link" href="{{card['link']}}">
-                      <div class="card__content">
-                        <div class="text-component flex flex-column padding-sm">
-                          <h4 class="order-2">{{card["text"]}}</h4>
-                          <p class="arrow color-contrast-medium order-1">
-                            <svg class="icon icon--sm" viewBox="0 0 24 24">
-                              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                 stroke-width="2">
-                                <line x1="3" x2="21" y1="12" y2="12"/>
-                                <polyline points="15 6 21 12 15 18"/>
-                              </g>
-                            </svg>
-                          </p>
-                        </div>
+        <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
+             data-navigation-class="carousel__navigation order-2">
+          <div class="carousel__wrapper order-1 overflow-hidden">
+            <ol class="carousel__list">
+              % for card in tab_cards[cards_index]:
+              <li class="carousel__item flex">
+                <div class="card margin-xs width-100%">
+                  <a class="card__link" href="{{card['link']}}">
+                    <div class="card__content">
+                      <div class="text-component flex flex-column padding-sm">
+                        <h4 class="order-2">{{card["text"]}}</h4>
+                        <p class="arrow color-contrast-medium order-1">
+                          <svg class="icon icon--sm" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                               stroke-width="2">
+                              <line x1="3" x2="21" y1="12" y2="12"/>
+                              <polyline points="15 6 21 12 15 18"/>
+                            </g>
+                          </svg>
+                        </p>
                       </div>
-                    </a>
-                  </div>
-                </li>
-                % end
-              </ol>
-            </div>
-
-            <nav class="margin-bottom-xs order-3 no-js:is-hidden">
-              <ul class="flex gap-xxxs justify-start">
-                <li>
-                  <button class="reset carousel__control carousel__control--prev js-carousel__control js-tab-focus">
-                    <svg class="icon" viewBox="0 0 20 20">
-                      <title>Пред.</title>
-                      <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
-                                stroke-width="2"/>
-                    </svg>
-                  </button>
-                </li>
-
-                <li>
-                  <button class="reset carousel__control carousel__control--next js-carousel__control js-tab-focus">
-                    <svg class="icon" viewBox="0 0 20 20">
-                      <title>След.</title>
-                      <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
-                                stroke-width="2"/>
-                    </svg>
-                  </button>
-                </li>
-
-                <li>
-                  <a class="link-fx-1 color-contrast-higher" href="#0">
-                    <span>Смотреть все</span>
-                    <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
-                      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="16" cy="16" r="15.5"/>
-                        <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
-                        <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
-                      </g>
-                    </svg>
+                    </div>
                   </a>
-                </li>
-              </ul>
-            </nav>
-
+                </div>
+              </li>
+              % end
+            </ol>
           </div>
+
+          <nav class="margin-bottom-xs order-3 no-js:is-hidden">
+            <ul class="flex gap-xxxs justify-start">
+              <li>
+                <button class="reset carousel__control carousel__control--prev js-carousel__control js-tab-focus">
+                  <svg class="icon" viewBox="0 0 20 20">
+                    <title>Пред.</title>
+                    <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
+                              stroke-width="2"/>
+                  </svg>
+                </button>
+              </li>
+
+              <li>
+                <button class="reset carousel__control carousel__control--next js-carousel__control js-tab-focus">
+                  <svg class="icon" viewBox="0 0 20 20">
+                    <title>След.</title>
+                    <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
+                              stroke-width="2"/>
+                  </svg>
+                </button>
+              </li>
+
+              <li>
+                <a class="link-fx-1 color-contrast-higher" href="#0">
+                  <span>Смотреть все</span>
+                  <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="16" cy="16" r="15.5"/>
+                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
+                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
+                    </g>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
       </section>
       % end
     </div>
@@ -234,91 +235,90 @@ Blog
 
 <!--Q&A-->
 <section class="container max-width-adaptive big-card flex flex-column flex-row@sm gap-md">
-    <div class="col-4@sm col-12">
-      <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
-      <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
-        <div class="faq-step">Используйте фильтры подбора психолога</div>
-        <div class="faq-step">Выберите удобное для вас время</div>
-        <div class="faq-step">Зарегистрируйтесь и оплатите консультацию</div>
-        <a class="faq-btn" href="/doctors">Подбор психолога</a>
-      </div>
+  <div class="col-5@sm col-12">
+    <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
+    <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
+      <div class="faq-step">Используйте фильтры подбора психолога</div>
+      <div class="faq-step">Выберите удобное для вас время</div>
+      <div class="faq-step">Зарегистрируйтесь и оплатите консультацию</div>
+      <a class="faq-btn" href="/doctors">Подбор психолога</a>
     </div>
-    <div class="col-8@sm col-12">
-      <div class="margin-bottom-lg">
-        <h1 class="text-center">Questions &amp; Answers</h1>
-      </div>
-      <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
-
-        <li class="accordion__item  js-accordion__item">
-          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-            <span class="faq-header text-md" style="color: var(--color-black-light);">How can I download the invoice for my
-              purchase?</span>
-
-            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-                <path d="M2 2l12 12"/>
-                <path d="M14 2L2 14"/>
-              </g>
-            </svg>
-          </button>
-
-          <div class="accordion__panel js-accordion__panel">
-            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-            </div>
-          </div>
-        </li>
-
-
-        <li class="accordion__item  js-accordion__item">
-          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-            <span class="faq-header text-md" style="color: var(--color-black-light);">How can I download the invoice for my
-              purchase?</span>
-
-            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-                <path d="M2 2l12 12"/>
-                <path d="M14 2L2 14"/>
-              </g>
-            </svg>
-          </button>
-
-          <div class="accordion__panel js-accordion__panel">
-            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-            </div>
-          </div>
-        </li>
-
-
-        <li class="accordion__item  js-accordion__item">
-          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-            <span class="faq-header text-md" style="color: var(--color-black-light);">How can I download the invoice for my
-              purchase?</span>
-
-            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-                <path d="M2 2l12 12"/>
-                <path d="M14 2L2 14"/>
-              </g>
-            </svg>
-          </button>
-
-          <div class="accordion__panel js-accordion__panel">
-            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-            </div>
-          </div>
-        </li>
-
-      </ul>
+  </div>
+  <div class="col-7@sm col-12">
+    <div class="margin-bottom-lg">
+      <h1 class="text-center">Questions &amp; Answers</h1>
     </div>
+    <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+
+      <li class="accordion__item  js-accordion__item">
+        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+            <span class="faq-header text-md">How can I download the invoice for my purchase?</span>
+
+          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
+            </g>
+          </svg>
+        </button>
+
+        <div class="accordion__panel js-accordion__panel">
+          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+          </div>
+        </div>
+      </li>
+
+
+      <li class="accordion__item  js-accordion__item">
+        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+            <span class="faq-header text-md">How can I download the invoice for my
+              purchase?</span>
+
+          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
+            </g>
+          </svg>
+        </button>
+
+        <div class="accordion__panel js-accordion__panel">
+          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+          </div>
+        </div>
+      </li>
+
+
+      <li class="accordion__item  js-accordion__item">
+        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+            <span class="faq-header text-md">How can I download the invoice for my
+              purchase?</span>
+
+          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
+            </g>
+          </svg>
+        </button>
+
+        <div class="accordion__panel js-accordion__panel">
+          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
 </section>
 
 
