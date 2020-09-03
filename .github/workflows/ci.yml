@@ -38,7 +38,7 @@ jobs:
           ls -al
           echo "=================="
           git checkout -b build
-          gir add .
+          git add .
           # git commit -m "$(date +"%T") - Build"
       
       - name: Workspace Commit
@@ -68,5 +68,5 @@ jobs:
           script: |
             cd ${{ secrets.TARGET }}
             git pull origin build
-            rm restart.txt
+            (rm restart.txt || true)
             touch restart.txt
