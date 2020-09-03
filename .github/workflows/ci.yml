@@ -47,6 +47,7 @@ jobs:
         uses: gha-utilities/workspace-commit@v0.0.3
         with:
           message: "Build"
+          paths: .
           
       - name: GitHub Push
         # You may pin to the exact commit or the version.
@@ -55,7 +56,6 @@ jobs:
         with:
           # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          paths: .          
       
       - name: ssh pipelines
         uses: cross-the-world/ssh-pipeline@master
