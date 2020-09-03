@@ -11,10 +11,28 @@ def main_page():
     )
 
 
+@route("/bookform")
+def main_page():
+    return template(
+        "bookform",
+        template_title="title tag",
+        template_description="description tag"
+    )
+
+
 @route("/blog")
 def blog_page():
     return template(
         "blog",
+        template_title="title tag",
+        template_description="description tag"
+    )
+
+
+@route("/directions")
+def directions_page():
+    return template(
+        "directions",
         template_title="title tag",
         template_description="description tag"
     )
