@@ -550,7 +550,7 @@ $RECYCLE.BIN/
 *.lnk
 
 package-lock.json
-
+.vscode/
 # If we use Vercel
 public/css/style-fallback.css
 public/css/style.css
