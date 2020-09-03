@@ -38,7 +38,7 @@ jobs:
           ls -al
           echo "=================="
           git checkout -b build
-          git add .
+          # git add .
           # git commit -m "$(date +"%T") - Build"
       
       - name: Workspace Commit
@@ -55,7 +55,7 @@ jobs:
         with:
           # Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          
+          paths: .          
       
       - name: ssh pipelines
         uses: cross-the-world/ssh-pipeline@master
