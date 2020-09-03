@@ -38,6 +38,7 @@ jobs:
           ls -al
           echo "=================="
           git checkout -b build
+          gir add .
           # git commit -m "$(date +"%T") - Build"
       
       - name: Workspace Commit
