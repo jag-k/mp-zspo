@@ -1,5 +1,6 @@
 :root {
-  --shadow: #0000001c
+  --shadow: #0000001c;
+  --max-lines: 5;
 }
 
 .carousel__control--button {
@@ -20,4 +21,33 @@
   border-radius: 32px;
   box-shadow: 0 8px 30px var(--shadow);
   padding: 64px 80px;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--max-lines);
+  -webkit-box-orient: vertical;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+}
+
+.truncate-overflow {
+  position: relative;
+  max-height: calc(var(--text-base-size) * var(--max-lines));
+  overflow: hidden;
+  padding-right: 1rem; /* space for ellipsis */
+}
+.truncate-overflow::before {
+  position: absolute;
+  content: "...";
+  inset-block-end: 0; /* "bottom" */
+  inset-inline-end: 0; /* "right" */
+}
+.truncate-overflow::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 0; /* "right" */
+  width: 1rem;
+  height: 1rem;
+  background: white;
 }
