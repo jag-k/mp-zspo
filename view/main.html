@@ -8,7 +8,7 @@ Blog
 
 <!--Hero-->
 <section
-  class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md margin-bottom-md"
+  class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md"
   style="background-color: lightblue;">
   <div class="container max-width-adaptive-lg padding-y-xl">
     <div class="grid flex-center">
@@ -23,8 +23,6 @@ Blog
         </div>
 
         <div class="flex flex-wrap items-center gap-sm">
-
-
           <ul class="socials__btns flex flex-center gap-sm flex-wrap">
             <li>
               <a href="#0">
@@ -98,7 +96,7 @@ Blog
 
       <div class="col-7@md">
         <div class="parallax-img js-parallax-img">
-          <figure class="parallax-img__assets js-parallax-img__assets">
+          <figure class="parallax-img__assets js-parallax-img__assets z-index-1">
             <img alt="Image Description" src="/img/png.png">
             <img aria-hidden="true" src="/img/png.png" style="transform: translateZ(150px);">
             <img aria-hidden="true" src="/img/png.png" style="transform: translateZ(300px);">
@@ -109,14 +107,34 @@ Blog
   </div>
 </section>
 
+% if get("session", None):
+<section class="diagonal-section-bottom bg-contrast-lower">
+  <div class="container max-width-adaptive-sm padding-y-xxl">
+    <div class="text-center">
+      <div class="text-sm opacity-60% margin-bottom-xxs">This is a Label</div>
+
+      <div class="text-component margin-bottom-sm">
+        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vero aliquam, natus quae architecto hic quod!</p>
+      </div>
+
+      <div class="flex flex-wrap flex-center gap-sm">
+        <a href="#0" class="btn btn--primary">Download</a>
+        <a href="#0" class="color-inherit">Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+% end
+
 <!--Choose-->
-<section class="container max-width-adaptive big-card choose-block flex flex-column flex-row@sm gap-md">
+<section class="container max-width-adaptive margin-y-md big-card choose-block flex flex-column flex-row@md">
   <div class="col-4@lg col-12">
     <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
     <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
     <a class="choose-btn" href="/doctors">Выбрать психолога</a>
   </div>
-  <div class="col-8@lg col-12 flex flex-column flex-row@sm flex-center gap-sm">
+  <div class="col-8@lg col-12 flex flex-column flex-row@md flex-center gap-sm">
     <div class="col">
       <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
       <span class="choose-item-header">Общение и оплата<br> на сайте</span>
@@ -335,109 +353,54 @@ Blog
   </div>
 </section>
 
+<%
+blog = [
+{
+"id": 0,
+"title": "Токсичные родители. Типы, признаки, как общаться.",
+    "link": "toxic",
+    "icon": "/img/grape.jpg",
+    "text": "Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к "
+      "психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает "
+      "достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы "
+      "подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством повышенная",
+    "category": {
+      "title": "Дети и родители",
+      "link": "children",
+    },
+  }
+] * 10
+%>
 
 <section class="container max-width-adaptive margin-y-md">
   <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
     “initium”</h3>
-  <div class="stories container max-width-adaptive-xl" style="background-color: white;">
-    <!-- <h2 class="stories__legend">Статьи</h2> -->
-    <h3 class="stories__legend">
+    <h3>
       Статьи
     </h3>
-    <ol class="stories__list">
-      <li class="stories__story">
-        <a class="stories__img-wrapper" href="#0">
-          <figure>
-            <img alt="Image description" src="/img/grape.jpg">
-          </figure>
-        </a>
-
-        <div class="stories__text text-component line-height-md v-space-sm">
-          <h4 class="stories__headline"><a href="#0">Токсичные родители. Типы, признаки, как общаться.</a></h4>
-          <p>
-            Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к
-            психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает
-            достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы
-            подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством
-            повышенная
-          </p>
-          <p class="stories__metadata">
-            <time datetime="2020-05-10">10.05.2020</time>
-            <span class="stories__separator" role="separator"></span> <a href="#0">Дети и родители</a></p>
+    <div class="grid gap-md margin-x-auto">
+      % for story in blog[:6]:
+      <div class="big-card col-12 col-6@md flex margin-md">
+        <div class="col-3 margin-right-sm">
+          <a class="block square" href="/blog/{{ story['link'] or story['id'] }}">
+            <img alt="Image description" class="radius-md" src="{{ story['icon'] }}">
+          </a>
         </div>
-      </li>
 
-
-      <li class="stories__story">
-        <a class="stories__img-wrapper" href="#0">
-          <figure>
-            <img alt="Image description" src="/img/grape.jpg">
-          </figure>
-        </a>
-
-        <div class="stories__text text-component line-height-md v-space-sm">
-          <h4 class="stories__headline"><a href="#0">Токсичные родители. Типы, признаки, как общаться.</a></h4>
-          <p>
-            Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к
-            психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает
-            достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы
-            подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством
-            повышенная
+        <div class="col-9 text-component line-height-md v-space-sm">
+          <h4 class="stories__headline">
+            <a href="/blog/{{ story['link'] or story['id'] }}">
+              {{story['title']}}
+            </a>
+          </h4>
+          <p class="line-clamp">
+            {{story['text']}}
           </p>
-          <p class="stories__metadata">
-            <time datetime="2020-05-10">10.05.2020</time>
-            <span class="stories__separator" role="separator"></span> <a href="#0">Дети и родители</a></p>
+          % category = story['category']
+          <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary" href="/blog/cat/{{ category['link'] }}">{{ category['title'] }}</a>
         </div>
-      </li>
-
-
-      <li class="stories__story">
-        <a class="stories__img-wrapper" href="#0">
-          <figure>
-            <img alt="Image description" src="/img/grape.jpg">
-          </figure>
-        </a>
-
-        <div class="stories__text text-component line-height-md v-space-sm">
-          <h4 class="stories__headline"><a href="#0">Токсичные родители. Типы, признаки, как общаться.</a></h4>
-          <p>
-            Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к
-            психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает
-            достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы
-            подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством
-            повышенная
-          </p>
-          <p class="stories__metadata">
-            <time datetime="2020-05-10">10.05.2020</time>
-            <span class="stories__separator" role="separator"></span> <a href="#0">Дети и родители</a></p>
-        </div>
-      </li>
-
-
-      <li class="stories__story">
-        <a class="stories__img-wrapper" href="#0">
-          <figure>
-            <img alt="Image description" src="/img/grape.jpg">
-          </figure>
-        </a>
-
-        <div class="stories__text text-component line-height-md v-space-sm">
-          <h4 class="stories__headline"><a href="#0">Токсичные родители. Типы, признаки, как общаться.</a></h4>
-          <p>
-            Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к
-            психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает
-            достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы
-            подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством
-            повышенная
-          </p>
-          <p class="stories__metadata">
-            <time datetime="2020-05-10">10.05.2020</time>
-            <span class="stories__separator" role="separator"></span> <a href="#0">Дети и родители</a></p>
-        </div>
-      </li>
-
-
-    </ol>
-  </div>
+      </div>
+      % end
+    </div>
 </section>
