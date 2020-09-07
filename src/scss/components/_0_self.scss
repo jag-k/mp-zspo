@@ -37,12 +37,14 @@
   overflow: hidden;
   padding-right: 1rem; /* space for ellipsis */
 }
+
 .truncate-overflow::before {
   position: absolute;
   content: "...";
   inset-block-end: 0; /* "bottom" */
   inset-inline-end: 0; /* "right" */
 }
+
 .truncate-overflow::after {
   content: "";
   position: absolute;
@@ -50,6 +52,7 @@
   width: 1rem;
   height: 1rem;
   background: white;
+}
 
 .dir-item {
   background: #fff;
