@@ -79,6 +79,78 @@ def admin():
     )
 
 
+@admin_route("/blog/new", GET_POST)
+def admin_new_news():
+    if request.method == POST:
+        params = dict(request.params)
+        params["title"] = html.unescape(params["title"])
+        params["description"] = html.unescape(params["description"])
+        params["direction"] = params.get("description", 0)
+        params["content"] = html.unescape(params["content"])
+        params["custom_link"] = html.unescape(params.get("custom_link", "")) or None
+        params["date"] = str2datetime(params["date"])
+        params["image"] = ""
+        params["draft"] = "published" not in params
+        if "published" in params:
+            del params["published"]
+
+        with db_session:
+            n = Blog(**params)
+            commit()
+            image = save_img("blog_" + str(n.id), "blog")
+            n.image = image
+            commit()
+
+        return redirect("/admin/blog", alert=Alert("Вы создали новый пост в блоге!"))
+
+    return admin_temp(
+        "new/blog",
+        date=date.today().isoformat(),
+    )
+
+
+@admin_route("/blog/edit/<id:int>", GET_POST)
+def admin_edit_news(id):
+    with db_session:
+        n = select(n for n in Blog if n.id == id).first().to_dict(with_collections=True, related_objects=True)
+
+    n["date"] = n["date"].isoformat()
+    pprint(n)
+
+    if request.method == POST:
+        params = dict(request.params)
+        with db_session:
+            n = Blog[id]
+            params["title"] = html.unescape(params["title"])
+            params["content"] = html.unescape(params["content"])
+            params["date"] = str2datetime(params["date"])
+            params["draft"] = "published" not in params
+            if "published" in params:
+                del params["published"]
+            if request.files.get("image"):
+                image = save_img("blog_" + str(n.id), "blog")
+                params["image"] = image
+            elif "image" in params:
+                del params['image']
+            n = n.set(**params)
+
+        return redirect("/admin/blog", alert=Alert("Вы отредактировали новость!"))
+
+    return admin_temp(
+        "edit/blog",
+        data=n
+    )
+
+
+@admin_route("/toggle_public_blog/<id:int>")
+def admin_edit_news(id):
+    with db_session:
+        n = select(n for n in Blog if n.id == id).first()
+        d = n.draft
+        n.draft = not d
+    return redirect("/admin/blog", alert=Alert("Вы %s новость!" % ('опубликовали' if d else 'скрыли')))
+
+
 if os.getenv("DEVELOP") == "True":
     @route("/create_admin", GET_POST)
     def create_admin_page():
