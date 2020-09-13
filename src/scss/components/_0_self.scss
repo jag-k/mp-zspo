@@ -17,7 +17,7 @@
 
 .big-card {
   margin: var(--space-lg) auto;
-  background: var(--conlor-bg);
+  background: var(--color-bg);
   border-radius: 32px;
   box-shadow: 0 8px 30px var(--shadow);
   padding: 64px 80px;
@@ -31,25 +31,29 @@
   overflow: hidden;
 }
 
-.truncate-overflow {
-  position: relative;
-  max-height: calc(var(--text-base-size) * var(--max-lines));
-  overflow: hidden;
-  padding-right: 1rem; /* space for ellipsis */
-}
-.truncate-overflow::before {
-  position: absolute;
-  content: "...";
-  inset-block-end: 0; /* "bottom" */
-  inset-inline-end: 0; /* "right" */
-}
-.truncate-overflow::after {
-  content: "";
-  position: absolute;
-  inset-inline-end: 0; /* "right" */
-  width: 1rem;
-  height: 1rem;
-  background: white;
+
+//.truncate-overflow {
+//  position: relative;
+//  max-height: calc(var(--text-base-size) * var(--max-lines));
+//  overflow: hidden;
+//  padding-right: 1rem; /* space for ellipsis */
+//}
+//
+//.truncate-overflow::before {
+//  position: absolute;
+//  content: "...";
+//  inset-block-end: 0; /* "bottom" */
+//  inset-inline-end: 0; /* "right" */
+//}
+//
+//.truncate-overflow::after {
+//  content: "";
+//  position: absolute;
+//  inset-inline-end: 0; /* "right" */
+//  width: 1rem;
+//  height: 1rem;
+//  background: white;
+//}
 
 .dir-item {
   background: #fff;
@@ -83,20 +87,7 @@
   line-height: 30px;
 }
 
-.choose-btn {
-  font-family: 'Proxima Nova', sans-serif;
-  font-size: 15px;
-  color: #fff;
-  font-weight: 600;
-  line-height: 40px;
-  background: #5AA343;
-  border-radius: 24px;
-  padding: 0 24px;
-  display: inline-block;
-  transition: 0.4s;
-}
-
-.dir-top .choose-btn {
+.dir-top {
   margin: 0 0 0 auto;
 }
 

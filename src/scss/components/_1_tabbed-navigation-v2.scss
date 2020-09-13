@@ -6,9 +6,12 @@ Descr: Tabbed (secondary) navigation
 Usage: codyframe.co/license
 
 -------------------------------- */
+:root {
+    --tabs-nav-border-width: 2px;
+}
+
 
 .tabs-nav-v2 {
-    --tabs-nav-border-width: 2px;
     display: flex;
     flex-wrap: wrap;
     border-bottom: var(--tabs-nav-border-width) solid var(--color-contrast-low);

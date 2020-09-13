@@ -8,8 +8,8 @@ Blog
 
 <!--Hero-->
 <section
-  class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md"
-  style="background-color: lightblue;">
+        class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md"
+        style="background-color: lightblue;">
   <div class="container max-width-adaptive-lg padding-y-xl">
     <div class="grid flex-center">
       <div class="col-10 col-5@md">
@@ -26,66 +26,31 @@ Blog
           <ul class="socials__btns flex flex-center gap-sm flex-wrap">
             <li>
               <a href="#0">
-                <svg class="icon" viewBox="0 0 32 32">
-                  <title>Follow us on Twitter</title>
-                  <g>
-                    <path
-                      d="M32,6.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6C25.7,3.8,24,3,22.2,3 c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5C10.3,10.8,5.5,8.2,2.2,4.2c-0.6,1-0.9,2.1-0.9,3.3c0,2.3,1.2,4.3,2.9,5.5 c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1C2.9,27.9,6.4,29,10.1,29c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C30,8.5,31.1,7.4,32,6.1z">
-                    </path>
-                  </g>
-                </svg>
+                {{!brands('twitter')}}
               </a>
             </li>
 
             <li>
               <a href="#0">
-                <svg class="icon" viewBox="0 0 32 32">
-                  <title>Follow us on Facebook</title>
-                  <path
-                    d="M32,16A16,16,0,1,0,13.5,31.806V20.625H9.438V16H13.5V12.475c0-4.01,2.389-6.225,6.043-6.225a24.644,24.644,0,0,1,3.582.312V10.5H21.107A2.312,2.312,0,0,0,18.5,13v3h4.438l-.71,4.625H18.5V31.806A16,16,0,0,0,32,16Z">
-                  </path>
-                </svg>
+                {{!brands('facebook-f')}}
               </a>
             </li>
 
             <li>
               <a href="#0">
-                <svg class="icon" viewBox="0 0 32 32">
-                  <title>Follow us on Youtube</title>
-                  <path
-                    d="M31.7,9.6c0,0-0.3-2.2-1.3-3.2c-1.2-1.3-2.6-1.3-3.2-1.4C22.7,4.7,16,4.7,16,4.7h0c0,0-6.7,0-11.2,0.3 c-0.6,0.1-2,0.1-3.2,1.4c-1,1-1.3,3.2-1.3,3.2S0,12.2,0,14.8v2.4c0,2.6,0.3,5.2,0.3,5.2s0.3,2.2,1.3,3.2c1.2,1.3,2.8,1.2,3.5,1.4 C7.7,27.2,16,27.3,16,27.3s6.7,0,11.2-0.3c0.6-0.1,2-0.1,3.2-1.4c1-1,1.3-3.2,1.3-3.2s0.3-2.6,0.3-5.2v-2.4 C32,12.2,31.7,9.6,31.7,9.6z M12.7,20.2l0-9l8.6,4.5L12.7,20.2z">
-                  </path>
-                </svg>
+                {{!brands('youtube')}}
               </a>
             </li>
 
             <li>
               <a href="#0">
-                <svg class="icon" viewBox="0 0 32 32">
-                  <title>Join our Slack channel</title>
-                  <rect height="14" rx="3" width="6" x="17" y="1"></rect>
-                  <rect height="6" rx="3" width="14" x="1" y="9"></rect>
-                  <rect height="6" rx="3" width="14" x="17" y="17"></rect>
-                  <rect height="14" rx="3" width="6" x="9" y="17"></rect>
-                  <path d="M12,1a3,3,0,0,0,0,6h3V4A3,3,0,0,0,12,1Z"></path>
-                  <path d="M1,20a3,3,0,0,0,6,0V17H4A3,3,0,0,0,1,20Z"></path>
-                  <path d="M31,12a3,3,0,0,0-6,0v3h3A3,3,0,0,0,31,12Z"></path>
-                  <path d="M20,31a3,3,0,0,0,0-6H17v3A3,3,0,0,0,20,31Z"></path>
-                </svg>
+                {{!brands('slack')}}
               </a>
             </li>
 
             <li>
               <a href="#0">
-                <svg class="icon" viewBox="0 0 32 32">
-                  <title>Follow us on Instagram</title>
-                  <path
-                    d="M16,3.7c4,0,4.479.015,6.061.087a6.426,6.426,0,0,1,4.51,1.639,6.426,6.426,0,0,1,1.639,4.51C28.282,11.521,28.3,12,28.3,16s-.015,4.479-.087,6.061a6.426,6.426,0,0,1-1.639,4.51,6.425,6.425,0,0,1-4.51,1.639c-1.582.072-2.056.087-6.061.087s-4.479-.015-6.061-.087a6.426,6.426,0,0,1-4.51-1.639,6.425,6.425,0,0,1-1.639-4.51C3.718,20.479,3.7,20.005,3.7,16s.015-4.479.087-6.061a6.426,6.426,0,0,1,1.639-4.51A6.426,6.426,0,0,1,9.939,3.79C11.521,3.718,12,3.7,16,3.7M16,1c-4.073,0-4.584.017-6.185.09a8.974,8.974,0,0,0-6.3,2.427,8.971,8.971,0,0,0-2.427,6.3C1.017,11.416,1,11.927,1,16s.017,4.584.09,6.185a8.974,8.974,0,0,0,2.427,6.3,8.971,8.971,0,0,0,6.3,2.427c1.6.073,2.112.09,6.185.09s4.584-.017,6.185-.09a8.974,8.974,0,0,0,6.3-2.427,8.971,8.971,0,0,0,2.427-6.3c.073-1.6.09-2.112.09-6.185s-.017-4.584-.09-6.185a8.974,8.974,0,0,0-2.427-6.3,8.971,8.971,0,0,0-6.3-2.427C20.584,1.017,20.073,1,16,1Z">
-                  </path>
-                  <path d="M16,8.3A7.7,7.7,0,1,0,23.7,16,7.7,7.7,0,0,0,16,8.3ZM16,21a5,5,0,1,1,5-5A5,5,0,0,1,16,21Z">
-                  </path>
-                  <circle cx="24.007" cy="7.993" r="1.8"></circle>
-                </svg>
+                {{!brands('instagram')}}
               </a>
             </li>
           </ul>
@@ -115,12 +80,13 @@ Blog
 
       <div class="text-component margin-bottom-sm">
         <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vero aliquam, natus quae architecto hic quod!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vero aliquam, natus quae architecto hic
+          quod!</p>
       </div>
 
       <div class="flex flex-wrap flex-center gap-sm">
-        <a href="#0" class="btn btn--primary">Download</a>
-        <a href="#0" class="color-inherit">Learn more</a>
+        <a class="btn btn--primary" href="#0">Download</a>
+        <a class="color-inherit" href="#0">Learn more</a>
       </div>
     </div>
   </div>
@@ -129,55 +95,62 @@ Blog
 
 <!--Choose-->
 <section class="container max-width-adaptive margin-y-md big-card choose-block flex flex-column flex-row@md">
-  <div class="col-4@lg col-12">
+  <div class="col-4@lg col-12 margin-bottom-md margin-right-md@md">
     <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
     <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
-    <a class="choose-btn" href="/doctors">Выбрать психолога</a>
+    <a class="choose-btn width-100%" href="/doctors">Выбрать психолога</a>
   </div>
   <div class="col-8@lg col-12 flex flex-column flex-row@md flex-center gap-sm">
     <div class="col">
-      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-      <span class="choose-item-header">Общение и оплата<br> на сайте</span>
+      <div class="choose-item-img bg-contrast-low"
+           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header">Общение и оплата<br>на сайте</span>
     </div>
     <div class="col">
-      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-      <span class="choose-item-header">Из любой<br> точки мира</span>
+      <div class="choose-item-img bg-contrast-low"
+           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header">Из любой<br>точки мира</span>
     </div>
     <div class="col">
-      <div class="choose-item-img" style="background: url(/img/site.svg) no-repeat 50% #f8f8f8;"></div>
-      <span class="choose-item-header">Профессиональная<br> этика</span>
+      <div class="choose-item-img bg-contrast-low"
+           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header">Профессиональная<br>этика</span>
     </div>
   </div>
 </section>
 
+
+% tabs = ["Ментальные вопросы и чувства", "Семья и отношения", "Tab 3"]
+<%
+tab_cards = [
+[
+{"link": "/about", "text": "1фывфы"},
+{"link": "/about", "text": "2фывфы"},
+{"link": "/about", "text": "3фывфы"},
+],
+[
+{"link": "/about", "text": "4фывфы"},
+{"link": "/about", "text": "5фывфы"},
+{"link": "/about", "text": "6фывфы"},
+],
+[
+{"link": "/about", "text": "7фывфы"},
+{"link": "/about", "text": "8фывфы"},
+{"link": "/about", "text": "9фывфы"},
+{"link": "/about", "text": "10фывфы"},
+{"link": "/about", "text": "11фывфы"},
+],
+]
+%>
+
+
 <!--Directions-->
+% if get('tabs'):
 <section class="container max-width-adaptive margin-y-md">
   <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
     “initium”</h3>
   <div class="tabs js-tabs">
-    % tabs = ["Ментальные вопросы и чувства", "Семья и отношения", "Tab 3"]
-    <%
-    tab_cards = [
-    [
-    {"link": "/about", "text": "1фывфы"},
-    {"link": "/about", "text": "2фывфы"},
-    {"link": "/about", "text": "3фывфы"},
-    ],
-    [
-    {"link": "/about", "text": "4фывфы"},
-    {"link": "/about", "text": "5фывфы"},
-    {"link": "/about", "text": "6фывфы"},
-    ],
-    [
-    {"link": "/about", "text": "7фывфы"},
-    {"link": "/about", "text": "8фывфы"},
-    {"link": "/about", "text": "9фывфы"},
-    {"link": "/about", "text": "10фывфы"},
-    {"link": "/about", "text": "11фывфы"},
-    ],
-    ]
-    %>
     <div class="s-tabs">
       <ul aria-label="Tabs Interface" class="s-tabs__list js-tabs__controls">
         <li><a aria-selected="true" class="s-tabs__link" href="#tab1Panel0">{{tabs[0]}}</a></li>
@@ -192,7 +165,7 @@ Blog
       % for cards_index in range(len(tab_cards)):
       <section class="padding-top-md js-tabs__panel" id="tab1Panel{{cards_index}}">
         <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
-          data-navigation-class="carousel__navigation order-2">
+             data-navigation-class="carousel__navigation order-2">
           <div class="carousel__wrapper order-1 overflow-hidden">
             <ol class="carousel__list">
               % for card in tab_cards[cards_index]:
@@ -205,9 +178,9 @@ Blog
                         <p class="arrow color-contrast-medium order-1">
                           <svg class="icon icon--sm" viewBox="0 0 24 24">
                             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="2">
-                              <line x1="3" x2="21" y1="12" y2="12" />
-                              <polyline points="15 6 21 12 15 18" />
+                               stroke-width="2">
+                              <line x1="3" x2="21" y1="12" y2="12"/>
+                              <polyline points="15 6 21 12 15 18"/>
                             </g>
                           </svg>
                         </p>
@@ -227,7 +200,7 @@ Blog
                   <svg class="icon" viewBox="0 0 20 20">
                     <title>Пред.</title>
                     <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
-                      stroke-width="2" />
+                              stroke-width="2"/>
                   </svg>
                 </button>
               </li>
@@ -237,7 +210,7 @@ Blog
                   <svg class="icon" viewBox="0 0 20 20">
                     <title>След.</title>
                     <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
-                      stroke-width="2" />
+                              stroke-width="2"/>
                   </svg>
                 </button>
               </li>
@@ -247,9 +220,9 @@ Blog
                   <span>Смотреть все</span>
                   <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="16" cy="16" r="15.5" />
-                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12" />
-                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18" />
+                      <circle cx="16" cy="16" r="15.5"/>
+                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
+                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
                     </g>
                   </svg>
                 </a>
@@ -262,8 +235,8 @@ Blog
       % end
     </div>
   </div>
-
 </section>
+% end
 
 <!--Q&A-->
 <section class="container max-width-adaptive big-card flex flex-column flex-row@sm gap-md">
@@ -278,7 +251,7 @@ Blog
   </div>
   <div class="col-7@sm col-12">
     <div class="margin-bottom-lg">
-      <h1 class="text-center">Questions &amp; Answers</h1>
+      <h1 class="text-center">Частые вопросы</h1>
     </div>
     <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
 
@@ -288,8 +261,8 @@ Blog
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
             </g>
           </svg>
         </button>
@@ -311,8 +284,8 @@ Blog
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
             </g>
           </svg>
         </button>
@@ -334,8 +307,8 @@ Blog
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
+              <path d="M2 2l12 12"/>
+              <path d="M14 2L2 14"/>
             </g>
           </svg>
         </button>
@@ -358,17 +331,17 @@ blog = [
 {
 "id": 0,
 "title": "Токсичные родители. Типы, признаки, как общаться.",
-    "link": "toxic",
-    "icon": "/img/grape.jpg",
-    "text": "Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к "
-      "психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает "
-      "достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы "
-      "подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством повышенная",
-    "category": {
-      "title": "Дети и родители",
-      "link": "children",
-    },
-  }
+"link": "toxic",
+"icon": "/img/grape.jpg",
+"text": "Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к "
+"психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает "
+"достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы "
+"подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством повышенная",
+"category": {
+"title": "Дети и родители",
+"link": "children",
+},
+}
 ] * 10
 %>
 
@@ -376,31 +349,32 @@ blog = [
   <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
     “initium”</h3>
-    <h4>
-      Статьи
-    </h4>
-    <div class="grid gap-md margin-x-auto">
-      % for story in blog[:6]:
-      <div class="big-card col-12 col-6@md flex margin-md">
-        <div class="col-3 margin-right-sm">
-          <a class="block square" href="/blog/{{ story['link'] or story['id'] }}">
-            <img alt="Image description" class="radius-md" src="{{ story['icon'] }}">
-          </a>
-        </div>
+  <h4>
+    Статьи
+  </h4>
+  <div class="grid gap-md margin-x-auto">
+    % for story in blog[:6]:
+    <div class="big-card col-12 col-6@md flex margin-md flex-column flex-row@sm">
+      <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
+        <a class="block square" href="/blog/{{ story['link'] or story['id'] }}">
+          <img alt="Image description" class="radius-md" src="{{ story['icon'] }}">
+        </a>
+      </div>
 
-        <div class="col-9 text-component line-height-md v-space-sm">
-          <h4 class="stories__headline">
-            <a href="/blog/{{ story['link'] or story['id'] }}">
-              {{story['title']}}
-            </a>
+      <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
+        <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story['link'] or story['id'] }}">
+          <h4 class="stories__headline font-bold underline-animate">
+            {{story['title']}}
           </h4>
           <p class="line-clamp">
             {{story['text']}}
           </p>
-          % category = story['category']
-          <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary" href="/blog/cat/{{ category['link'] }}">{{ category['title'] }}</a>
-        </div>
+        </a>
+        % category = story['category']
+        <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
+           href="/blog/cat/{{ category['link'] }}">{{ category['title'] }}</a>
       </div>
-      % end
     </div>
+    % end
+  </div>
 </section>

@@ -1,5 +1,7 @@
 from bottle import HTTPResponse, static_file, run, request
 from lib import *
+import html
+from pony.converting import str2datetime
 
 
 @route("/")
@@ -56,7 +58,7 @@ def login():
         if is_hash_admin(h):
             response.set_cookie(ADMIN_COOKIE_KEY, h, ADMIN_COOKIE_SECRET, max_age=604800, httponly=True)
             redirect_from = request.get_cookie("redirect", "/admin", ADMIN_COOKIE_SECRET)
-            return redirect(redirect_from)
+            redirect(redirect_from)
         else:
             alert = Alert(
                 "Вы ввели не правильный логин или пароль! Повторите снова",
@@ -74,7 +76,7 @@ def login():
 @admin_route("/")
 def admin():
     return admin_temp(
-        "edit",
+        "create_user",
         description="None"
     )
 
@@ -85,56 +87,87 @@ def admin_new_news():
         params = dict(request.params)
         params["title"] = html.unescape(params["title"])
         params["description"] = html.unescape(params["description"])
-        params["direction"] = params.get("description", 0)
+        params["category"] = params.get("category")
         params["content"] = html.unescape(params["content"])
-        params["custom_link"] = html.unescape(params.get("custom_link", "")) or None
+        params["custom_link"] = params.get("custom_link", "")
         params["date"] = str2datetime(params["date"])
         params["image"] = ""
         params["draft"] = "published" not in params
         if "published" in params:
             del params["published"]
 
-        with db_session:
-            n = Blog(**params)
-            commit()
-            image = save_img("blog_" + str(n.id), "blog")
-            n.image = image
-            commit()
+        n = Blog(**params)
+        commit()
+        image = save_img("blog_" + str(n.id), "blog")
+        n.image = image
+        commit()
 
-        return redirect("/admin/blog", alert=Alert("Вы создали новый пост в блоге!"))
+        redirect("/admin/blog", alert=Alert("Вы создали новый пост в блоге!"))
 
     return admin_temp(
-        "new/blog",
+        "blog/new",
         date=date.today().isoformat(),
+        data={},
+    )
+
+
+@admin_route("/blog/category", GET_POST)
+def admin_new_news():
+    if request.POST:
+        c = Category(
+            name=request.params.get('name'),
+            link=request.params.get('link'),
+        )
+        print(c)
+        redirect(
+            "/admin/blog/category",
+            alert=Alert("Вы успешно создали категорию!")
+        )
+
+    return admin_temp(
+        "blog/category",
+        data=get_json_list(Category),
+    )
+
+
+@admin_route("/blog/category/edit/<id:int>", POST)
+def admin_new_news(id: int):
+    c = Category[id]
+    c.set(
+        name=request.params.get('name'),
+        link=request.params.get('link'),
+    )
+    print(c)
+    redirect(
+        "/admin/blog/category",
+        alert=Alert("Вы успешно отредактировали категорию!")
     )
 
 
 @admin_route("/blog/edit/<id:int>", GET_POST)
 def admin_edit_news(id):
-    with db_session:
-        n = select(n for n in Blog if n.id == id).first().to_dict(with_collections=True, related_objects=True)
+    n = select(n for n in Blog if n.id == id).first().to_dict(with_collections=True, related_objects=True)
 
     n["date"] = n["date"].isoformat()
     pprint(n)
 
     if request.method == POST:
         params = dict(request.params)
-        with db_session:
-            n = Blog[id]
-            params["title"] = html.unescape(params["title"])
-            params["content"] = html.unescape(params["content"])
-            params["date"] = str2datetime(params["date"])
-            params["draft"] = "published" not in params
-            if "published" in params:
-                del params["published"]
-            if request.files.get("image"):
-                image = save_img("blog_" + str(n.id), "blog")
-                params["image"] = image
-            elif "image" in params:
-                del params['image']
-            n = n.set(**params)
+        n = Blog[id]
+        params["title"] = html.unescape(params["title"])
+        params["content"] = html.unescape(params["content"])
+        params["date"] = str2datetime(params["date"])
+        params["draft"] = "published" not in params
+        if "published" in params:
+            del params["published"]
+        if request.files.get("image"):
+            image = save_img("blog_" + str(n.id), "blog")
+            params["image"] = image
+        elif "image" in params:
+            del params['image']
+        n = n.set(**params)
 
-        return redirect("/admin/blog", alert=Alert("Вы отредактировали новость!"))
+        redirect("/admin/blog", alert=Alert("Вы отредактировали пост в блоге!"))
 
     return admin_temp(
         "edit/blog",
@@ -144,11 +177,10 @@ def admin_edit_news(id):
 
 @admin_route("/toggle_public_blog/<id:int>")
 def admin_edit_news(id):
-    with db_session:
-        n = select(n for n in Blog if n.id == id).first()
-        d = n.draft
-        n.draft = not d
-    return redirect("/admin/blog", alert=Alert("Вы %s новость!" % ('опубликовали' if d else 'скрыли')))
+    n = select(n for n in Blog if n.id == id).first()
+    d = n.draft
+    n.draft = not d
+    redirect("/admin/blog", alert=Alert("Вы %s новость!" % ('опубликовали' if d else 'скрыли')))
 
 
 if os.getenv("DEVELOP") == "True":
@@ -161,10 +193,10 @@ if os.getenv("DEVELOP") == "True":
                 request.forms.get("name", ""),
             )
 
-            return redirect("/")
+            redirect("/")
 
         return template(
-            "create_user"
+            join("admin", "create_user")
         )
 
 
