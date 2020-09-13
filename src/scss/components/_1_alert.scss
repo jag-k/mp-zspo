@@ -9,7 +9,12 @@ Usage: codyframe.co/license
 
 .alert {
   padding: var(--space-xs) var(--space-sm);
-  background-color: alpha(var(--color-primary), 0.2);
+  z-index: var(--zindex-popover); /* Specify a stack order in case you're using a different order for other elements */
+
+  left: 50%;
+  transform: translate(-50%);
+
+  background-color: var(--color-primary-lighter);
   border-radius: var(--radius-md);
   color: var(--color-contrast-higher);
   // hide element
@@ -35,24 +40,24 @@ Usage: codyframe.co/license
 
 // themes
 .alert--success {
-  background-color: alpha(var(--color-success), 0.2);
+  background-color: var(--color-success-lighter);
 }
 
 .alert--error {
-  background-color: alpha(var(--color-error), 0.2);
+  background-color: var(--color-error-lighter);
 }
 
 .alert--warning {
-  background-color: alpha(var(--color-warning), 0.2);
+  background-color: var(--color-warning-lighter);
 }
 
 .alert--info, .alert--primary {
-  background-color: alpha(var(--color-primary), 0.2);
+  background-color: var(--color-primary-lighter);
 }
 
 // toggle visibility
 .alert--is-visible {
-  position: static;
+  position: fixed;
   clip: auto;
   clip-path: none;
 }

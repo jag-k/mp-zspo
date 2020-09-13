@@ -8,22 +8,23 @@
 
   <div class="margin-bottom-sm">
     <label class="form-label margin-bottom-xxxs" for="title">Заголовок</label>
-    <input class="form-control width-100%" content="{{data.get('title')}}" id="title" name="title"
-           placeholder="Грандиозная новость!" required type="text">
+    <input class="form-control width-100%" id="title" name="title" placeholder="Грандиозная новость!"
+           required type="text" value="{{data.get('title', '')}}">
   </div>
 
   <div class="margin-bottom-sm character-count js-character-count">
     <label class="form-label margin-bottom-xxs" for="description">Краткое описание:</label>
     <input class="form-control width-100% js-character-count__input" id="description" maxlength="{{max_character}}"
-           name="description" required type="text">
+           name="description" placeholder="Небольшое краткое описание" required type="text"
+           value="{{data.get('description', '')}}">
 
     <div aria-atomic="true" aria-live="polite"
          class="character-count__helper character-count__helper--dynamic text-sm margin-top-xxxs">
       Осталось <span class="js-character-count__counter"></span> символов
     </div>
 
-    <div class="character-count__helper character-count__helper--static text-sm margin-top-xxxs">Максимально
-      {{max_character}} символов
+    <div class="character-count__helper character-count__helper--static text-sm margin-top-xxxs">
+      Максимально {{max_character}} символов
     </div>
   </div>
 
@@ -33,17 +34,10 @@
 
     <div class="select">
       <select class="select__input form-control" id="category" name="category">
-        <option disabled value="0">Select option</option>
-        <optgroup label="Group 1">
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </optgroup>
-
-        <optgroup label="Group 2">
-          <option value="3">Option 3</option>
-          <option value="4">Option 4</option>
-          <option value="5">Option 5</option>
-        </optgroup>
+        % for c in categories:
+        % check = ('', 'checked')[data.get('category', {}).get('id') == c['id']]
+        <option value="{{c['id']}}" {{check}}>{{c['name']}}</option>
+        % end
       </select>
 
       <svg aria-hidden="true" class="icon select__icon" viewBox="0 0 16 16">
@@ -60,7 +54,7 @@
   <div class="margin-bottom-sm">
     <label class="form-label margin-bottom-xxs" for="content">Контент поста:</label>
     <textarea class="form-control width-100%" id="content" name="content"
-              required>{{data.get("content", '')}}</textarea>
+              required>{{data.get('content', '')}}</textarea>
   </div>
 
   <script>
@@ -86,14 +80,18 @@
       <input accept="image/svg+xml,image/jpeg,image/png,image/gif" class="file-upload__input" id="image" name="image"
              required type="file">
 
-      <img alt="Предпросмотр новости" class="file-upload__preview is-hidden" src="">
+      % if data.get('image'):
+      <img alt="Предпросмотр новости" class="is-hidden aspect-ratio radius-md"
+           src="{{data.get('image', '')}}">
+      % end
 
     </div>
   </div>
 
   <div class="margin-bottom-sm">
     <label class="form-label margin-bottom-xxxs" for="date">Дата публикации</label>
-    <input class="form-control width-100%" id="date" name="date" required type="date" value="{{date}}">
+    <input class="form-control width-100%" id="date" name="date" required type="date"
+           value="{{data.get('date', date)}}">
   </div>
 
   <div class="flex flex-column flex-row@xs gap-xs">

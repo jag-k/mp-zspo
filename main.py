@@ -104,10 +104,50 @@ def admin_new_news():
 
         redirect("/admin/blog", alert=Alert("Вы создали новый пост в блоге!"))
 
+    categories = get_json_list(Category)
+    if not categories:
+        redirect('/admin/blog/category', alert=Alert("У вас ещё нет категорий", Alert.WARNING))
     return admin_temp(
         "blog/new",
         date=date.today().isoformat(),
         data={},
+        categories=get_json_list(Category),
+    )
+
+
+@admin_route("/blog/edit/<id:int>", GET_POST)
+def admin_new_news(id: int):
+    n = Blog[id]
+    if request.method == POST:
+        params = dict(request.params)
+        params["title"] = html.unescape(params["title"])
+        params["description"] = html.unescape(params["description"])
+        params["category"] = params.get("category")
+        params["content"] = html.unescape(params["content"])
+        params["custom_link"] = params.get("custom_link", "")
+        params["date"] = str2datetime(params["date"])
+        params["image"] = ""
+        params["draft"] = "published" not in params
+        if "published" in params:
+            del params["published"]
+
+        n.set(**params)
+        commit()
+        image = save_img("blog_" + str(n.id), "blog")
+        n.image = image
+        commit()
+
+        redirect("/admin/blog", alert=Alert("Вы отредактировали пост в блоге!"))
+
+    categories = get_json_list(Category)
+    if not categories:
+        redirect('/admin/blog/category', alert=Alert("У вас ещё нет категорий", Alert.WARNING))
+
+    return admin_temp(
+        "blog/new",
+        date=date.today().isoformat(),
+        data=get_json(n),
+        categories=get_json_list(Category),
     )
 
 
@@ -130,6 +170,28 @@ def admin_new_news():
     )
 
 
+@admin_route("/blog")
+def admin_new_news():
+    return admin_temp(
+        "blog/index",
+        data=get_json_list(Blog),
+    )
+
+
+@admin_route("/blog/del/<id:int>")
+def admin_new_news(id: int):
+    Blog[id].delete()
+    commit()
+    redirect('/admin/blog', alert=Alert("Пост успешно удалён!"))
+
+
+@admin_route("/blog/category/del/<id:int>")
+def admin_new_news(id: int):
+    Category[id].delete()
+    commit()
+    redirect('/admin/blog', alert=Alert("Категория успешно удалена!"))
+
+
 @admin_route("/blog/category/edit/<id:int>", POST)
 def admin_new_news(id: int):
     c = Category[id]
@@ -141,37 +203,6 @@ def admin_new_news(id: int):
     redirect(
         "/admin/blog/category",
         alert=Alert("Вы успешно отредактировали категорию!")
-    )
-
-
-@admin_route("/blog/edit/<id:int>", GET_POST)
-def admin_edit_news(id):
-    n = select(n for n in Blog if n.id == id).first().to_dict(with_collections=True, related_objects=True)
-
-    n["date"] = n["date"].isoformat()
-    pprint(n)
-
-    if request.method == POST:
-        params = dict(request.params)
-        n = Blog[id]
-        params["title"] = html.unescape(params["title"])
-        params["content"] = html.unescape(params["content"])
-        params["date"] = str2datetime(params["date"])
-        params["draft"] = "published" not in params
-        if "published" in params:
-            del params["published"]
-        if request.files.get("image"):
-            image = save_img("blog_" + str(n.id), "blog")
-            params["image"] = image
-        elif "image" in params:
-            del params['image']
-        n = n.set(**params)
-
-        redirect("/admin/blog", alert=Alert("Вы отредактировали пост в блоге!"))
-
-    return admin_temp(
-        "edit/blog",
-        data=n
     )
 
 

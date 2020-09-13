@@ -1,11 +1,23 @@
-<div class="alert alert--error alert--is-visible js-alert" role="alert">
+% alert = get('alert')
+% if alert:
+% alert, alert_type = alert.get('content'), alert.get('type', 'warning')
+
+<div class="alert alert--{{alert_type}} alert--is-visible js-alert margin-md" role="alert">
   <div class="flex items-center justify-between">
     <div class="flex items-center">
-      <p>{{description}}</p>
+      <p>{{alert}}</p>
     </div>
 
     <button class="reset alert__close-btn js-alert__close-btn">
-      <svg class="icon" viewBox="0 0 24 24"><title>Закрыть</title><g stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" stroke="currentColor" fill="none" stroke-miterlimit="10"><line x1="19" y1="5" x2="5" y2="19"></line><line fill="none" x1="19" y1="19" x2="5" y2="5"></line></g></svg>
+      <svg class="icon" viewBox="0 0 24 24"><title>Закрыть</title>
+        <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"
+           stroke-width="3">
+          <line x1="19" x2="5" y1="5" y2="19"></line>
+          <line fill="none" x1="19" x2="5" y1="19" y2="5"></line>
+        </g>
+      </svg>
     </button>
   </div>
 </div>
+
+% end

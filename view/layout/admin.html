@@ -19,6 +19,8 @@
 </head>
 <body>
 
+% include('view/layout/alert.html', alert=alert)
+
 <div class="padding-component hide@md no-js:is-hidden">
   <button aria-controls="sidebar" class="menu-bar__item reset">{{!solid('bars')}}</button>
 </div>
@@ -138,7 +140,7 @@
                   </li>
 
                   <li class="sidenav__item">
-                    <a class="sidenav__link" href="#0">
+                    <a class="sidenav__link" href="/admin/blog">
                       <span class="sidenav__text">Все посты</span>
                     </a>
                   </li>
