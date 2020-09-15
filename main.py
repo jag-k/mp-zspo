@@ -81,6 +81,23 @@ def admin():
     )
 
 
+@admin_route("/pages/meta", GET_POST)
+def admin_pages_meta():
+    if request.method == POST:
+        params = dict(request.params)
+        with db_session:
+            update_settings("meta", params)
+        return redirect("/admin/pages/meta", alert=Alert("Метатеги успешно сохранены!"))
+
+    with db_session:
+        data = get_settings("meta")
+
+    return admin_temp(
+        "meta",
+        meta=data
+    )
+
+
 @admin_route("/blog/new", GET_POST)
 def admin_new_news():
     if request.method == POST:

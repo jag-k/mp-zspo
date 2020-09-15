@@ -1,0 +1,30 @@
+<div class="container max-width-adaptive-md margin-y-lg">
+    <form class="container" method="post" action="/admin/pages/meta" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="keywords">Ключевые слова (через запятую)</label>
+            <input name="keywords" id="keywords" class="form-control" value="{{meta.get('keywords', '')}}"
+                placeholder="Ключевые слова, по которым будет производится поиск">
+        </div>
+
+        <div class="form-group">
+            <label for="yandex"><span style="color: #ff0000">Y</span><span style="color: #000000">andex</span>
+                Метрика</label>
+            <textarea name="yandex" id="yandex" class="form-control" style="min-height: 110px;"
+                placeholder="Введите код от Yandex Метрики">{{meta.get('yandex', '')}}</textarea>
+
+            <label for="google"> <span style="color: #4285f4">G</span><span style="color: #ea4335">o</span><span
+                    style="color: #fbbc05">o</span><span style="color: #4285f4">g</span><span
+                    style="color: #34a853">l</span><span style="color: #ea4335">e</span> Аналитика</label>
+            <textarea name="google" id="google" class="form-control" style="min-height: 110px;"
+                placeholder="Введите код от Google Аналитики">{{meta.get('google', '')}}</textarea>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-success">
+                Обновить
+            </button>
+            <button type="reset" class="btn btn-blue" style="margin-left: auto;">
+                Сбросить
+            </button>
+        </div>
+    </form>
+</div>
