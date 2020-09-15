@@ -4,7 +4,9 @@ import os
 import sys
 from threading import Thread
 from types import FunctionType
+from functools import partial
 
+from pony.orm.integration.bottle_plugin import PonyPlugin
 from db.controller import *
 from functools import wraps
 from os.path import join
@@ -14,7 +16,6 @@ import bottle
 from bottle import response, request
 
 from htmlmin.decorator import htmlmin
-
 
 try:
     from ujson import load, dump, loads, dumps
@@ -26,7 +27,7 @@ except ImportError:
 GET, POST, DELETE, PATCH = "GET", "POST", "DELETE", "PATCH"
 GET_POST = [GET, POST]
 app = application = bottle.Bottle()
-
+app.install(PonyPlugin())
 
 public_path = "./public"
 images_path = join(public_path, 'img')
@@ -87,17 +88,18 @@ def admin_route(url, method="GET"):
             if is_hash_admin(user):
                 return func(*args, **kwargs)
             bottle.redirect(ADMIN_LOGIN_ROUTE + "?from=" + ADMIN_ROUTE + url.rstrip("/"))
+
         return wrapped
+
     return wrap
 
 
 def admin_temp(source, title="", extension=".html", *args, **kwargs):
     h = request.get_cookie(ADMIN_COOKIE_KEY, None, ADMIN_COOKIE_SECRET)
-    with db_session:
-        admins = list(Admin.select())
-        user = get_admin_by_hash(h)
+    admins = list(Admin.select())
+    user = get_admin_by_hash(h)
     if not user:
-        return redirect("/logout")
+        redirect("/logout")
     return template(
         join("admin", source),
         title + " (Админка)" if title else "Админка",
@@ -107,6 +109,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
         user=user,
         request=request,
         # url=request.urlparts.path.split(ADMIN_ROUTE + "/", 1)[1],
+        today=date.today().isoformat(),
         db_session=db_session,
         *args, **kwargs)
 
@@ -127,26 +130,30 @@ def template(source, template_title="", extension=".html", including_page=None,
             alert = loads(d['alert'])
         kwargs.update(d)
 
-    with db_session:
-        return bottle.template(
-            join("view", source + extension) if self_stationary_page else index,
+    return bottle.template(
+        join("view", source + extension) if self_stationary_page else index,
 
-            title=template_title,
-            args=args,
-            alert=alert,
-            kwargs=kwargs,
-            settings=get_all_settings(),
-            paginator=paginator,
+        title=template_title,
+        args=args,
+        alert=alert,
+        kwargs=kwargs,
+        settings=get_all_settings(),
+        paginator=paginator,
 
-            desc=desc,
-            select=select,
+        desc=desc,
+        select=select,
 
-            description=get_settings("description", ""),
+        icon=icon,
+        brands=brands,
+        solid=solid,
+        regular=regular,
 
-            including_page=None if self_stationary_page
-            else (including_page or join("view", source + extension)),
-            **db.entities
-        )
+        description=get_settings("description", ""),
+
+        including_page=None if self_stationary_page
+        else (including_page or join("view", source + extension)),
+        **db.entities
+    )
 
 
 @wraps(bottle.redirect)
@@ -163,7 +170,6 @@ def redirect(url: str = None, code: int = None, alert: Alert = None, **kwargs):
 @wraps(bottle.Bottle.route)
 def route(p=None, method='GET', callback=None, name=None,
           apply=None, skip=None, **config):
-
     def wrap(func):
         app.route(p, method, callback, name,
                   apply, skip, **config)(func)
@@ -172,6 +178,7 @@ def route(p=None, method='GET', callback=None, name=None,
         app.route(path, method, callback, name,
                   apply, skip, **config)(func)
         return func
+
     return wrap
 
 
@@ -184,7 +191,7 @@ def paginator(data_len, sep):
 
 def save_img(filename="", path="", name_in_form="image", overwrite=True):
     file_path = os.path.join(images_path, path)
-    file = request.files.get(name_in_form)   # type: bottle.FileUpload
+    file = request.files.get(name_in_form)  # type: bottle.FileUpload
     return save_file(file, filename, file_path, overwrite)
 
 
@@ -253,12 +260,13 @@ def async_func(func):
         # task.daemon = True
         task.start()
         return task
+
     return wrap
 
 
 def pagination(obj, pagenum: int, pagesize: int):
     offset = (pagenum - 1) * pagesize
-    return obj[offset:offset+pagesize]
+    return obj[offset:offset + pagesize]
 
 
 def get_directories(path: str):
@@ -268,6 +276,17 @@ def get_directories(path: str):
 def get_files(path: str):
     return sorted(filter(lambda x: x != '__init__.py', next(os.walk(join(images_path, path)))[2]))
 
+
+def icon(icon_name, classes='', icon_type="solid"):
+    # language=HTML
+    return '<svg class="icon {}"><use xlink:href="/sprites/fa-{}.svg#{}"></use></svg>'.format(
+        classes, icon_type, icon_name
+    )
+
+
+brands = partial(icon, icon_type="brands")
+solid = partial(icon, icon_type="solid")
+regular = partial(icon, icon_type="regular")
 
 if __name__ == '__main__':
     with db_session:

@@ -1,0 +1,201 @@
+<div class="text-component text-center margin-bottom-sm">
+  <h1>Категории блога</h1>
+</div>
+
+
+% print(data)
+% if get('data'):
+<button aria-controls="modal-new" class="btn btn--primary text-right">Создать категорию</button>
+
+<div class="tbl margin-y-sm">
+  <table aria-label="Категории блога" class="tbl__table border-bottom border-2">
+    <thead class="tbl__header border-bottom border-2">
+    <tr class="tbl__row">
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Категория</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Сокращение</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Кол-во постов</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Действия</span>
+      </th>
+
+    </tr>
+    </thead>
+
+    <tbody class="tbl__body">
+    % for d in data:
+    <tr class="tbl__row">
+      <td class="tbl__cell" role="cell">{{d.get('name')}}</td>
+
+      <td class="tbl__cell" role="cell">{{d.get('link')}}</td>
+
+      <td class="tbl__cell" role="cell">{{len(d.get('posts'))}}</td>
+
+      <td class="tbl__cell" role="cell">
+        <button aria-controls="menu-blog-cat-{{d['id']}}" class="menu-bar__item reset">
+          {{!solid('ellipsis-h', classes='menu-bar__icon')}}
+        </button>
+
+        <menu class="menu js-menu" id="menu-blog-cat-{{d['id']}}">
+          <li aria-controls="modal-edit-{{d['id']}}" role="menuitem">
+            <span class="menu__content js-menu__content">
+              {{!solid('pen', classes='menu__icon')}}
+              <span>Редактировать</span>
+            </span>
+          </li>
+
+          <li aria-controls="modal-del-{{d['id']}}" role="menuitem">
+            <span class="menu__content js-menu__content">
+              {{!solid('trash-alt', classes='menu__icon')}}
+              <span>Удалить</span>
+            </span>
+          </li>
+
+          <li class="menu__separator" role="separator"></li>
+
+          <li role="menuitem">
+            <a class="menu__content js-menu__content" href="/blog/cat/{{d.get('link')}}" target="_blank">
+              {{!solid('external-link-alt', classes='menu__icon')}} Открыть категорию
+            </a>
+          </li>
+        </menu>
+
+      </td>
+
+      <div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
+           id="modal-edit-{{d['id']}}">
+        <div aria-describedby="modal-form-description" aria-labelledby="modal-edit-{{d['id']}}-title"
+             class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
+          <div class="text-component margin-bottom-md">
+            <h3 id="modal-edit-{{d['id']}}-title">Редактировать категорию в блоге</h3>
+          </div>
+
+          <form action="/admin/blog/category/edit/{{d['id']}}" class="margin-bottom-sm" enctype="multipart/form-data"
+                method="post">
+            <div class="margin-bottom-sm">
+              <label class="form-label margin-bottom-xxxs" for="edit-{{d['id']}}-name">Название</label>
+              <input class="form-control width-100%" id="edit-{{d['id']}}-name" name="name"
+                     placeholder="Дети и родители"
+                     required type="text" value="{{d.get('name')}}">
+            </div>
+
+            <div class="margin-bottom-sm">
+              <label class="form-label margin-bottom-xxxs" for="edit-{{d['id']}}-link">Короткое название</label>
+              <input class="form-control width-100%" id="edit-{{d['id']}}-link" minlength="4" name="link"
+                     pattern="[a-z0-9\_\-]" placeholder="children" required type="text" value="{{d.get('link')}}">
+              <p class="text-xs color-contrast-medium margin-top-xxs">
+                Можно использовать только строчные латинские буквы (a-z), цифры и символы <code>-</code> и
+                <code>_</code>.
+                <br>Не менее 4 символов
+              </p>
+            </div>
+
+            <div class="flex flex-column flex-row@xs gap-xs">
+              <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+              <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+            </div>
+
+          </form>
+        </div>
+
+        <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+          <svg class="icon icon--sm" viewBox="0 0 24 24">
+            <title>Закрыть модальное окно</title>
+            <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+              <line x1="3" x2="21" y1="3" y2="21"/>
+              <line x1="21" x2="3" y1="3" y2="21"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
+           id="modal-del-{{d['id']}}">
+        <div aria-describedby="modal-form-description" aria-labelledby="modal-edit-{{d['id']}}-title"
+             class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
+          <div class="text-component margin-bottom-md">
+            <h3 id="modal-del-{{d['id']}}-title">Удалить категорию в блоге</h3>
+            <p>Вы уверены, что хотите удалить категорию "{{d.get('name')}}"?</p>
+          </div>
+
+
+          <div class="flex flex-column flex-row@xs gap-xs">
+            <a class="btn btn--primary btn--md width-100%" href="/admin/blog/category/del/{{d['id']}}">Удалить</a>
+            <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
+          </div>
+        </div>
+
+        <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+          <svg class="icon icon--sm" viewBox="0 0 24 24">
+            <title>Закрыть модальное окно</title>
+            <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+              <line x1="3" x2="21" y1="3" y2="21"/>
+              <line x1="21" x2="3" y1="3" y2="21"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+
+    </tr>
+    % end
+    </tbody>
+  </table>
+</div>
+% else:
+<h3 class="text-component margin-bottom-sm text-center">Вы ещё не создали ни одной категории</h3>
+% end
+
+<button aria-controls="modal-new" class="btn btn--primary text-right">Создать категорию</button>
+
+<div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
+     id="modal-new">
+  <div aria-describedby="modal-form-description" aria-labelledby="modal-form-title"
+       class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
+    <div class="text-component margin-bottom-md">
+      <h3 id="modal-form-title">Создать категорию в блоге</h3>
+    </div>
+
+    <form action="" class="margin-bottom-sm" enctype="multipart/form-data" method="post">
+      <div class="margin-bottom-sm">
+        <label class="form-label margin-bottom-xxxs" for="name">Название</label>
+        <input class="form-control width-100%" id="name" name="name"
+               placeholder="Дети и родители" required type="text">
+      </div>
+
+      <div class="margin-bottom-sm">
+        <label class="form-label margin-bottom-xxxs" for="link">Короткое название</label>
+        <input class="form-control width-100%" id="link" minlength="4"
+               name="link" pattern="[a-z0-9\_\-]" placeholder="children" required type="text">
+        <p class="text-xs color-contrast-medium margin-top-xxs">
+          Можно использовать только строчные латинские буквы (a-z), цифры и символы <code>-</code> и <code>_</code>.
+          <br>Не менее 4 символов
+        </p>
+      </div>
+
+      <div class="flex flex-column flex-row@xs gap-xs">
+        <button class="btn btn--primary btn--md width-100%" type="submit">Создать</button>
+        <button class="btn btn--secondary btn--md width-100%" type="reset">Отчистить</button>
+      </div>
+
+    </form>
+  </div>
+
+  <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+    <svg class="icon icon--sm" viewBox="0 0 24 24">
+      <title>Закрыть модальное окно</title>
+      <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+        <line x1="3" x2="21" y1="3" y2="21"/>
+        <line x1="21" x2="3" y1="3" y2="21"/>
+      </g>
+    </svg>
+  </button>
+</div>

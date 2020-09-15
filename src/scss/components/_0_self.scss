@@ -17,7 +17,7 @@
 
 .big-card {
   margin: var(--space-lg) auto;
-  background: var(--conlor-bg);
+  background: var(--color-bg);
   border-radius: 32px;
   box-shadow: 0 8px 30px var(--shadow);
   padding: 64px 80px;
@@ -54,6 +54,7 @@
   background: white;
 }
 
+
 .dir-item {
   background: #fff;
   border-radius: 24px;
@@ -86,20 +87,7 @@
   line-height: 30px;
 }
 
-.choose-btn {
-  font-family: 'Proxima Nova', sans-serif;
-  font-size: 15px;
-  color: #fff;
-  font-weight: 600;
-  line-height: 40px;
-  background: #5AA343;
-  border-radius: 24px;
-  padding: 0 24px;
-  display: inline-block;
-  transition: 0.4s;
-}
-
-.dir-top .choose-btn {
+.dir-top {
   margin: 0 0 0 auto;
 }
 

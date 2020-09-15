@@ -1,0 +1,118 @@
+<div class="text-component text-center margin-bottom-sm">
+  <h1>Категории блога</h1>
+</div>
+
+
+% print(data)
+% if get('data'):
+<a class="btn btn--primary" href="/admin/blog/new">Создать пост</a>
+
+<div class="tbl margin-y-sm">
+  <table aria-label="Посты блога" class="tbl__table border-bottom border-2">
+    <thead class="tbl__header border-bottom border-2">
+    <tr class="tbl__row">
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Изображение</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Заголовок</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Краткое описание</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Категория</span>
+      </th>
+
+      <th class="tbl__cell text-left" scope="col">
+        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Действия</span>
+      </th>
+
+    </tr>
+    </thead>
+
+    <tbody class="tbl__body">
+    % for d in data:
+    <tr class="tbl__row">
+      <td class="tbl__cell" role="cell">
+        % print(d)
+        <img aria-label="{{d.get('title')}}" class="max-width-xxxxs radius-md width-100%" src="{{d.get('image')}}">
+      </td>
+
+      <td class="tbl__cell" role="cell">{{d.get('title')}}</td>
+
+      <td class="tbl__cell" role="cell">{{d.get('description')}}</td>
+
+      <td class="tbl__cell" role="cell">pass</td>
+
+      <td class="tbl__cell" role="cell">
+        <button aria-controls="menu-blog-{{d['id']}}" class="menu-bar__item reset">
+          {{!solid('ellipsis-h', classes='menu-bar__icon')}}
+        </button>
+
+        <menu class="menu js-menu" id="menu-blog-{{d['id']}}">
+          <li role="menuitem">
+            <a class="menu__content js-menu__content" href="/admin/blog/edit/{{d.get('id')}}">
+              {{!solid('pen', classes='menu__icon')}}
+              <span>Редактировать</span>
+            </a>
+          </li>
+
+          <li aria-controls="modal-del-{{d['id']}}" role="menuitem">
+            <span class="menu__content js-menu__content">
+              {{!solid('trash-alt', classes='menu__icon')}}
+              <span>Удалить</span>
+            </span>
+          </li>
+
+          <li class="menu__separator" role="separator"></li>
+
+          <li role="menuitem">
+            <a class="menu__content js-menu__content" href="/blog/{{d.get('id')}}" target="_blank">
+              {{!solid('external-link-alt', classes='menu__icon')}} Открыть пост
+            </a>
+          </li>
+        </menu>
+
+      </td>
+
+      <div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
+           id="modal-del-{{d['id']}}">
+        <div aria-describedby="modal-form-description" aria-labelledby="modal-edit-{{d['id']}}-title"
+             class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
+          <div class="text-component margin-bottom-md">
+            <h3 id="modal-del-{{d['id']}}-title">Удалить пост в блоег</h3>
+            <p>Вы уверены, что хотите удалить пост "{{d.get('title')}}"?</p>
+          </div>
+
+
+          <div class="flex flex-column flex-row@xs gap-xs">
+            <a class="btn btn--primary btn--md width-100%" href="/admin/blog/del/{{d['id']}}">Удалить</a>
+            <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
+          </div>
+        </div>
+
+        <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+          <svg class="icon icon--sm" viewBox="0 0 24 24">
+            <title>Закрыть модальное окно</title>
+            <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+              <line x1="3" x2="21" y1="3" y2="21"/>
+              <line x1="21" x2="3" y1="3" y2="21"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+    </tr>
+    % end
+    </tbody>
+  </table>
+</div>
+% else:
+<h3 class="text-component margin-bottom-sm text-center">Вы ещё не создали ни одного поста</h3>
+% end
+
+<a class="btn btn--primary" href="/admin/blog/new">Создать пост</a>

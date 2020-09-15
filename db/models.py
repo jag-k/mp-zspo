@@ -1,7 +1,6 @@
 """
 docs: https://docs.ponyorm.org/
 """
-from pprint import pprint
 from sys import argv
 from datetime import date
 
@@ -28,12 +27,19 @@ class Blog(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)
     description = Required(str)
-    direction_type = Optional(int, default=0)
+    category = Optional("Category")
     date = Required(date)
     draft = Optional(bool, default=True)
     content = Required(str)
     image = Optional(str)
     custom_link = Optional(str)
+
+
+class Category(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    name = Required(str)
+    link = Required(str)
+    posts = Set(Blog)
 
 
 class Feature(db.Entity):
@@ -54,12 +60,11 @@ class SubFeature(db.Entity):
     link = Optional(str)
 
 
-
-
 # ===== END MODELS =====
 db.generate_mapping(
     create_tables=True
 )
 
 if __name__ == '__main__':
+    from pprint import pprint
     pprint(db.entities)
