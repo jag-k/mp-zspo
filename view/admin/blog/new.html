@@ -35,8 +35,8 @@
     <div class="select">
       <select class="select__input form-control" id="category" name="category">
         % for c in categories:
-        % check = ('', 'checked')[data.get('category', {}).get('id') == c['id']]
-        <option value="{{c['id']}}" {{check}}>{{c['name']}}</option>
+        % check = ('', 'selected')[data.get('category', {}).get('id') == c['id']]
+        <option value="{{c['id']}}" {{!check}}>{{c['name']}}</option>
         % end
       </select>
 
@@ -76,12 +76,13 @@
       <label class="file-upload__label btn btn--subtle" for="image">
         <span class="file-upload__text">Загрузить изображение</span>
       </label>
-
+      % req = ('required', '')[bool(data.get('image'))]
       <input accept="image/svg+xml,image/jpeg,image/png,image/gif" class="file-upload__input" id="image" name="image"
-             required type="file">
+             type="file" {{req}}>
 
+      % print(data.get('image'))
       % if data.get('image'):
-      <img alt="Предпросмотр новости" class="is-hidden aspect-ratio radius-md"
+      <img alt="Предпросмотр новости" class="margin-y-md radius-md"
            src="{{data.get('image', '')}}">
       % end
 

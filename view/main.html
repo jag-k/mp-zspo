@@ -69,29 +69,10 @@ Blog
   </div>
 </section>
 
-% if get("session", None):
-<section class="diagonal-section-bottom bg-contrast-lower">
-  <div class="container max-width-adaptive-sm padding-y-xxl">
-    <div class="text-center">
-      <div class="text-sm opacity-60% margin-bottom-xxs">This is a Label</div>
-
-      <div class="text-component margin-bottom-sm">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam vero aliquam, natus quae architecto hic
-          quod!</p>
-      </div>
-
-      <div class="flex flex-wrap flex-center gap-sm">
-        <a class="btn btn--primary" href="#0">Download</a>
-        <a class="color-inherit" href="#0">Learn more</a>
-      </div>
-    </div>
-  </div>
-</section>
-% end
-
 <!--Choose-->
-<section class="container max-width-adaptive margin-y-md big-card choose-block flex flex-column flex-row@md">
+<section
+        class="container max-width-adaptive margin-bottom-0 big-card choose-block flex flex-column flex-row@md
+        zindex-1 position-relative" style="transform: translate(0, -40%);">
   <div class="col-4@lg col-12 margin-bottom-md margin-right-md@md">
     <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
     <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
@@ -143,7 +124,7 @@ tab_cards = [
 
 <!--Directions-->
 % if get('tabs'):
-<section class="container max-width-adaptive margin-y-md">
+<section class="container max-width-adaptive margin-bottom-md">
   <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
     “initium”</h3>
@@ -230,7 +211,8 @@ tab_cards = [
 % end
 
 <!--Q&A-->
-<section class="container max-width-adaptive big-card flex flex-column flex-row@sm gap-md">
+% if get('faq'):
+<section class="container max-width-adaptive big-card margin-y-lg margin-x-auto flex flex-column flex-row@sm gap-md">
   <div class="col-5@sm col-12">
     <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
     <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
@@ -245,10 +227,10 @@ tab_cards = [
       <h1 class="text-center">Частые вопросы</h1>
     </div>
     <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
-
+      % for f in faq:
       <li class="accordion__item  js-accordion__item">
         <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my purchase?</span>
+          <span class="faq-header text-md">{{f['question']}}?</span>
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
@@ -260,113 +242,46 @@ tab_cards = [
 
         <div class="accordion__panel js-accordion__panel">
           <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+            <p>{{f['answer']}}</p>
           </div>
         </div>
       </li>
-
-
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my
-            purchase?</span>
-
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12"/>
-              <path d="M14 2L2 14"/>
-            </g>
-          </svg>
-        </button>
-
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-          </div>
-        </div>
-      </li>
-
-
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my
-            purchase?</span>
-
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12"/>
-              <path d="M14 2L2 14"/>
-            </g>
-          </svg>
-        </button>
-
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-          </div>
-        </div>
-      </li>
-
+      % end
     </ul>
   </div>
 </section>
-
-<%
-blog = [
-{
-"id": 0,
-"title": "Токсичные родители. Типы, признаки, как общаться.",
-"link": "toxic",
-"icon": "/img/grape.jpg",
-"text": "Пожалуй, проблема взаимоотношений детей и родителей стара как мир. Часто, записываясь на консультацию к "
-"психологу, чтобы решить какой-то актуальный для себя вопрос, например: неуверенность в себе, которая мешает "
-"достигать успеха и продвигаться по карьерной лестнице трудности во взаимоотношениях с партнером комплексы "
-"подавленный гнев и агрессия неумение выстраивать отношения конфликты в коллективе или с руководством повышенная",
-"category": {
-"title": "Дети и родители",
-"link": "children",
-},
-}
-] * 10
-%>
+% end
 
 <section class="container max-width-adaptive margin-y-md">
-  <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
+  <h4 class="color-contrast-low margin-bottom-xs">Статьи</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">
-    Популярные направления онлайн консультаций психологов центра “initium”
+    О том, что действительно важно
   </h3>
-  <h4>
-    Статьи
-  </h4>
-  <div class="grid gap-md margin-x-auto">
-    % for story in blog[:6]:
-    <div class="big-card col-12 col-6@md flex margin-md flex-column flex-row@sm">
-      <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
-        <a class="block square" href="/blog/{{ story['link'] or story['id'] }}">
-          <img alt="Image description" class="radius-md" src="{{ story['icon'] }}">
-        </a>
-      </div>
+    <div class="grid gap-md margin-x-auto">
+      % for story in blog:
+      % category = story['category']
+      % print(story, category)
+      <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
+           data-filter="category-{{category['id']}}">
+        <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
+          <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
+            <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
+          </a>
+        </div>
 
-      <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
-        <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story['link'] or story['id'] }}">
-          <h4 class="stories__headline font-bold underline-animate">
-            {{story['title']}}
-          </h4>
-          <p class="line-clamp">
-            {{story['text']}}
-          </p>
-        </a>
-        % category = story['category']
-        <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
-           href="/blog/cat/{{ category['link'] }}">{{ category['title'] }}</a>
+        <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
+          <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
+            <h4 class="stories__headline font-bold underline-animate">
+              {{story['title']}}
+            </h4>
+            <p class="line-clamp">
+              {{story['description']}}
+            </p>
+          </a>
+          <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
+             href="/blog#{{ category['id'] }}">{{ category['name'] }}</a>
+        </div>
       </div>
+      % end
     </div>
-    % end
-  </div>
 </section>

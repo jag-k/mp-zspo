@@ -14,7 +14,7 @@ from sys import stderr
 from pony.orm.core import Query
 import bottle
 from bottle import response, request
-
+from enum import Enum
 from htmlmin.decorator import htmlmin
 
 try:
@@ -71,6 +71,29 @@ class Alert:
         return "<Alert(%s) %.10s>" % (self.alert_type.capitalize(), self.content)
 
 
+class Header(Enum):
+    MAIN = {
+        "name": "Главная",
+        "link": "/"
+    }
+
+    TIME = {
+        "name": "Назначить время",
+        "link": "/bookform"
+    }
+
+    DIRECTION = {
+        "name": "Направления работы",
+        "link": "/directions"
+    }
+
+    BLOG = {
+        "name": "Блог",
+        "link": "/blog"
+    }
+
+
+
 # ==============================================================================
 # ADMINS
 
@@ -120,6 +143,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 @htmlmin(remove_comments=True)
 def template(source, template_title="", extension=".html", including_page=None,
              alert: Alert = None, self_stationary_page=False, index=join("view", "layout", "index.html"),
+             active_header: Header = None,
              *args, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
     if alert:
@@ -150,6 +174,9 @@ def template(source, template_title="", extension=".html", including_page=None,
 
         description=get_settings("description", ""),
 
+        header=Header,
+        active_header=active_header,
+
         including_page=None if self_stationary_page
         else (including_page or join("view", source + extension)),
         **db.entities
@@ -164,7 +191,7 @@ def redirect(url: str = None, code: int = None, alert: Alert = None, **kwargs):
         if alert:
             kwargs['alert'] = dumps(alert.conv)
         response.set_cookie("kwargs", dumps(kwargs), ADMIN_COOKIE_SECRET, path="/")
-    return bottle.redirect(url, code)
+    raise bottle.redirect(url, code)
 
 
 @wraps(bottle.Bottle.route)

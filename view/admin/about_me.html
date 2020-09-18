@@ -1,0 +1,31 @@
+<script src="/js/editor.js"></script>
+
+<form action="" enctype="multipart/form-data" method="post">
+
+  <div class="text-component text-center margin-bottom-sm">
+    <h1>Раздел "Обо мне"</h1>
+  </div>
+
+  <div class="margin-bottom-sm">
+    <label class="form-label margin-bottom-xxs" for="content">Текст на странице "Обо мне":</label>
+    <textarea class="form-control width-100%" id="content" name="content"
+              required>{{data.get('content', '')}}</textarea>
+  </div>
+
+  <script>
+      Editor
+          .create(document.querySelector('#content'), {})
+          .then(editor => {
+              window.editor = editor;
+          })
+          .catch(error => {
+              console.error('Oops, something gone wrong!');
+              console.error(error);
+          });
+  </script>
+
+  <div class="flex flex-column flex-row@xs gap-xs">
+    <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+    <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+  </div>
+</form>

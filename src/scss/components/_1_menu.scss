@@ -7,9 +7,12 @@ Usage: codyhouse.co/license
 
 -------------------------------- */
 
-.menu {
+:root {
   --menu-vertical-gap: 4px; // vertical gap between the Menu element and its control
   --menu-item-padding: var(--space-xxs) var(--space-sm);
+}
+
+.menu {
   list-style: none;
   width: 220px;
   position: fixed; // top/left position set in JS

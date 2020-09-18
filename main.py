@@ -9,7 +9,13 @@ def main_page():
     return template(
         "main",
         template_title="title tag",
-        template_description="description tag"
+        template_description="description tag",
+
+        blog=get_json_list(Blog),
+        categories=get_json_list(Category),
+        faq=get_json_list(FAQ),
+
+        active_header=Header.MAIN,
     )
 
 
@@ -18,7 +24,9 @@ def main_page():
     return template(
         "bookform",
         template_title="title tag",
-        template_description="description tag"
+        template_description="description tag",
+
+        active_header=Header.TIME,
     )
 
 
@@ -27,7 +35,11 @@ def blog_page():
     return template(
         "blog",
         template_title="title tag",
-        template_description="description tag"
+        template_description="description tag",
+        categories=get_json_list(Category),
+        blog=get_json_list(Blog),
+
+        active_header=Header.BLOG,
     )
 
 
@@ -36,17 +48,9 @@ def directions_page():
     return template(
         "directions",
         template_title="title tag",
-        template_description="description tag"
-    )
-
-
-@route("/edit")
-def main_page():
-    return template(
-        "admin/edit",
-        template_title="title tag",
         template_description="description tag",
-        data={}
+
+        active_header=Header.DIRECTION,
     )
 
 
@@ -77,24 +81,35 @@ def login():
 def admin():
     return admin_temp(
         "create_user",
-        description="None"
+        description="None",
     )
 
 
-@admin_route("/pages/meta", GET_POST)
+@admin_route("/meta", GET_POST)
 def admin_pages_meta():
     if request.method == POST:
-        params = dict(request.params)
-        with db_session:
-            update_settings("meta", params)
-        return redirect("/admin/pages/meta", alert=Alert("Метатеги успешно сохранены!"))
+        update_settings("meta", dict(request.params))
+        redirect("/admin/meta", alert=Alert("Метатеги успешно сохранены!"))
 
-    with db_session:
-        data = get_settings("meta")
+    data = get_settings("meta")
 
     return admin_temp(
         "meta",
-        meta=data
+        data=data
+    )
+
+
+@admin_route("/about_me", GET_POST)
+def admin_pages_meta():
+    if request.method == POST:
+        update_settings("about", dict(request.params))
+        redirect("/admin/about_me", alert=Alert('Блок "Обо мне" изменен!'))
+
+    data = get_settings("about")
+
+    return admin_temp(
+        "about_me",
+        data=data
     )
 
 
@@ -137,22 +152,22 @@ def admin_new_news(id: int):
     n = Blog[id]
     if request.method == POST:
         params = dict(request.params)
-        params["title"] = html.unescape(params["title"])
-        params["description"] = html.unescape(params["description"])
-        params["category"] = params.get("category")
-        params["content"] = html.unescape(params["content"])
-        params["custom_link"] = params.get("custom_link", "")
-        params["date"] = str2datetime(params["date"])
-        params["image"] = ""
-        params["draft"] = "published" not in params
-        if "published" in params:
-            del params["published"]
+        print("params", params)
+        n.set(
+            title=html.unescape(params["title"]),
+            description=html.unescape(params["description"]),
+            category=params.get("category"),
+            content=html.unescape(params["content"]),
+            custom_link=params.get("custom_link", ""),
+            date=str2datetime(params["date"]),
+        )
 
-        n.set(**params)
         commit()
-        image = save_img("blog_" + str(n.id), "blog")
-        n.image = image
-        commit()
+        print(n.category)
+        if request.files.get('image'):
+            image = save_img("blog_" + str(n.id), "blog")
+            n.image = image
+            commit()
 
         redirect("/admin/blog", alert=Alert("Вы отредактировали пост в блоге!"))
 
@@ -173,7 +188,6 @@ def admin_new_news():
     if request.POST:
         c = Category(
             name=request.params.get('name'),
-            link=request.params.get('link'),
         )
         print(c)
         redirect(
@@ -206,7 +220,7 @@ def admin_new_news(id: int):
 def admin_new_news(id: int):
     Category[id].delete()
     commit()
-    redirect('/admin/blog', alert=Alert("Категория успешно удалена!"))
+    redirect('/admin/blog/category', alert=Alert("Категория успешно удалена!"))
 
 
 @admin_route("/blog/category/edit/<id:int>", POST)
@@ -214,12 +228,51 @@ def admin_new_news(id: int):
     c = Category[id]
     c.set(
         name=request.params.get('name'),
-        link=request.params.get('link'),
     )
     print(c)
     redirect(
         "/admin/blog/category",
         alert=Alert("Вы успешно отредактировали категорию!")
+    )
+
+
+@admin_route("/faq", GET_POST)
+def admin_new_news():
+    if request.POST:
+        c = FAQ(
+            question=request.params.get('question'),
+            answer=request.params.get('answer'),
+        )
+        print(c)
+        redirect(
+            "/admin/faq",
+            alert=Alert("Вы успешно создали вопрос-ответ!")
+        )
+
+    return admin_temp(
+        "faq",
+        data=get_json_list(FAQ),
+    )
+
+
+@admin_route("/faq/del/<id:int>")
+def admin_new_news(id: int):
+    FAQ[id].delete()
+    commit()
+    redirect('/admin/faq', alert=Alert("Вопрос-ответ успешно удалён!"))
+
+
+@admin_route("/faq/edit/<id:int>", POST)
+def admin_new_news(id: int):
+    c = FAQ[id]
+    c.set(
+            question=request.params.get('question'),
+            answer=request.params.get('answer'),
+        )
+    print(c)
+    redirect(
+        "/admin/faq",
+        alert=Alert("Вы успешно отредактировали вопрос-ответ!")
     )
 
 

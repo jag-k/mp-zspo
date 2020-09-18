@@ -16,7 +16,6 @@
 }
 
 .big-card {
-  margin: var(--space-lg) auto;
   background: var(--color-bg);
   border-radius: 32px;
   box-shadow: 0 8px 30px var(--shadow);
@@ -127,4 +126,43 @@
   height: 12px;
   background: url(https://initium.care/wp-content/themes/medicenter/img/arrow-right-green.svg) no-repeat;
   margin: 10px 0 20px 0;
+}
+
+
+.simple_btn {
+  @extend .bg-secondary;
+
+  text-decoration: none;
+  padding: val(--space-xs);
+  text-align: center;
+  border-radius: 50em;
+  color: val(--color-contrast-higth);
+
+  &:hover:not(.simple_btn--selected) {
+    background-color: lightness(var(--color-contrast-lower), 0.98);
+  }
+
+  &:focus {
+    z-index: 1;
+    outline: none;
+    box-shadow: 0 0 0 2px alpha(var(--color-primary), 0.2);
+  }
+
+  &:checked {
+    @extend .simple_btn--selected;
+  }
+}
+
+.simple_btn--selected {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.blog {
+  transition: all 0.3s ease-out; // note that we're transitioning flex, not height!
+}
+
+.blog__hidden {
+  display: none;
 }

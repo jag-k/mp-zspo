@@ -51,12 +51,11 @@
       </div>
 
       <ul class="f-header__list flex-grow flex-basis-0 justify-center@md">
-        <li class="f-header__item"><a class="f-header__link" href="/">Главная</a></li>
-        <li class="f-header__item"><a aria-current="page" class="f-header__link" href="/bookform">Назначить время</a>
-        </li>
-        <li class="f-header__item"><a aria-current="page" class="f-header__link" href="/directions">Направления
-          работы</a></li>
-        <li class="f-header__item"><a aria-current="page" class="f-header__link" href="/blog">Блог</a></li>
+        % for raw_h in header:
+        % h = raw_h.value
+        % a = ('', 'aria-current="page"')[active_header == raw_h]
+        <li class="f-header__item"><a {{!a}} class="f-header__link" href="{{h['link']}}">{{h['name']}}</a></li>
+        % end
       </ul>
 
       <ul class="f-header__list flex-grow flex-basis-0 justify-end@md">

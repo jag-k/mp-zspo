@@ -1,204 +1,193 @@
-<section class="padding-x-lg">
-    <ul class="grid-auto-xl gap-lg">
-        <li>
-            <div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-                <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-                  <div class="grid">
-                    <div class="col-6@md overflow-hidden" aria-hidden="true">
-                      <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                    </div>
-              
-                    <div class="col-6@md">
-                      <div class="stories__text text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                        <h2>Kitchen</h2>
-                        <p>
-                            DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription
-                        </p>
-                        <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
+<div class="container max-width-adaptive">
+
+  <div class="btns gap-sm btns--radio margin-bottom-md">
+    <div>
+      <input checked id="default" name="category" type="radio">
+      <label class="margin-x-sm width-100% block text-decoration-none padding-xs text-center radius-full bg-secondary"
+             for="default">
+        Все посты
+      </label>
+    </div>
+    % for c in categories:
+    <div>
+      <input id="category-{{c['id']}}" name="category" type="radio">
+      <label class="margin-x-sm width-100% block text-decoration-none padding-xs text-center radius-full bg-secondary"
+             for="category-{{c['id']}}">
+        {{c['name']}}
+      </label>
+    </div>
+    % end
+  </div>
+
+  <section class="container max-width-adaptive margin-y-md">
+    <h3>
+      Статьи
+    </h3>
+    <div class="grid gap-md margin-x-auto">
+      % for story in blog:
+      % category = story['category']
+      <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
+           data-filter="category-{{category['id']}}">
+        <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
+          <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
+            <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
+          </a>
+        </div>
+
+        <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
+          <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
+            <h4 class="stories__headline font-bold underline-animate">
+              {{story['title']}}
+            </h4>
+            <p class="line-clamp">
+              {{story['description']}}
+            </p>
+          </a>
+          <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
+             href="#{{ category['id'] }}">{{ category['name'] }}</a>
+        </div>
+      </div>
+      % end
+    </div>
+  </section>
+  <script>
+
+
+    var radios = document.querySelectorAll('input[type=radio][name="category"]');
+    var categories = document.querySelectorAll("[data-filter]");
+    var prepend = "category-";
+
+    function updateByURLId() {
+
+      var keyVal = window.location.hash.substring(1);
+      console.log(keyVal);
+      var __id = keyVal ? prepend + keyVal : "default";
+
+      console.error("======= ID", __id);
+
+      Array.prototype.forEach.call(radios, function (i) {
+        console.log(i);
+        if (i.id === __id) {
+          i.checked = true;
+          changeHandler(i);
+        }
+      });
+
+    }
+
+
+    function changeHandler(event) {
+      var id = this.id || event.id;
+      Array.prototype.forEach.call(categories, function (cat) {
+        var att = cat.getAttribute('data-filter');
+        if (att === id || id === "default") {
+          // cat.style.flex = 1;
+          cat.classList.remove("blog__hidden");
+          // window.location.hash = "";
+          console.log("vis", cat)
+        } else {
+          // cat.style.flex = 0;
+          cat.classList.add("blog__hidden")
+          console.log("hide", cat)
+        }
+      })
+    }
+
+    Array.prototype.forEach.call(radios, function (radio) {
+      radio.addEventListener('change', changeHandler);
+    });
+
+    updateByURLId()
+
+    window.addEventListener("popstate", updateByURLId)
+
+  </script>
+
+  <!--Q&A-->
+  <section class="container max-width-adaptive big-card margin-x-auto margin-y-lg flex flex-column flex-row@sm gap-md">
+    <div class="col-5@sm col-12">
+      <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
+      <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
+        <div class="faq-step">Используйте фильтры подбора психолога</div>
+        <div class="faq-step">Выберите удобное для вас время</div>
+        <div class="faq-step">Зарегистрируйтесь и оплатите консультацию</div>
+        <a class="faq-btn" href="/doctors">Подбор психолога</a>
+      </div>
+    </div>
+    <div class="col-7@sm col-12">
+      <div class="margin-bottom-lg">
+        <h1 class="text-center">Questions &amp; Answers</h1>
+      </div>
+      <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+
+        <li class="accordion__item  js-accordion__item">
+          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+            <span class="faq-header text-md">How can I download the invoice for my purchase?</span>
+
+            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+                <path d="M2 2l12 12"/>
+                <path d="M14 2L2 14"/>
+              </g>
+            </svg>
+          </button>
+
+          <div class="accordion__panel js-accordion__panel">
+            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+            </div>
+          </div>
         </li>
 
-        <li>
-            <div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-                <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-                  <div class="grid">
-                    <div class="col-6@md overflow-hidden" aria-hidden="true">
-                      <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                    </div>
-              
-                    <div class="col-6@md">
-                      <div class="text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                        <h2>Kitchen</h2>
-                        <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
+
+        <li class="accordion__item  js-accordion__item">
+          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+          <span class="faq-header text-md">How can I download the invoice for my
+            purchase?</span>
+
+            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+                <path d="M2 2l12 12"/>
+                <path d="M14 2L2 14"/>
+              </g>
+            </svg>
+          </button>
+
+          <div class="accordion__panel js-accordion__panel">
+            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+            </div>
+          </div>
         </li>
-        <li>
-            <div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-                <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-                  <div class="grid">
-                    <div class="col-6@md overflow-hidden" aria-hidden="true">
-                      <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                    </div>
-              
-                    <div class="col-6@md">
-                      <div class="text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                        <h2>Kitchen</h2>
-                        <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
+
+
+        <li class="accordion__item  js-accordion__item">
+          <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+          <span class="faq-header text-md">How can I download the invoice for my
+            purchase?</span>
+
+            <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+              <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
+                <path d="M2 2l12 12"/>
+                <path d="M14 2L2 14"/>
+              </g>
+            </svg>
+          </button>
+
+          <div class="accordion__panel js-accordion__panel">
+            <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
+                Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
+                laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
+            </div>
+          </div>
         </li>
-        <li><div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-            <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-              <div class="grid">
-                <div class="col-6@md overflow-hidden" aria-hidden="true">
-                  <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                </div>
-          
-                <div class="col-6@md">
-                  <div class="text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                    <h2>Kitchen</h2>
-                    <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div></li>
-        <li><div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-            <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-              <div class="grid">
-                <div class="col-6@md overflow-hidden" aria-hidden="true">
-                  <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                </div>
-          
-                <div class="col-6@md">
-                  <div class="text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                    <h2>Kitchen</h2>
-                    <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div></li>
-        <li><div class="banner banner--invert container max-width-adaptive-lg radius-md overflow-hidden">
-            <a href="#0" class="text-decoration-none" aria-label="Shop Now">
-              <div class="grid">
-                <div class="col-6@md overflow-hidden" aria-hidden="true">
-                  <div class="banner__figure width-100%" style="background-image: url(img/grape.jpg);"></div>
-                </div>
-          
-                <div class="col-6@md">
-                  <div class="text-component v-space-md height-100% flex flex-column padding-md padding-lg@md text-right@md">
-                    <h2>Kitchen</h2>
-                    <p class="margin-top-sm margin-top-lg@md"><span class="banner__link"><i>Shop Now</i></span></p>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+
       </ul>
-</section>
-
-
-
-<!--Q&A-->
-<section class="container max-width-adaptive big-card flex flex-column flex-row@sm gap-md">
-  <div class="col-5@sm col-12">
-    <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
-    <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
-      <div class="faq-step">Используйте фильтры подбора психолога</div>
-      <div class="faq-step">Выберите удобное для вас время</div>
-      <div class="faq-step">Зарегистрируйтесь и оплатите консультацию</div>
-      <a class="faq-btn" href="/doctors">Подбор психолога</a>
     </div>
-  </div>
-  <div class="col-7@sm col-12">
-    <div class="margin-bottom-lg">
-      <h1 class="text-center">Questions &amp; Answers</h1>
-    </div>
-    <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
-
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my purchase?</span>
-
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
-            </g>
-          </svg>
-        </button>
-
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-          </div>
-        </div>
-      </li>
-
-
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my
-            purchase?</span>
-
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
-            </g>
-          </svg>
-        </button>
-
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-          </div>
-        </div>
-      </li>
-
-
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">How can I download the invoice for my
-            purchase?</span>
-
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12" />
-              <path d="M14 2L2 14" />
-            </g>
-          </svg>
-        </button>
-
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum a ab quae quas optio ut officia quia?
-              Modi at impedit dolorem est voluptatem facilis, beatae atque tenetur, soluta dolorum inventore sapiente
-              laborum. Alias esse soluta porro distinctio aperiam, qui suscipit.</p>
-          </div>
-        </div>
-      </li>
-
-    </ul>
-  </div>
-</section>
+  </section>
+</div>

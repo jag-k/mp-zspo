@@ -38,8 +38,8 @@ class Blog(db.Entity):
 class Category(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str)
-    link = Required(str)
-    posts = Set(Blog)
+    # link = Required(str)
+    posts = Set(Blog, cascade_delete=True)
 
 
 class Feature(db.Entity):
@@ -58,6 +58,12 @@ class SubFeature(db.Entity):
     content = Required(str)
     image = Optional(str)
     link = Optional(str)
+
+
+class FAQ(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    question = Required(str)
+    answer = Required(str)
 
 
 # ===== END MODELS =====
