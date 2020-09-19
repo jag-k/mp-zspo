@@ -74,9 +74,9 @@ Blog
         class="container max-width-adaptive margin-bottom-0 big-card choose-block flex flex-column flex-row@md
         zindex-1 position-relative" style="transform: translate(0, -40%);">
   <div class="col-4@lg col-12 margin-bottom-md margin-right-md@md">
-    <h3 class="text-bold text-lg">Подбор психолога<br> на сайте</h3>
-    <h4 class="choose-subheader">Используйте фильтры для подбора<br> психолога Вашей специализации</h4>
-    <a class="choose-btn width-100%" href="/doctors">Выбрать психолога</a>
+    <h3 class="text-bold text-lg">Запишитесь на прием<br> уже сегодня</h3>
+    <h4 class="choose-subheader">Выберите удобное время <br> на странице онлайн-записи</h4>
+    <a class="choose-btn width-100%" href="/bookform">Записаться на прием</a>
   </div>
   <div class="col-8@lg col-12 flex flex-column flex-row@md flex-center gap-sm">
     <div class="col">
@@ -125,9 +125,9 @@ tab_cards = [
 <!--Directions-->
 % if get('tabs'):
 <section class="container max-width-adaptive margin-bottom-md">
-  <h4 class="color-contrast-low margin-bottom-xs">Чаще всего выбирают</h4>
-  <h3 class="max-width-adaptive-sm margin-bottom-xs">Популярные направления онлайн консультаций психологов центра
-    “initium”</h3>
+  <h4 class="color-contrast-low margin-bottom-xs">Любая проблема решаема</h4>
+  <h3 class="max-width-adaptive-sm margin-bottom-xs">Направления онлайн
+    консультаций и психотерапии</h3>
   <div class="tabs js-tabs">
     <div class="s-tabs">
       <ul aria-label="Tabs Interface" class="s-tabs__list js-tabs__controls">
@@ -214,12 +214,12 @@ tab_cards = [
 % if get('faq'):
 <section class="container max-width-adaptive big-card margin-y-lg margin-x-auto flex flex-column flex-row@sm gap-md">
   <div class="col-5@sm col-12">
-    <h3 class="text-bold margin-bottom-sm">Как выбрать психолога?</h3>
+    <h3 class="text-bold margin-bottom-sm">Как записаться на прием?</h3>
     <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
-      <div class="faq-step">Используйте фильтры подбора психолога</div>
+      <div class="faq-step">Перейдите в раздел онлайн-записи или позвоните по телефону</div>
       <div class="faq-step">Выберите удобное для вас время</div>
-      <div class="faq-step">Зарегистрируйтесь и оплатите консультацию</div>
-      <a class="faq-btn" href="/doctors">Подбор психолога</a>
+      <div class="faq-step">Оплатите консультацию</div>
+      <a class="faq-btn" href="/bookform">Записаться на прием</a>
     </div>
   </div>
   <div class="col-7@sm col-12">
@@ -253,9 +253,9 @@ tab_cards = [
 % end
 
 <section class="container max-width-adaptive margin-y-md">
-  <h4 class="color-contrast-low margin-bottom-xs">Статьи</h4>
+  <h4 class="color-contrast-low margin-bottom-xs">О том, что действительно важно</h4>
   <h3 class="max-width-adaptive-sm margin-bottom-xs">
-    О том, что действительно важно
+    Статьи
   </h3>
     <div class="grid gap-md margin-x-auto">
       % for story in blog:
