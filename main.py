@@ -99,6 +99,22 @@ def admin_pages_meta():
     )
 
 
+@admin_route("/socials", GET_POST)
+def admin_pages_socials():
+    if request.POST:
+        with db_session:
+            update_settings("socials", dict(request.params))
+        return redirect("/admin/socials", alert=Alert("Социалки успешно сохранены!"))
+
+    with db_session:
+        data = get_settings("socials")
+
+    return admin_temp(
+        "socials",
+        socials=data
+    )
+
+
 @admin_route("/about_me", GET_POST)
 def admin_pages_meta():
     if request.method == POST:

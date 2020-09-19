@@ -1,0 +1,63 @@
+<form action="" enctype="multipart/form-data" method="post">
+
+    <div class="text-component text-center margin-bottom-sm">
+        <h1>Редактирование ссылок на Социальные сети</h1>
+    </div>
+
+
+    <fieldset class="margin-bottom-md">
+        <legend class="form-legend">Метрики</legend>
+
+        <div class="grid gap-sm">
+
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="vk">
+                    VK.com
+                </label>
+                <textarea class="form-control width-100%" id="vk" name="vk"
+                    required>{{data.get('vk', '')}}</textarea>
+            </div>
+
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="instagram">
+                    Instagram.com
+                </label>
+                <textarea class="form-control width-100%" id="instagram" name="instagram"
+                    required>{{data.get('instagram', '')}}</textarea>
+            </div>
+
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="whatsapp">
+                    Whatsapp
+                </label>
+                <textarea class="form-control width-100%" id="whatsapp" name="whatsapp"
+                    required>{{data.get('whatsapp', '')}}</textarea>
+            </div>
+
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="Viber">
+                    Viber
+                </label>
+                <textarea class="form-control width-100%" id="Viber" name="Viber"
+                    required>{{data.get('viber', '')}}</textarea>
+            </div>
+
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="telegram">
+                    Telegram
+                </label>
+                <textarea class="form-control width-100%" id="telegram" name="telegram"
+                    required>{{data.get('telegram', '')}}</textarea>
+            </div>
+
+        </div>
+
+    </fieldset>
+
+    <div class="flex flex-column flex-row@xs gap-xs">
+        <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+        <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+    </div>
+
+
+</form>
