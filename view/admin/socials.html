@@ -6,49 +6,63 @@
 
 
     <fieldset class="margin-bottom-md">
-        <legend class="form-legend">Метрики</legend>
-
         <div class="grid gap-sm">
 
-            <div class="col-6@md">
-                <label class="form-label margin-bottom-xxs" for="vk">
-                    VK.com
-                </label>
-                <textarea class="form-control width-100%" id="vk" name="vk"
-                    required>{{data.get('vk', '')}}</textarea>
+            <label for="whatsapp">Whatsapp</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-facebook-f"></i></span>
+                </div>
+                <input type="url" id="whatsapp" name="whatsapp" class="form-control" placeholder="https://wa.me/(номер)"
+                    aria-label="Whatsapp" aria-describedby="basic-addon1" value="{{socials.get('whatsapp', '')}}">
             </div>
 
-            <div class="col-6@md">
-                <label class="form-label margin-bottom-xxs" for="instagram">
-                    Instagram.com
-                </label>
-                <textarea class="form-control width-100%" id="instagram" name="instagram"
-                    required>{{data.get('instagram', '')}}</textarea>
+            <label for="viber">Viber</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-viber"></i></span>
+                </div>
+                <input type="url" id="viber" name="viber" class="form-control" placeholder="viber://add?number=(номер)"
+                    aria-label="Viber" value="{{socials.get('viber', '')}}">
             </div>
 
-            <div class="col-6@md">
-                <label class="form-label margin-bottom-xxs" for="whatsapp">
-                    Whatsapp
-                </label>
-                <textarea class="form-control width-100%" id="whatsapp" name="whatsapp"
-                    required>{{data.get('whatsapp', '')}}</textarea>
+            <label for="vk">VK</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-vk"></i></span>
+                </div>
+                <input type="url" id="vk" name="vk" class="form-control" placeholder="https://vk.com/" aria-label="VK"
+                    value="{{socials.get('vk', '')}}">
             </div>
 
-            <div class="col-6@md">
-                <label class="form-label margin-bottom-xxs" for="Viber">
-                    Viber
-                </label>
-                <textarea class="form-control width-100%" id="Viber" name="Viber"
-                    required>{{data.get('viber', '')}}</textarea>
+            <label for="instagram">Instagram</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+                </div>
+                <input type="url" id="instagram" name="instagram" class="form-control"
+                    placeholder="https://instagram.com/" aria-label="Instagram"
+                    value="{{socials.get('instagram', '')}}">
             </div>
 
-            <div class="col-6@md">
-                <label class="form-label margin-bottom-xxs" for="telegram">
-                    Telegram
-                </label>
-                <textarea class="form-control width-100%" id="telegram" name="telegram"
-                    required>{{data.get('telegram', '')}}</textarea>
+            <label for="telegram">Telegram</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-telegram"></i></span>
+                </div>
+                <input type="url" id="telegram" name="telegram" class="form-control" placeholder="https://telegram.com/"
+                    aria-label="Telegram" value="{{socials.get('telegram', '')}}">
             </div>
+
+            <label for="mail">Почта</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fab fa-mail"></i></span>
+                </div>
+                <input type="url" id="mail" name="mail" class="form-control" placeholder="mailto:имя@почта.ru"
+                    aria-label="Mail" value="{{socials.get('mail', '')}}">
+            </div>
+
 
         </div>
 

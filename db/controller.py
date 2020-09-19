@@ -128,6 +128,7 @@ if __name__ == '__main__':
 
     with db_session:
         Admin.select().show()
+        create_admin("1234", "1234")
         """
         print(create_admin("jag-k58@ya.ru", "PASSWORD"))
         print()
