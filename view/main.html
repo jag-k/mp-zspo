@@ -8,15 +8,15 @@ Blog
 
 <!--Hero-->
 <section class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md"
-         style="background: url(https://wallpapercave.com/wp/wp5705523.png); background-size: cover; background-repeat: no-repeat;">
+         style="background: url({{main_settings.get('background', '')}}); background-size: cover; background-repeat: no-repeat;">
   <div class="container max-width-adaptive-lg padding-y-xl">
     <div class="grid flex-center">
       <div class="col-10 col-5@md">
-        <div class="text-sm opacity-60% margin-bottom-xxs">#слушают и корректно спрашивают</div>
+        <div class="text-sm opacity-60% margin-bottom-xxs">{{main_settings.get('upper_header', '')}}</div>
 
         <div class="text-component margin-bottom-sm">
-          <h1>Опытные психологи онлайн</h1>
-          <p>Видео и аудио чат с психологом</p>
+          <h1>{{main_settings.get('upper_header', '')}}</h1>
+          <p>{{main_settings.get('upper_header', '')}}</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-sm">
@@ -59,9 +59,9 @@ Blog
       <div class="col-7@md">
         <div class="parallax-img js-parallax-img">
           <figure class="parallax-img__assets js-parallax-img__assets z-index-1">
-            <img alt="Image Description" src="/img/png.png">
-            <img aria-hidden="true" src="/img/png.png" style="transform: translateZ(150px);">
-            <img aria-hidden="true" src="/img/png.png" style="transform: translateZ(300px);">
+            <img alt="Image Description" src="{{main_settings.get('foreground', '')}}">
+            <img aria-hidden="true" src="{{main_settings.get('foreground', '')}}" style="transform: translateZ(150px);">
+            <img aria-hidden="true" src="{{main_settings.get('foreground', '')}}" style="transform: translateZ(300px);">
           </figure>
         </div>
       </div>

@@ -14,6 +14,8 @@ def main_page():
         blog=get_json_list(Blog),
         categories=get_json_list(Category),
         faq=get_json_list(FAQ),
+        
+        main_settings = get_settings("main"),
 
         active_header=Header.MAIN,
     )
