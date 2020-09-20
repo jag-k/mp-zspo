@@ -27,6 +27,7 @@ def main_page():
         "bookform",
         template_title="title tag",
         template_description="description tag",
+        faq=get_json_list(FAQ),
 
         active_header=Header.TIME,
     )
@@ -51,6 +52,7 @@ def directions_page():
         "directions",
         template_title="title tag",
         template_description="description tag",
+        faq=get_json_list(FAQ),
 
         active_header=Header.DIRECTION,
     )

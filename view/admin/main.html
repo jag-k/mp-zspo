@@ -1,72 +1,71 @@
 <div class="container max-width-adaptive">
     <form action="" enctype="multipart/form-data" method="post">
-      <fieldset class="margin-bottom-md">
-        <legend class="form-legend">Редактирование главной страницы</legend>
-  
-        <div class="grid gap-sm">
+        <fieldset class="margin-bottom-md">
+            <legend class="form-legend">Редактирование главной страницы</legend>
 
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="upper_header">Верхний малый заголовок</label>
-            <input class="form-control width-100%" id="upper_header" name="upper_header" 
-            placeholder="#слушают и корректно спрашивают" type="text" value="{{data.get('upper_header', '')}}">
-          </div>
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="upper_header_color">Цвет малого загорловка</label>
-            <input class="form-control width-100%" id="upper_header_color" name="upper_header_color" 
-            placeholder="#000000" type="text" value="{{data.get('upper_header_color', '')}}">
-          </div>
+            <div class="grid gap-sm">
 
-          <hr>
-  
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="header">Главный заголовок</label>
-            <input class="form-control width-100%" id="header" name="header"
-                   placeholder="Опытные психологи онлайн" type="text" value="{{data.get('header', '')}}">
-          </div>
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="header_color">Цвет загорловка</label>
-            <input class="form-control width-100%" id="header_color" name="header_color" 
-            placeholder="#000000" type="text" value="{{data.get('header_color', '')}}">
-          </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="upper_header">Верхний малый заголовок</label>
+                    <input class="form-control width-100%" id="upper_header" name="upper_header"
+                        placeholder="#слушают и корректно спрашивают" type="text"
+                        value="{{data.get('upper_header', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="upper_header_color">Цвет малого загорловка</label>
+                    <input class="form-control width-100%" id="upper_header_color" name="upper_header_color"
+                        placeholder="#000000" type="text" value="{{data.get('upper_header_color', '')}}">
+                </div>
 
-          <hr>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="header">Главный заголовок</label>
+                    <input class="form-control width-100%" id="header" name="header"
+                        placeholder="Опытные психологи онлайн" type="text" value="{{data.get('header', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="header_color">Цвет загорловка</label>
+                    <input class="form-control width-100%" id="header_color" name="header_color" placeholder="#000000"
+                        type="text" value="{{data.get('header_color', '')}}">
+                </div>
 
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="subheader">Подзаголовок</label>
-            <input class="form-control width-100%" id="subheader" name="subheader"
-                   placeholder="Видео и аудио сессии с психологом" type="text" value="{{data.get('subheader', '')}}">
-          </div>
-          <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="subheader_color">Цвет подзагорловка</label>
-            <input class="form-control width-100%" id="subheader_color" name="subheader_color" 
-            placeholder="#000000" type="text" value="{{data.get('subheader_color', '')}}">
-          </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="subheader">Подзаголовок</label>
+                    <input class="form-control width-100%" id="subheader" name="subheader"
+                        placeholder="Видео и аудио сессии с психологом" type="text"
+                        value="{{data.get('subheader', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="subheader_color">Цвет подзагорловка</label>
+                    <input class="form-control width-100%" id="subheader_color" name="subheader_color"
+                        placeholder="#000000" type="text" value="{{data.get('subheader_color', '')}}">
+                </div>
 
-          <hr>
+                <div class="col-6@md">
+                    <img
+                        src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg">
+                </div>
 
-          <div class="col-6@md">
-            <img src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg">
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="background">Ссылка на картинку для заднего
+                        фона</label>
+                    <input class="form-control width-100%" id="background" name="background"
+                        placeholder="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"
+                        required type="text" value="{{data.get('background', '')}}">
+                </div>
+
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="foreground">Ссылка на картинку для переднего
+                        фона</label>
+                    <input class="form-control width-100%" id="foreground" name="foreground"
+                        placeholder="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"
+                        required type="text" value="{{data.get('foreground', '')}}">
+                </div>
+
+
+            </div>
+        </fieldset>
+        <div>
+            <button class="btn btn--primary">Сохранить изменения</button>
         </div>
-
-        <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="background">Ссылка на картинку для заднего фона</label>
-            <input class="form-control width-100%" id="background" name="background"
-                   placeholder="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg" 
-                   required type="text" value="{{data.get('background', '')}}">
-        </div>
-
-        <div class="col-6@md">
-            <label class="form-label margin-bottom-xxs" for="foreground">Ссылка на картинку для переднего фона</label>
-            <input class="form-control width-100%" id="foreground" name="foreground"
-                   placeholder="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg" 
-                   required type="text" value="{{data.get('foreground', '')}}">
-        </div>
-  
-        
-        </div>
-      </fieldset>
-      <div>
-        <button class="btn btn--primary">Сохранить изменения</button>
-      </div>
     </form>
-  </div>
+</div>
