@@ -85,6 +85,20 @@ def admin():
     )
 
 
+@admin_route("/main_page", GET_POST)
+def admin_pages_meta():
+    if request.method == POST:
+        update_settings("main", dict(request.params))
+        redirect("/admin/main_page", alert=Alert("Главная страница успешно обновлена!"))
+
+    data = get_settings("main")
+
+    return admin_temp(
+        "main",
+        data=data
+    )
+
+
 @admin_route("/meta", GET_POST)
 def admin_pages_meta():
     if request.method == POST:
