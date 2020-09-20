@@ -3,6 +3,25 @@
   --max-lines: 5;
 }
 
+.payment-block {
+  max-width: 180px;
+  border: 2px solid #ECECEE;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px 10px 10px 0;
+}
+
+.payment-block-header {
+  // font-size: 15px;
+  color: #342538;
+  margin: 0 0 10px 0;
+}
+
+.payment-block-price {
+  font-size: 15px;
+  color: #8E8E9D;
+}
+
 .carousel__control--button {
   @extend .carousel__control;
 

@@ -8,11 +8,13 @@ Blog
 
 <!--Hero-->
 <section class="feature-v12 feature-v12--top feature-v12--left@md feature-v12--offset-sm feature-v12--offset-xl@md"
-         style="background: url({{main_settings.get('background', '')}}); background-size: cover; background-repeat: no-repeat;">
+  style="background: url({{main_settings.get('background', '')}}); background-size: cover; background-repeat: no-repeat;">
   <div class="container max-width-adaptive-lg padding-y-xl">
     <div class="grid flex-center">
       <div class="col-10 col-5@md">
-        <div class="text-sm opacity-60% margin-bottom-xxs" style="color: {{main_settings.get('upper_header_color', '')}};">{{main_settings.get('upper_header', '')}}</div>
+        <div class="text-sm opacity-60% margin-bottom-xxs"
+          style="color: {{main_settings.get('upper_header_color', '')}};">{{main_settings.get('upper_header', '')}}
+        </div>
 
         <div class="text-component margin-bottom-sm">
           <h1 style="color: {{main_settings.get('header_color', '')}};">{{main_settings.get('header', '')}}</h1>
@@ -70,8 +72,7 @@ Blog
 </section>
 
 <!--Choose-->
-<section
-        class="container max-width-adaptive margin-bottom-0 big-card choose-block flex flex-column flex-row@md
+<section class="container max-width-adaptive margin-bottom-0 big-card choose-block flex flex-column flex-row@md
         zindex-1 position-relative" style="transform: translate(0, -40%);">
   <div class="col-4@lg col-12 margin-bottom-md margin-right-md@md">
     <h3 class="text-bold text-lg">{{main_settings.get('upper_feature', '')}}</h3>
@@ -81,17 +82,22 @@ Blog
   <div class="col-8@lg col-12 flex flex-column flex-row@md flex-center gap-sm">
     <div class="col">
       <div class="choose-item-img bg-contrast-lower"
-           style="background-image: url({{main_settings.get('feature_img', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
+        style="background-image: url({{main_settings.get('feature_img', '')}}); background-repeat: no-repeat; background-position: 50%;">
+      </div>
       <span class="choose-item-header">{{main_settings.get('feature_txt', '')}}</span>
     </div>
     <div class="col">
       <div class="choose-item-img bg-contrast-lower"
-           style="background-image: url({{main_settings.get('feature_img2', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
-      <span class="choose-item-header"><p>{{main_settings.get('feature_txt2', '')}}</p></span>
+        style="background-image: url({{main_settings.get('feature_img2', '')}}); background-repeat: no-repeat; background-position: 50%;">
+      </div>
+      <span class="choose-item-header">
+        <p>{{main_settings.get('feature_txt2', '')}}</p>
+      </span>
     </div>
     <div class="col">
       <div class="choose-item-img bg-contrast-lower"
-           style="background-image: url({{main_settings.get('feature_img3', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
+        style="background-image: url({{main_settings.get('feature_img3', '')}}); background-repeat: no-repeat; background-position: 50%;">
+      </div>
       <span class="choose-item-header">{{main_settings.get('feature_txt3', '')}}</span>
     </div>
   </div>
@@ -143,7 +149,7 @@ tab_cards = [
       % for cards_index in range(len(tab_cards)):
       <section class="padding-top-md js-tabs__panel" id="tab1Panel{{cards_index}}">
         <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
-             data-navigation-class="carousel__navigation order-2">
+          data-navigation-class="carousel__navigation order-2">
           <div class="carousel__wrapper order-1 overflow-hidden">
             <ol class="carousel__list">
               % for card in tab_cards[cards_index]:
@@ -172,7 +178,7 @@ tab_cards = [
                   <svg class="icon" viewBox="0 0 20 20">
                     <title>Пред.</title>
                     <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
-                              stroke-width="2"/>
+                      stroke-width="2" />
                   </svg>
                 </button>
               </li>
@@ -182,7 +188,7 @@ tab_cards = [
                   <svg class="icon" viewBox="0 0 20 20">
                     <title>След.</title>
                     <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
-                              stroke-width="2"/>
+                      stroke-width="2" />
                   </svg>
                 </button>
               </li>
@@ -192,9 +198,9 @@ tab_cards = [
                   <span>Смотреть все</span>
                   <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="16" cy="16" r="15.5"/>
-                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
-                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
+                      <circle cx="16" cy="16" r="15.5" />
+                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12" />
+                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18" />
                     </g>
                   </svg>
                 </a>
@@ -226,7 +232,26 @@ tab_cards = [
     <div class="margin-bottom-lg">
       <h1 class="text-center">Частые вопросы</h1>
     </div>
+
     <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+
+      <div class="dir-items">
+
+        <div class="payment-block">
+          <div class="payment-block-header">Первичная консультация</div>
+          <div class="payment-block-price">500 ₽ / 20 минут</div>
+        </div>
+        <div class="payment-block">
+          <div class="payment-block-header">Личная консультация</div>
+          <div class="payment-block-price">2 400 ₽ / 60 минут</div>
+        </div>
+        <div class="payment-block">
+          <div class="payment-block-header">Семейная консультация</div>
+          <div class="payment-block-price">2 900 ₽ / 60 минут</div>
+        </div>
+
+      </div>
+
       % for f in faq:
       <li class="accordion__item  js-accordion__item">
         <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
@@ -234,8 +259,8 @@ tab_cards = [
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12"/>
-              <path d="M14 2L2 14"/>
+              <path d="M2 2l12 12" />
+              <path d="M14 2L2 14" />
             </g>
           </svg>
         </button>
@@ -258,32 +283,32 @@ tab_cards = [
   <h3 class="max-width-adaptive-sm margin-bottom-xs">
     Статьи
   </h3>
-    <div class="grid gap-md margin-x-auto">
-      % for story in blog:
-      % category = story['category']
-      % print(story, category)
-      <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
-           data-filter="category-{{category['id']}}">
-        <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
-          <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
-            <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
-          </a>
-        </div>
-
-        <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
-          <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
-            <h4 class="stories__headline font-bold underline-animate">
-              {{story['title']}}
-            </h4>
-            <p class="line-clamp">
-              {{story['description']}}
-            </p>
-          </a>
-          <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
-             href="/blog#{{ category['id'] }}">{{ category['name'] }}</a>
-        </div>
+  <div class="grid gap-md margin-x-auto">
+    % for story in blog:
+    % category = story['category']
+    % print(story, category)
+    <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
+      data-filter="category-{{category['id']}}">
+      <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
+        <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
+          <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
+        </a>
       </div>
-      % end
+
+      <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
+        <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
+          <h4 class="stories__headline font-bold underline-animate">
+            {{story['title']}}
+          </h4>
+          <p class="line-clamp">
+            {{story['description']}}
+          </p>
+        </a>
+        <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
+          href="/blog#{{ category['id'] }}">{{ category['name'] }}</a>
+      </div>
     </div>
+    % end
+  </div>
 </section>
 % end

@@ -16,7 +16,26 @@
     <div class="margin-bottom-lg">
       <h1 class="text-center">Частые вопросы</h1>
     </div>
+
     <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+
+      <div class="dir-items">
+
+        <div class="payment-block">
+          <div class="payment-block-header">Первичная консультация</div>
+          <div class="payment-block-price">500 ₽ / 20 минут</div>
+        </div>
+        <div class="payment-block">
+          <div class="payment-block-header">Личная консультация</div>
+          <div class="payment-block-price">2 400 ₽ / 60 минут</div>
+        </div>
+        <div class="payment-block">
+          <div class="payment-block-header">Семейная консультация</div>
+          <div class="payment-block-price">2 900 ₽ / 60 минут</div>
+        </div>
+
+      </div>
+
       % for f in faq:
       <li class="accordion__item  js-accordion__item">
         <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
@@ -24,8 +43,8 @@
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12"/>
-              <path d="M14 2L2 14"/>
+              <path d="M2 2l12 12" />
+              <path d="M14 2L2 14" />
             </g>
           </svg>
         </button>
