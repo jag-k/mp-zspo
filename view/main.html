@@ -74,25 +74,25 @@ Blog
         class="container max-width-adaptive margin-bottom-0 big-card choose-block flex flex-column flex-row@md
         zindex-1 position-relative" style="transform: translate(0, -40%);">
   <div class="col-4@lg col-12 margin-bottom-md margin-right-md@md">
-    <h3 class="text-bold text-lg">Запишитесь на прием<br> уже сегодня</h3>
-    <h4 class="choose-subheader">Выберите удобное время <br> на странице онлайн-записи</h4>
+    <h3 class="text-bold text-lg">{{main_settings.get('upper_feature', '')}}</h3>
+    <h4 class="choose-subheader">{{main_settings.get('lower_feature', '')}}</h4>
     <a class="choose-btn width-100%" href="/bookform">Записаться на прием</a>
   </div>
   <div class="col-8@lg col-12 flex flex-column flex-row@md flex-center gap-sm">
     <div class="col">
-      <div class="choose-item-img bg-contrast-low"
-           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
-      <span class="choose-item-header">Общение и оплата<br>на сайте</span>
+      <div class="choose-item-img bg-contrast-lower"
+           style="background-image: url({{main_settings.get('feature_img', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header">{{main_settings.get('feature_txt', '')}}</span>
     </div>
     <div class="col">
-      <div class="choose-item-img bg-contrast-low"
-           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
-      <span class="choose-item-header">Из любой<br>точки мира</span>
+      <div class="choose-item-img bg-contrast-lower"
+           style="background-image: url({{main_settings.get('feature_img2', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header"><p>{{main_settings.get('feature_txt2', '')}}</p></span>
     </div>
     <div class="col">
-      <div class="choose-item-img bg-contrast-low"
-           style="background-image: url(/img/site.svg); background-repeat: no-repeat; background-position: 50%;"></div>
-      <span class="choose-item-header">Профессиональная<br>этика</span>
+      <div class="choose-item-img bg-contrast-lower"
+           style="background-image: url({{main_settings.get('feature_img3', '')}}); background-repeat: no-repeat; background-position: 50%;"></div>
+      <span class="choose-item-header">{{main_settings.get('feature_txt3', '')}}</span>
     </div>
   </div>
 </section>

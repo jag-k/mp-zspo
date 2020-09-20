@@ -1,7 +1,7 @@
 <div class="container max-width-adaptive">
     <form action="" enctype="multipart/form-data" method="post">
         <fieldset class="margin-bottom-md">
-            <legend class="form-legend">Редактирование главной страницы</legend>
+            <legend class="form-legend">Редактирование текстовой информации заглавия основной страницы</legend>
 
             <div class="grid gap-sm">
 
@@ -17,6 +17,8 @@
                         placeholder="#000000" type="text" value="{{data.get('upper_header_color', '')}}">
                 </div>
 
+                <div class="col-12@md"></div>
+
                 <div class="col-6@md">
                     <label class="form-label margin-bottom-xxs" for="header">Главный заголовок</label>
                     <input class="form-control width-100%" id="header" name="header"
@@ -27,6 +29,8 @@
                     <input class="form-control width-100%" id="header_color" name="header_color" placeholder="#000000"
                         type="text" value="{{data.get('header_color', '')}}">
                 </div>
+
+                <div class="col-12@md"></div>
 
                 <div class="col-6@md">
                     <label class="form-label margin-bottom-xxs" for="subheader">Подзаголовок</label>
@@ -40,12 +44,12 @@
                         placeholder="#000000" type="text" value="{{data.get('subheader_color', '')}}">
                 </div>
 
-                <div class="col-6@md">
-                    <img
-                        src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg">
-                </div>
+                <div class="col-12@md"></div>
+                <div class="col-12@md"></div>
 
-                <div class="col-6@md">
+                <legend class="form-legend">Редактирование фоновых изображений заглавия основной страницы</legend>
+
+                <div class="col-12@md">
                     <label class="form-label margin-bottom-xxs" for="background">Ссылка на картинку для заднего
                         фона</label>
                     <input class="form-control width-100%" id="background" name="background"
@@ -53,14 +57,78 @@
                         required type="text" value="{{data.get('background', '')}}">
                 </div>
 
-                <div class="col-6@md">
-                    <label class="form-label margin-bottom-xxs" for="foreground">Ссылка на картинку для переднего
+                <div class="col-12@md">
+                    <label class="form-label margin-bottom-xxs" for="foreground">Ссылка на SVG-картинку для переднего
                         фона</label>
                     <input class="form-control width-100%" id="foreground" name="foreground"
                         placeholder="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg"
                         required type="text" value="{{data.get('foreground', '')}}">
                 </div>
 
+                <div class="col-12@md"></div>
+                <div class="col-12@md"></div>
+
+                <legend class="form-legend">Редактирование добавочной информации к заглавию главной страницы</legend>
+
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="upper_feature">Основной заголовок</label>
+                    <input class="form-control width-100%" id="upper_feature" name="upper_feature"
+                        placeholder="Запишитесь на прием<br>уже сегодня" type="text"
+                        value="{{data.get('upper_feature', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="lower_feature">Дополнительный заголовок</label>
+                    <input class="form-control width-100%" id="lower_feature" name="lower_feature"
+                        placeholder="Выберите удобное время<br>на странице онлайн-записи" type="text" value="{{data.get('lower_feature', '')}}">
+                </div>
+
+                <div class="col-12@md"></div>
+                <div class="col-12@md"></div>
+
+                <legend class="form-legend">Редактирование иконок добавочной информации</legend>
+
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_img">Ссылка на SVG-картинку для первой иконки</label>
+                    <input class="form-control width-100%" id="feature_img" name="feature_img"
+                        placeholder="https://initium.care/wp-content/themes/medicenter/img/site.svg"
+                        required type="text" value="{{data.get('feature_img', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_txt">Краткое описание</label>
+                    <input class="form-control width-100%" id="feature_txt" name="feature_txt"
+                        placeholder="Общение и оплата<br>на сайте"
+                        required type="text" value="{{data.get('feature_txt', '')}}">
+                </div>
+
+                <div class="col-12@md"></div>
+
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_img2">Ссылка на SVG-картинку для второй иконки</label>
+                    <input class="form-control width-100%" id="feature_img2" name="feature_img2"
+                        placeholder="https://initium.care/wp-content/themes/medicenter/img/site.svg"
+                        required type="text" value="{{data.get('feature_img2', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_txt2">Краткое описание</label>
+                    <input class="form-control width-100%" id="feature_txt2" name="feature_txt2"
+                        placeholder="Общение и оплата<br>на сайте"
+                        required type="text" value="{{data.get('feature_txt2', '')}}">
+                </div>
+
+                <div class="col-12@md"></div>
+
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_img3">Ссылка на SVG-картинку для третьей иконки</label>
+                    <input class="form-control width-100%" id="feature_img3" name="feature_img3"
+                        placeholder="https://initium.care/wp-content/themes/medicenter/img/site.svg"
+                        required type="text" value="{{data.get('feature_img3', '')}}">
+                </div>
+                <div class="col-6@md">
+                    <label class="form-label margin-bottom-xxs" for="feature_txt3">Краткое описание</label>
+                    <input class="form-control width-100%" id="feature_txt3" name="feature_txt3"
+                        placeholder="Общение и оплата<br>на сайте"
+                        required type="text" value="{{data.get('feature_txt3', '')}}">
+                </div>
 
             </div>
         </fieldset>
