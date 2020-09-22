@@ -1,0 +1,27 @@
+<div class="container max-width-adaptive">
+    <form action="" enctype="multipart/form-data" method="post">
+        <fieldset class="margin-bottom-md">
+            <legend class="form-legend">Настройка виджета BookForm</legend>
+        
+            <div class="grid gap-sm">
+              <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="script">
+                  Скрипт
+                </label>
+                <textarea class="form-control width-100%" id="script" name="script"
+                          required>{{data.get('script', '')}}</textarea>
+              </div>
+              <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="div">
+                  HTML-элемент
+                </label>
+                <textarea class="form-control width-100%" id="div" name="div">{{data.get('div', '')}}</textarea>
+              </div>
+            </div>
+        
+          </fieldset>
+        <div>
+            <button class="btn btn--primary">Сохранить изменения</button>
+        </div>
+    </form>
+</div>

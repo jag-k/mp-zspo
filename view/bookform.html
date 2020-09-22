@@ -1,4 +1,4 @@
-<!-- Bookform widget --><script>(function (w,d,s,o,f,js,fjs){w['BookformObject']=o;w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);}(window,document,'script','Bookform','https://widget.bookform.ru/36540/js'));</script><!-- End Bookform widget -->
+{{!bookform.get('script', '')}}
 
 <!--Q&A-->
 % if get('faq'):
@@ -61,4 +61,4 @@
 </section>
 % end
 
-<div id="bookform-embedded-widget-36540"></div><script>Bookform('embedded',{id:36540});</script>
+{{!bookform.get('div', '')}}

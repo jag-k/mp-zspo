@@ -28,6 +28,7 @@ def main_page():
         template_title="title tag",
         template_description="description tag",
         faq=get_json_list(FAQ),
+        bookform = get_settings("bookform"),
 
         active_header=Header.TIME,
     )
@@ -90,7 +91,7 @@ def admin():
 
 
 @admin_route("/main_page", GET_POST)
-def admin_pages_meta():
+def admin_pages_main():
     if request.method == POST:
         update_settings("main", dict(request.params))
         redirect("/admin/main_page", alert=Alert("Главная страница успешно обновлена!"))
@@ -99,6 +100,20 @@ def admin_pages_meta():
 
     return admin_temp(
         "main",
+        data=data
+    )
+
+
+@admin_route("/bookform", GET_POST)
+def admin_bookform():
+    if request.method == POST:
+        update_settings("bookform", dict(request.params))
+        redirect("/admin/bookform", alert=Alert("Виджет успешно обновлен!"))
+
+    data = get_settings("bookform")
+
+    return admin_temp(
+        "bookform",
         data=data
     )
 
@@ -134,7 +149,7 @@ def admin_pages_socials():
 
 
 @admin_route("/about_me", GET_POST)
-def admin_pages_meta():
+def admin_about_me():
     if request.method == POST:
         update_settings("about", dict(request.params))
         redirect("/admin/about_me", alert=Alert('Блок "Обо мне" изменен!'))
