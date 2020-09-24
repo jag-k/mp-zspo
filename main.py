@@ -6,6 +6,7 @@ from pony.converting import str2datetime
 
 @route("/")
 def main_page():
+
     return template(
         "main",
         template_title="title tag",
@@ -15,6 +16,7 @@ def main_page():
         categories=get_json_list(Category),
         faq=get_json_list(FAQ),
         
+        about = get_settings("about"),
         main_settings = get_settings("main"),
 
         active_header=Header.MAIN,
@@ -22,7 +24,7 @@ def main_page():
 
 
 @route("/bookform")
-def main_page():
+def bookform_page():
     return template(
         "bookform",
         template_title="title tag",
@@ -45,6 +47,24 @@ def blog_page():
 
         active_header=Header.BLOG,
     )
+
+
+@route("/blog/<id:int>")
+def blog_post_page(id: int):
+
+    if exists(b for b in Blog if b.id == id):
+        b = Blog[id]
+        # category = b["category"]["id"]
+        return template(
+            "blog_post",
+            template_title="title tag",
+            template_description="description tag",
+            post=get_json(b),
+            active_header=Header.BLOG,
+            categories=get_json_list(Category)
+        )
+    else:
+        redirect("/blog", alert=Alert("Пост не найден."))
 
 
 @route("/directions")
@@ -197,7 +217,7 @@ def admin_new_news():
 
 
 @admin_route("/blog/edit/<id:int>", GET_POST)
-def admin_new_news(id: int):
+def admin_edit_news(id: int):
     n = Blog[id]
     if request.method == POST:
         params = dict(request.params)

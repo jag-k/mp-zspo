@@ -6,22 +6,35 @@
     <h1>Раздел "Обо мне"</h1>
   </div>
 
+  <div class="grid gap-sm">
+    <div class="col-6@md">
+      <label class="form-label margin-bottom-xxs" for="subheader">Верхний малый заголовок</label>
+      <input class="form-control width-100%" id="subheader" name="subheader" placeholder="Малый заголовок" type="text"
+        value="{{data.get('subheader', '')}}">
+    </div>
+    <div class="col-6@md">
+      <label class="form-label margin-bottom-xxs" for="header">Главный заголовок</label>
+      <input class="form-control width-100%" id="header" name="header" placeholder="Крупный заголовок" type="text"
+        value="{{data.get('header', '')}}">
+    </div>
+  </div>
+
   <div class="margin-bottom-sm">
     <label class="form-label margin-bottom-xxs" for="content">Текст на странице "Обо мне":</label>
     <textarea class="form-control width-100%" id="content" name="content"
-              required>{{data.get('content', '')}}</textarea>
+      required>{{data.get('content', '')}}</textarea>
   </div>
 
   <script>
-      Editor
-          .create(document.querySelector('#content'), {})
-          .then(editor => {
-              window.editor = editor;
-          })
-          .catch(error => {
-              console.error('Oops, something gone wrong!');
-              console.error(error);
-          });
+    Editor
+      .create(document.querySelector('#content'), {})
+      .then(editor => {
+        window.editor = editor;
+      })
+      .catch(error => {
+        console.error('Oops, something gone wrong!');
+        console.error(error);
+      });
   </script>
 
   <div class="flex flex-column flex-row@xs gap-xs">

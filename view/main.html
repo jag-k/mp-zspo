@@ -101,29 +101,15 @@ Blog
   </div>
 </section>
 
-
-% tabs = ["Ментальные вопросы и чувства", "Семья и отношения", "Tab 3"]
-<%
-tab_cards = [
-[
-{"link": "/about", "text": "1фывфы"},
-{"link": "/about", "text": "2фывфы"},
-{"link": "/about", "text": "3фывфы"},
-],
-[
-{"link": "/about", "text": "4фывфы"},
-{"link": "/about", "text": "5фывфы"},
-{"link": "/about", "text": "6фывфы"},
-],
-[
-{"link": "/about", "text": "7фывфы"},
-{"link": "/about", "text": "8фывфы"},
-{"link": "/about", "text": "9фывфы"},
-{"link": "/about", "text": "10фывфы"},
-{"link": "/about", "text": "11фывфы"},
-],
-]
-%>
+<!--About Me-->
+<section class="container max-width-adaptive margin-bottom-md">
+  <h4 class="color-contrast-low margin-bottom-xs">{{!about.get("header")}}</h4>
+  <h3 class="max-width-adaptive-sm margin-bottom-xs">{{!about.get("subheader")}}</h3>
+  <div class="container max-width-adaptive text-component">
+      {{!about.get("content")}}
+  </div>
+</section>
+<!------------>
 
 
 <!--Directions-->
