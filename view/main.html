@@ -13,12 +13,12 @@ Blog
     <div class="grid flex-center">
       <div class="col-10 col-5@md">
         <div class="text-sm opacity-60% margin-bottom-xxs"
-          style="color: {{main_settings.get('upper_header_color', '')}};">{{!main_settings.get('upper_header', '')}}
+          style="color: {{main_settings.get('upper_header_color', '')}}">{{!main_settings.get('upper_header', '')}}
         </div>
 
         <div class="text-component margin-bottom-sm">
-          <h1 style="color: {{main_settings.get('header_color', '')}};">{{!main_settings.get('header', '')}}</h1>
-          <p style="color: {{main_settings.get('subheader_color', '')}};">{{!main_settings.get('subheader', '')}}</p>
+          <h1 style="color: {{main_settings.get('header_color', '')}}">{{!main_settings.get('header', '')}}</h1>
+          <p style="color: {{main_settings.get('subheader_color', '')}}">{{!main_settings.get('subheader', '')}}</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-sm">
@@ -78,7 +78,7 @@ Blog
 
       <div class="col-7@md">
         <div class="parallax-img js-parallax-img">
-          <figure class="parallax-img__assets js-parallax-img__assets z-index-1">
+          <figure class="parallax-img__assets js-parallax-img__assets z-index-1" style="overflow: inherit;">
             <img alt="Image Description" src="{{main_settings.get('foreground', '')}}">
             <img aria-hidden="true" src="{{main_settings.get('foreground', '')}}" style="transform: translateZ(150px);">
             <img aria-hidden="true" src="{{main_settings.get('foreground', '')}}" style="transform: translateZ(300px);">
