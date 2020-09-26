@@ -16,6 +16,7 @@ import bottle
 from bottle import response, request
 from enum import Enum
 from htmlmin.decorator import htmlmin
+from re import compile
 
 try:
     from ujson import load, dump, loads, dumps
@@ -39,6 +40,8 @@ images = [
     } for p, d, f in os.walk(images_path)
     for i in filter(lambda x: x != '__init__.py', f)]
 
+# language=PythonRegExp
+PHONE_RE = compile(r'^(?:\+7|7|8)?[\s\-]?\(?([489][0-9]{2})\)?[\s\-]?([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})$')
 
 class Alert:
     PRIMARY = "primary"
@@ -82,10 +85,11 @@ class Header(Enum):
         "link": "/bookform"
     }
 
-    DIRECTION = {
-        "name": "Направления работы",
-        "link": "/directions"
-    }
+    # FIXME
+    # DIRECTION = {
+    #     "name": "Направления работы",
+    #     "link": "/directions"
+    # }
 
     BLOG = {
         "name": "Блог",

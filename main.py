@@ -75,7 +75,7 @@ def directions_page():
         template_description="description tag",
         faq=get_json_list(FAQ),
 
-        active_header=Header.DIRECTION,
+        # active_header=Header.DIRECTION,  # FIXME
     )
 
 
@@ -156,15 +156,18 @@ def admin_pages_meta():
 def admin_pages_socials():
     if request.POST:
         with db_session:
-            update_settings("socials", dict(request.params))
+            par = dict(request.params)
+            for (key, value) in par.items():
+                if PHONE_RE.match(value):
+                    par[key] = '7' + ''.join(PHONE_RE.match(value).groups())
+            update_settings("socials", par)
         return redirect("/admin/socials", alert=Alert("Социалки успешно сохранены!"))
 
-    with db_session:
-        data = get_settings("socials")
+    data = get_settings("socials")
 
     return admin_temp(
         "socials",
-        socials=data
+        data=data
     )
 
 

@@ -1,12 +1,12 @@
 <script src="/js/editor.js"></script>
 
-<form action="" enctype="multipart/form-data" method="post">
+<form action="" enctype="multipart/form-data" method="post" class="">
 
   <div class="text-component text-center margin-bottom-sm">
     <h1>Раздел "Обо мне"</h1>
   </div>
 
-  <div class="grid gap-sm">
+  <div class="grid gap-sm margin-bottom-sm">
     <div class="col-6@md">
       <label class="form-label margin-bottom-xxs" for="subheader">Верхний малый заголовок</label>
       <input class="form-control width-100%" id="subheader" name="subheader" placeholder="Малый заголовок" type="text"
@@ -17,13 +17,14 @@
       <input class="form-control width-100%" id="header" name="header" placeholder="Крупный заголовок" type="text"
         value="{{data.get('header', '')}}">
     </div>
-  </div>
 
-  <div class="margin-bottom-sm">
+  <div class="col-12">
     <label class="form-label margin-bottom-xxs" for="content">Текст на странице "Обо мне":</label>
     <textarea class="form-control width-100%" id="content" name="content"
       required>{{data.get('content', '')}}</textarea>
   </div>
+  
+</div>
 
   <script>
     Editor

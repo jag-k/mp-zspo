@@ -23,35 +23,53 @@ Blog
 
         <div class="flex flex-wrap items-center gap-sm">
           <ul class="socials__btns flex flex-center gap-sm flex-wrap">
-            <li>
-              <a href="#0">
-                {{!brands('twitter')}}
-              </a>
-            </li>
+            
+        % soc = settings.get('socials', {})
+          
+        % if soc.get('vk'):
+        <li>
 
-            <li>
-              <a href="#0">
-                {{!brands('facebook-f')}}
-              </a>
-            </li>
+        <a href="{{soc.get('vk')}}">
+          {{!brands('vk')}}
+        </a>
+        </li>
+        % end
+          
+        % if soc.get('viber'):
+        <li>
 
-            <li>
-              <a href="#0">
-                {{!brands('youtube')}}
-              </a>
-            </li>
+        <a href="viber://chat?number=+{{soc.get('viber')}}">
+          {{!brands('viber')}}
+        </a>
+        </li>
+        % end
+          
+        % if soc.get('whatsapp'):
+        <li>
 
-            <li>
-              <a href="#0">
-                {{!brands('slack')}}
-              </a>
-            </li>
+        <a href="https://wa.me/{{soc.get('whatsapp')}}">
+          {{!brands('whatsapp')}}
+        </a>
+        </li>
+        % end
+        
+        % if soc.get('mail'):
+        <li>
 
-            <li>
-              <a href="#0">
-                {{!brands('instagram')}}
-              </a>
-            </li>
+        <a href="mailto:{{soc.get('mail')}}">
+          {{!regular('envelope')}}
+        </a>
+        </li>
+        % end
+        
+        % if soc.get('tel'):
+        <li>
+
+        <a href="tel:+{{soc.get('tel')}}">
+          {{!solid('phone-alt')}}
+        </a>
+        </li>
+        % end
           </ul>
 
 

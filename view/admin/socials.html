@@ -4,67 +4,48 @@
         <h1>Редактирование ссылок на Социальные сети</h1>
     </div>
 
-
     <fieldset class="margin-bottom-md">
         <div class="grid gap-sm">
-
-            <label for="whatsapp">Whatsapp</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-facebook-f"></i></span>
+            
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="vk">ВКонтакте</label>
+                <div class="input-group">
+                    <div class="input-group__tag">{{!brands('vk')}}</div>
+                    <input class="form-control flex-grow" type="url" placeholder="https://vk.com/id1" name="vk" id="vk" value="{{data.get('vk', '')}}">
                 </div>
-                <input type="url" id="whatsapp" name="whatsapp" class="form-control" placeholder="https://wa.me/(номер)"
-                    aria-label="Whatsapp" aria-describedby="basic-addon1" value="{{socials.get('whatsapp', '')}}">
             </div>
-
-            <label for="viber">Viber</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-viber"></i></span>
+            
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="viber">Viber</label>
+                <div class="input-group">
+                    <div class="input-group__tag">{{!brands('viber')}}</div>
+                    <input class="form-control flex-grow" type="tel" placeholder="+7 (999) 880-55-35" name="viber" id="viber" value="{{data.get('viber', '')}}">
                 </div>
-                <input type="url" id="viber" name="viber" class="form-control" placeholder="viber://add?number=(номер)"
-                    aria-label="Viber" value="{{socials.get('viber', '')}}">
             </div>
-
-            <label for="vk">VK</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-vk"></i></span>
+            
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="whatsapp">WhatsApp</label>
+                <div class="input-group">
+                    <div class="input-group__tag">{{!brands('whatsapp')}}</div>
+                    <input class="form-control flex-grow" type="tel" placeholder="+7 (999) 880-55-35" name="whatsapp" id="whatsapp" value="{{data.get('whatsapp', '')}}">
                 </div>
-                <input type="url" id="vk" name="vk" class="form-control" placeholder="https://vk.com/" aria-label="VK"
-                    value="{{socials.get('vk', '')}}">
             </div>
-
-            <label for="instagram">Instagram</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-instagram"></i></span>
+            
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="mail">Почта</label>
+                <div class="input-group">
+                    <div class="input-group__tag">{{!regular('envelope')}}</div>
+                    <input class="form-control flex-grow" type="email" placeholder="me@gmail.com" name="mail" id="mail" value="{{data.get('mail', '')}}">
                 </div>
-                <input type="url" id="instagram" name="instagram" class="form-control"
-                    placeholder="https://instagram.com/" aria-label="Instagram"
-                    value="{{socials.get('instagram', '')}}">
             </div>
-
-            <label for="telegram">Telegram</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-telegram"></i></span>
+            
+            <div class="col-6@md">
+                <label class="form-label margin-bottom-xxs" for="tel">Телефон</label>
+                <div class="input-group">
+                    <div class="input-group__tag">{{!solid('phone-alt')}}</div>
+                    <input class="form-control flex-grow" type="tel" placeholder="+7 (999) 880-55-35" name="tel" id="tel" value="{{data.get('tel', '')}}">
                 </div>
-                <input type="url" id="telegram" name="telegram" class="form-control" placeholder="https://telegram.com/"
-                    aria-label="Telegram" value="{{socials.get('telegram', '')}}">
             </div>
-
-            <label for="mail">Почта</label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fab fa-mail"></i></span>
-                </div>
-                <input type="url" id="mail" name="mail" class="form-control" placeholder="mailto:имя@почта.ru"
-                    aria-label="Mail" value="{{socials.get('mail', '')}}">
-            </div>
-
-
-        </div>
 
     </fieldset>
 
