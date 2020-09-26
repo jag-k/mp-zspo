@@ -121,8 +121,8 @@ Blog
 
 <!--About Me-->
 <section class="container max-width-adaptive margin-bottom-md">
-  <h4 class="color-contrast-low margin-bottom-xs">{{!about.get("header")}}</h4>
-  <h3 class="max-width-adaptive-sm margin-bottom-xs">{{!about.get("subheader")}}</h3>
+  <h4 class="color-contrast-low margin-bottom-xs">{{!about.get("subheader", "")}}</h4>
+  <h3 class="max-width-adaptive-sm margin-bottom-xs">{{!about.get("header", "Обо мне")}}</h3>
   <div class="container max-width-adaptive text-component">
       {{!about.get("content")}}
   </div>
