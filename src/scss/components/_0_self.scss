@@ -36,7 +36,7 @@
 
 .big-card {
   background: var(--color-bg);
-  border-radius: 32px;
+  border-radius: var(--radius-lg);
   box-shadow: 0 8px 30px var(--shadow);
   padding: 64px 80px;
 }
@@ -49,102 +49,12 @@
   overflow: hidden;
 }
 
-.truncate-overflow {
-  position: relative;
-  max-height: calc(var(--text-base-size) * var(--max-lines));
-  overflow: hidden;
-  padding-right: 1rem; /* space for ellipsis */
-}
-
-.truncate-overflow::before {
-  position: absolute;
-  content: "...";
-  inset-block-end: 0; /* "bottom" */
-  inset-inline-end: 0; /* "right" */
-}
-
-.truncate-overflow::after {
-  content: "";
-  position: absolute;
-  inset-inline-end: 0; /* "right" */
-  width: 1rem;
-  height: 1rem;
-  background: white;
-}
-
-
 .dir-item {
   background: #fff;
   border-radius: 24px;
   box-shadow: 0 8px 8px #0000001a;
   padding: 64px 80px;
   margin: 0 0 30px 0;
-}
-
-.dir-top {
-  display: flex;
-  margin: 0 0 20px 0;
-}
-
-.dir-num {
-  height: 30px;
-  font-size: 17px;
-  color: #fff;
-  font-weight: 700;
-  text-align: center;
-  line-height: 30px;
-  background: #342538;
-  border-radius: 50%;
-  flex: 0 0 30px;
-  margin: 0 20px 0 0;
-}
-
-.dir-header {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 30px;
-}
-
-.dir-top {
-  margin: 0 0 0 auto;
-}
-
-.dir-mid {
-  display: flex;
-}
-
-.dir-icon {
-  height: 100px;
-  background: #F8F8F8;
-  border-radius: 10px;
-  display: flex;
-  flex: 0 0 100px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 20px 0 0;
-}
-
-.dir-items {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 30px 0 0 0;
-}
-
-.dir-item-item {
-  width: 200px;
-  font-size: 16px;
-  font-weight: 600;
-  border: 2px solid #5AA343;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 0 20px 20px 0;
-}
-
-.dir-item-arrow {
-  width: 14px;
-  height: 12px;
-  background: url(https://initium.care/wp-content/themes/medicenter/img/arrow-right-green.svg) no-repeat;
-  margin: 10px 0 20px 0;
 }
 
 

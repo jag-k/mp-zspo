@@ -59,7 +59,10 @@
 
   <script>
     Editor
-      .create(document.querySelector('#content'), {})
+      .create(document.querySelector('#content'), {
+        simpleUpload: {
+          uploadUrl: "/admin/ckeditor/upload_photo/blog/media"
+        },})
       .then(editor => {
         window.editor = editor;
       })
@@ -70,23 +73,7 @@
   </script>
 
   <div class="margin-bottom-sm">
-    <label class="form-label margin-bottom-xxxs" for="image">Изображение публикации</label>
-
-    <div class="file-upload">
-      <label class="file-upload__label btn btn--subtle" for="image">
-        <span class="file-upload__text">Загрузить изображение</span>
-      </label>
-      % req = ('required', '')[bool(data.get('image'))]
-      <input accept="image/svg+xml,image/jpeg,image/png,image/gif" class="file-upload__input" id="image" name="image"
-             type="file" {{req}}>
-
-      % print(data.get('image'))
-      % if data.get('image'):
-      <img alt="Предпросмотр новости" class="margin-y-md radius-md"
-           src="{{data.get('image', '')}}">
-      % end
-
-    </div>
+    {{!image_form('Изображение публикации', 'image', (not data.get('image')), data.get('image'))}}
   </div>
 
   <div class="margin-bottom-sm">

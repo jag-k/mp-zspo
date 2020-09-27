@@ -157,6 +157,8 @@ def template(source, template_title="", extension=".html", including_page=None,
         if 'alert' in d:
             alert = loads(d['alert'])
         kwargs.update(d)
+    
+    headers = get_settings("headers")
 
     return bottle.template(
         join("view", source + extension) if self_stationary_page else index,
@@ -180,6 +182,11 @@ def template(source, template_title="", extension=".html", including_page=None,
 
         header=Header,
         active_header=active_header,
+
+        image_form=image_form,
+
+        favicon=headers.get('favicon', ''),
+        logo=headers.get('logo', ''),
 
         including_page=None if self_stationary_page
         else (including_page or join("view", source + extension)),
@@ -313,6 +320,33 @@ def icon(icon_name, classes='', icon_type="solid"):
     return '<svg class="icon {}"><use xlink:href="/sprites/fa-{}.svg#{}"></use></svg>'.format(
         classes, icon_type, icon_name
     )
+
+
+@htmlmin()
+def image_form(name, block_id, required, src=None, placeholder="Загрузить изображение", mime_type="image/svg+xml,image/jpeg,image/png,image/gif"):
+    # type: (str, str, bool, str, str) -> str
+    # language=HTML
+    pattern = """<label class="form-label margin-bottom-xxxs" for="{id}">{name}</label>
+    <div class="file-upload">
+      <label class="file-upload__label btn btn--subtle" for="{id}">
+        <span class="file-upload__text">{placeholder}</span>
+      </label>
+      <input accept="{mime}" class="file-upload__input" id="{id}" name="{id}"
+             type="file"{req}>{img}
+    </div>"""
+    img = '<img alt="Предпросмотр" class="margin-y-md radius-md shadow-lg" src="{src}">'
+    img = img.format(src=src) if src else ""
+    req = ' required' if required and not src else ""
+
+    return pattern.format(
+        id=block_id,
+        name=name,
+        placeholder=placeholder,
+        req=req,
+        img=img,
+        mime=mime_type,
+    )
+    
 
 
 brands = partial(icon, icon_type="brands")

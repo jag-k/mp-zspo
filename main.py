@@ -6,11 +6,12 @@ from pony.converting import str2datetime
 
 @route("/")
 def main_page():
+    headers = get_settings("headers")
 
     return template(
         "main",
-        template_title="title tag",
-        template_description="description tag",
+        template_title=headers.get('main', "Домашний психолог Вера Сафина"),
+        template_description=headers.get('description_main', ""),
 
         blog=get_json_list(Blog),
         categories=get_json_list(Category),
@@ -25,10 +26,12 @@ def main_page():
 
 @route("/bookform")
 def bookform_page():
+    headers = get_settings("headers")
+
     return template(
         "bookform",
-        template_title="title tag",
-        template_description="description tag",
+        template_title=headers.get('bookform', "Назначить время"),
+        template_description=headers.get('description_bookform', ""),
         faq=get_json_list(FAQ),
         bookform = get_settings("bookform"),
 
@@ -38,10 +41,12 @@ def bookform_page():
 
 @route("/blog")
 def blog_page():
+    headers = get_settings("headers")
+
     return template(
         "blog",
-        template_title="title tag",
-        template_description="description tag",
+        template_title=headers.get('blog', "Блог"),
+        template_description=headers.get('description_blog', ""),
         categories=get_json_list(Category),
         blog=get_json_list(Blog),
 
@@ -57,26 +62,14 @@ def blog_post_page(id: int):
         # category = b["category"]["id"]
         return template(
             "blog_post",
-            template_title="title tag",
-            template_description="description tag",
+            template_title=b.title + " | Блог",
+            template_description=b.description,
             post=get_json(b),
             active_header=Header.BLOG,
             categories=get_json_list(Category)
         )
     else:
         redirect("/blog", alert=Alert("Пост не найден."))
-
-
-@route("/directions")
-def directions_page():
-    return template(
-        "directions",
-        template_title="title tag",
-        template_description="description tag",
-        faq=get_json_list(FAQ),
-
-        # active_header=Header.DIRECTION,  # FIXME
-    )
 
 
 @route(ADMIN_LOGIN_ROUTE, method=GET_POST)
@@ -113,13 +106,44 @@ def admin():
 @admin_route("/main_page", GET_POST)
 def admin_pages_main():
     if request.method == POST:
-        update_settings("main", dict(request.params))
+        par = dict(request.params)
+        for filename in request.files:
+            par[filename] = save_img(filename, "main_page", filename)
+        
+        for key, value in list(par.items()):
+            if isinstance(value, bytes):
+                del par[key]
+                
+        update_settings("main", par)
         redirect("/admin/main_page", alert=Alert("Главная страница успешно обновлена!"))
 
     data = get_settings("main")
 
     return admin_temp(
         "main",
+        data=data
+    )
+
+
+@admin_route("/headers", GET_POST)
+def admin_pages_main():
+    if request.method == POST:
+        par = dict(request.params)
+        for filename in request.files:
+            par[filename] = save_img(filename, "", filename)
+        
+        for key, value in list(par.items()):
+            if isinstance(value, bytes):
+                del par[key]
+        
+        print("=============", par)
+        update_settings("headers", par)
+        redirect("/admin/headers", alert=Alert("Заголовки и изображения успешно обновлены!"))
+
+    data = get_settings("headers")
+
+    return admin_temp(
+        "headers",
         data=data
     )
 

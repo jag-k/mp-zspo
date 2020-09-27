@@ -1,0 +1,59 @@
+% max_character = 150
+
+<form action="" enctype="multipart/form-data" method="post">
+  <div class="text-component text-center margin-bottom-sm">
+    <h1>Редактирование заголовков страниц и изображений</h1>
+  </div>
+  <fieldset class="margin-bottom-md">
+    <legend class="form-legend">Заголовки</legend>
+
+    <div class="grid gap-sm">
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="main">Главная страница</label>
+        <input class="form-control width-100%" id="main" name="main" placeholder="Домашний психолог Вера Сафина" type="text" value="{{data.get('main', '')}}">
+      </div>
+
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="description_main">Описание</label>
+        <input class="form-control width-100%" id="description_main" name="description_main" placeholder="Домашний психолог Вера Сафина" type="text" value="{{data.get('description_main', '')}}">
+      </div>
+
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="bookform">Bookform</label>
+        <input class="form-control width-100%" id="bookform" name="bookform" placeholder="Назначить время" type="text" value="{{data.get('bookform', '')}}">
+      </div>
+
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="bookdescription_form">Описание</label>
+        <input class="form-control width-100%" id="bookdescription_form" name="bookdescription_form" placeholder="Назначить время" type="text" value="{{data.get('bookdescription_form', '')}}">
+      </div>
+
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="blog">Блог</label>
+        <input class="form-control width-100%" id="blog" name="blog" placeholder="Мой Блог" type="text" value="{{data.get('blog', '')}}">
+      </div>
+
+      <div class="col-6@md">
+        <label class="form-label margin-bottom-xxs" for="description_blog">Описание</label>
+        <input class="form-control width-100%" id="description_blog" name="description_blog" placeholder="Мой Блог" type="text" value="{{data.get('description_blog', '')}}">
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="margin-bottom-md">
+    <legend class="form-legend">Изображения</legend>
+
+    <div class="grid gap-sm">
+      <div class="col-6@md">
+        {{!image_form('Favicon', 'favicon', True, data.get('favicon'), mime_type="image/svg+xml,image/x-icon")}}
+      </div>
+      <div class="col-6@md">
+        {{!image_form('Логотип', 'logo', True, data.get('logo'), mime_type="image/svg+xml")}}
+      </div>
+  </fieldset>
+
+  <div class="flex flex-column flex-row@xs gap-xs">
+    <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+    <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+  </div>
+</form>

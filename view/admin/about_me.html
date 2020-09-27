@@ -28,7 +28,11 @@
 
   <script>
     Editor
-      .create(document.querySelector('#content'), {})
+      .create(document.querySelector('#content'), {
+        simpleUpload: {
+          uploadUrl: "/admin/ckeditor/upload_photo/about_me/"
+        },
+      })
       .then(editor => {
         window.editor = editor;
       })
