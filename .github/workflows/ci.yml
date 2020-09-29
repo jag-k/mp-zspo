@@ -24,12 +24,19 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      
+      - name: Installing node_modules
+        run: |
+          npm i
 
       # Runs a single command using the runners shell
       - name: Build and Remove src
         run: | 
-          npm i
+          echo "Building..."
+          echo "=================="
           npm run build
+          echo "=================="
+          echo "Building done!"
           rm -r ./src ./node_modules ./.github .gitignore 
           echo "Dir like:"
           echo "=================="
