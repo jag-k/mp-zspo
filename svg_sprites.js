@@ -2,7 +2,7 @@ var through = require('through2');
 var fs = require('fs');
 var {JSDOM} = require("jsdom");
 
-var reg = /\{\{!icon[s]?\('([-a-z]+)'/g
+var reg = /\{\{ icon[s]?\(['"]([-a-z]+)["']/g
 var headline = '<?xml version="1.0" encoding="UTF-8"?>';
 
 module.exports.build = (svgPath, svgOut, icons) => () => {
