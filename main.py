@@ -81,6 +81,7 @@ def login():
 def admin():
     return admin_temp(
         "create_user",
+        awdad='awd',
         description="None",
     )
 

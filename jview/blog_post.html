@@ -1,0 +1,23 @@
+{% extends 'layout/index.html' %}
+
+{% block content %}
+<section class="container max-width-adaptive margin-y-md">
+  <h3 class="color-contrast-low">
+    #{{ post.get("category")["name"] }}
+  </h3>
+  <h1>
+    {{ post.get("title") }}
+  </h1>
+  <h5 class="color-contrast-low margin-bottom-xs">
+    {{ post.get("date").strftime("%d.%m.%Y") }}
+  </h5>
+
+  <figure class="container max-width-lg margin-bottom-lg">
+    <img src="{{ post.get('image') }}" alt="Изображение поста '{{ post.title }}'">
+  </figure>
+
+  <div class="container max-width-adaptive text-component">
+    {{ post.get("content") }}
+  </div>
+</section>
+{% endblock %}
