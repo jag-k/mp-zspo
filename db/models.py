@@ -23,47 +23,40 @@ class Settings(db.Entity):
     value = Required(Json)
 
 
-class Blog(db.Entity):
+class Post(db.Entity):
     id = PrimaryKey(int, auto=True)
     title = Required(str)
-    description = Required(str)
+    link = Optional(str)
+    description = Optional(str)
     category = Optional("Category")
     date = Required(date)
     draft = Optional(bool, default=True)
     content = Required(str)
+
+
+class News(Post):
     image = Optional(str)
-    custom_link = Optional(str)
 
 
 class Category(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str)
-    # link = Required(str)
-    posts = Set(Blog, cascade_delete=True)
-
-
-class Feature(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    title = Required(str)
-    description = Required(str)
-    icon = Optional(str)
-    sub_features = Set("SubFeature", cascade_delete=True)
-
-
-class SubFeature(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    feature = Required(Feature)
-    title = Required(str)
-    date = Required(date)
-    content = Required(str)
-    image = Optional(str)
     link = Optional(str)
+    block = Optional("Block")
+    posts = Set(Post, cascade_delete=True)
 
 
-class FAQ(db.Entity):
+class Block(db.Entity):
     id = PrimaryKey(int, auto=True)
-    question = Required(str)
-    answer = Required(str)
+    name = Required(str)
+    link = Optional(str)
+    categories = Set(Category, cascade_delete=True)
+
+
+class Header(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    name = Required(str)
+    url = Optional(str)
 
 
 # ===== END MODELS =====

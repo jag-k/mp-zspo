@@ -43,6 +43,7 @@ images = [
 # language=PythonRegExp
 PHONE_RE = compile(r'^(?:\+7|7|8)?[\s\-]?\(?([489][0-9]{2})\)?[\s\-]?([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})$')
 
+
 class Alert:
     PRIMARY = "primary"
     SECONDARY = "secondary"
@@ -72,31 +73,6 @@ class Alert:
 
     def __repr__(self):
         return "<Alert(%s) %.10s>" % (self.alert_type.capitalize(), self.content)
-
-
-class Header(Enum):
-    MAIN = {
-        "name": "Главная",
-        "link": "/"
-    }
-
-    TIME = {
-        "name": "Назначить время",
-        "link": "/bookform"
-    }
-
-    # FIXME
-    # DIRECTION = {
-    #     "name": "Направления работы",
-    #     "link": "/directions"
-    # }
-
-    BLOG = {
-        "name": "Блог",
-        "link": "/blog"
-    }
-
-
 
 # ==============================================================================
 # ADMINS
@@ -147,7 +123,6 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 @htmlmin(remove_comments=True)
 def template(source, template_title="", extension=".html", including_page=None,
              alert: Alert = None, self_stationary_page=False, index=join("view", "layout", "index.html"),
-             active_header: Header = None,
              *args, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
     if alert:
@@ -157,8 +132,11 @@ def template(source, template_title="", extension=".html", including_page=None,
         if 'alert' in d:
             alert = loads(d['alert'])
         kwargs.update(d)
-    
+
     headers = get_settings("headers")
+
+    h = request.get_cookie(ADMIN_COOKIE_KEY, None, ADMIN_COOKIE_SECRET)
+    user = get_admin_by_hash(h)
 
     return bottle.template(
         join("view", source + extension) if self_stationary_page else index,
@@ -173,20 +151,19 @@ def template(source, template_title="", extension=".html", including_page=None,
         desc=desc,
         select=select,
 
-        icon=icon,
-        brands=brands,
-        solid=solid,
-        regular=regular,
+        icons=icons,
+        # brands=brands,
+        # solid=solid,
+        # regular=regular,
 
         description=get_settings("description", ""),
-
-        header=Header,
-        active_header=active_header,
 
         image_form=image_form,
 
         favicon=headers.get('favicon', ''),
         logo=headers.get('logo', ''),
+
+        admin_user=user,
 
         including_page=None if self_stationary_page
         else (including_page or join("view", source + extension)),
@@ -315,10 +292,10 @@ def get_files(path: str):
     return sorted(filter(lambda x: x != '__init__.py', next(os.walk(join(images_path, path)))[2]))
 
 
-def icon(icon_name, classes='', icon_type="solid"):
+def icons(icon_name, classes='', **kwargs):
     # language=HTML
-    return '<svg class="icon {}"><use xlink:href="/sprites/fa-{}.svg#{}"></use></svg>'.format(
-        classes, icon_type, icon_name
+    return '<svg class="icon {}" {}><use xlink:href="/sprites/icons.svg#{}"></use></svg>'.format(
+        classes, ' '.join(map(lambda k, v: k + '="' + v + '"', kwargs.items())), icon_name
     )
 
 
@@ -334,7 +311,7 @@ def image_form(name, block_id, required, src=None, placeholder="Загрузит
       <input accept="{mime}" class="file-upload__input" id="{id}" name="{id}"
              type="file"{req}>{img}
     </div>"""
-    img = '<img alt="Предпросмотр" class="margin-y-md radius-md shadow-lg" src="{src}">'
+    img = '<img alt="Пред-просмотр" class="margin-y-md radius-md shadow-lg" src="{src}">'
     img = img.format(src=src) if src else ""
     req = ' required' if required and not src else ""
 
@@ -346,12 +323,20 @@ def image_form(name, block_id, required, src=None, placeholder="Загрузит
         img=img,
         mime=mime_type,
     )
-    
 
 
-brands = partial(icon, icon_type="brands")
-solid = partial(icon, icon_type="solid")
-regular = partial(icon, icon_type="regular")
+def save_settings_from_form(settings_key: str):
+    par = dict(request.params)
+    for filename in request.files:
+        par[filename] = save_img(filename, "", filename)
+
+    for key, value in list(par.items()):
+        if isinstance(value, bytes):
+            del par[key]
+
+    # print("=============", par)
+    update_settings(settings_key, par)
+
 
 if __name__ == '__main__':
     with db_session:

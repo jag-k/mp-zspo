@@ -1,7 +1,9 @@
-from bottle import HTTPResponse, static_file, run, request
-from lib import *
-import html
+from html import unescape
+
+from bottle import HTTPResponse, static_file, run
 from pony.converting import str2datetime
+
+from lib import *
 
 
 @route("/")
@@ -10,36 +12,20 @@ def main_page():
 
     return template(
         "main",
-        template_title=headers.get('main', "Домашний психолог Вера Сафина"),
+        template_title=headers.get('main', "Молодёжный портал"),
         template_description=headers.get('description_main', ""),
 
-        blog=get_json_list(Blog),
+        posts=get_json_list(Post),
+        blocks=get_json_list(Block),
         categories=get_json_list(Category),
-        faq=get_json_list(FAQ),
-        
-        about = get_settings("about"),
-        main_settings = get_settings("main"),
+        news=get_json_list(News),
 
-        active_header=Header.MAIN,
+        about=get_settings("about"),
+        main_settings=get_settings("main"),
     )
 
 
-@route("/bookform")
-def bookform_page():
-    headers = get_settings("headers")
-
-    return template(
-        "bookform",
-        template_title=headers.get('bookform', "Назначить время"),
-        template_description=headers.get('description_bookform', ""),
-        faq=get_json_list(FAQ),
-        bookform = get_settings("bookform"),
-
-        active_header=Header.TIME,
-    )
-
-
-@route("/blog")
+@route("/news")
 def blog_page():
     headers = get_settings("headers")
 
@@ -48,15 +34,12 @@ def blog_page():
         template_title=headers.get('blog', "Блог"),
         template_description=headers.get('description_blog', ""),
         categories=get_json_list(Category),
-        blog=get_json_list(Blog),
-
-        active_header=Header.BLOG,
+        posts=get_json_list(Post),
     )
 
 
 @route("/blog/<id:int>")
 def blog_post_page(id: int):
-
     if exists(b for b in Blog if b.id == id):
         b = Blog[id]
         # category = b["category"]["id"]
@@ -65,8 +48,7 @@ def blog_post_page(id: int):
             template_title=b.title + " | Блог",
             template_description=b.description,
             post=get_json(b),
-            active_header=Header.BLOG,
-            categories=get_json_list(Category)
+            categories=get_json_list(Category),
         )
     else:
         redirect("/blog", alert=Alert("Пост не найден."))
@@ -109,11 +91,11 @@ def admin_pages_main():
         par = dict(request.params)
         for filename in request.files:
             par[filename] = save_img(filename, "main_page", filename)
-        
+
         for key, value in list(par.items()):
             if isinstance(value, bytes):
                 del par[key]
-                
+
         update_settings("main", par)
         redirect("/admin/main_page", alert=Alert("Главная страница успешно обновлена!"))
 
@@ -121,43 +103,6 @@ def admin_pages_main():
 
     return admin_temp(
         "main",
-        data=data
-    )
-
-
-@admin_route("/headers", GET_POST)
-def admin_pages_main():
-    if request.method == POST:
-        par = dict(request.params)
-        for filename in request.files:
-            par[filename] = save_img(filename, "", filename)
-        
-        for key, value in list(par.items()):
-            if isinstance(value, bytes):
-                del par[key]
-        
-        print("=============", par)
-        update_settings("headers", par)
-        redirect("/admin/headers", alert=Alert("Заголовки и изображения успешно обновлены!"))
-
-    data = get_settings("headers")
-
-    return admin_temp(
-        "headers",
-        data=data
-    )
-
-
-@admin_route("/bookform", GET_POST)
-def admin_bookform():
-    if request.method == POST:
-        update_settings("bookform", dict(request.params))
-        redirect("/admin/bookform", alert=Alert("Виджет успешно обновлен!"))
-
-    data = get_settings("bookform")
-
-    return admin_temp(
-        "bookform",
         data=data
     )
 
@@ -213,10 +158,10 @@ def admin_about_me():
 def admin_new_news():
     if request.method == POST:
         params = dict(request.params)
-        params["title"] = html.unescape(params["title"])
-        params["description"] = html.unescape(params["description"])
+        params["title"] = unescape(params["title"])
+        params["description"] = unescape(params["description"])
         params["category"] = params.get("category")
-        params["content"] = html.unescape(params["content"])
+        params["content"] = unescape(params["content"])
         params["custom_link"] = params.get("custom_link", "")
         params["date"] = str2datetime(params["date"])
         params["image"] = ""
@@ -250,10 +195,10 @@ def admin_edit_news(id: int):
         params = dict(request.params)
         print("params", params)
         n.set(
-            title=html.unescape(params["title"]),
-            description=html.unescape(params["description"]),
+            title=unescape(params["title"]),
+            description=unescape(params["description"]),
             category=params.get("category"),
-            content=html.unescape(params["content"]),
+            content=unescape(params["content"]),
             custom_link=params.get("custom_link", ""),
             date=str2datetime(params["date"]),
         )
@@ -332,43 +277,43 @@ def admin_new_news(id: int):
     )
 
 
-@admin_route("/faq", GET_POST)
+@admin_route("/headers", GET_POST)
 def admin_new_news():
     if request.POST:
-        c = FAQ(
-            question=request.params.get('question'),
-            answer=request.params.get('answer'),
+        c = Header(
+            name=request.params.get('name'),
+            url=request.params.get('url'),
         )
         print(c)
         redirect(
-            "/admin/faq",
-            alert=Alert("Вы успешно создали вопрос-ответ!")
+            "/admin/headers",
+            alert=Alert("Вы успешно создали ссылку в шапке!")
         )
 
     return admin_temp(
-        "faq",
-        data=get_json_list(FAQ),
+        "headers",
+        data=get_json_list(Header),
     )
 
 
-@admin_route("/faq/del/<id:int>")
+@admin_route("/headers/del/<id:int>")
 def admin_new_news(id: int):
-    FAQ[id].delete()
+    Header[id].delete()
     commit()
-    redirect('/admin/faq', alert=Alert("Вопрос-ответ успешно удалён!"))
+    redirect('/admin/headers', alert=Alert("Ссылка успешно удалена из шапки!"))
 
 
-@admin_route("/faq/edit/<id:int>", POST)
+@admin_route("/headers/edit/<id:int>", POST)
 def admin_new_news(id: int):
-    c = FAQ[id]
+    c = Header[id]
     c.set(
-            question=request.params.get('question'),
-            answer=request.params.get('answer'),
-        )
+        name=request.params.get('name'),
+        url=request.params.get('url'),
+    )
     print(c)
     redirect(
-        "/admin/faq",
-        alert=Alert("Вы успешно отредактировали вопрос-ответ!")
+        "/admin/headers",
+        alert=Alert("Вы успешно отредактировали ссылку!")
     )
 
 
@@ -434,4 +379,4 @@ def static(file):
 
 
 if __name__ == '__main__':
-    run(app=app, host="0.0.0.0", port=8080, quiet=False, reloader=True)
+    run(app=app, host="0.0.0.0", port=8080, quiet=False, reloader=True, debug=True)

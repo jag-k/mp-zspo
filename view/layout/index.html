@@ -8,128 +8,172 @@
   <link href="/css/style.css" id="codyframe" rel="stylesheet">
   <!-- browsers not supporting CSS variables -->
   <script>if (!('CSS' in window) || !CSS.supports('color', 'var(--color-var)')) {
-      var cfStyle = document.getElementById('codyframe');
-      if (cfStyle) {
-        var href = cfStyle.getAttribute('href');
-        href = href.replace('style.css', 'style-fallback.css');
-        cfStyle.setAttribute('href', href);
-      }
-    }</script>
+    var cfStyle = document.getElementById('codyframe');
+    if (cfStyle) {
+      var href = cfStyle.getAttribute('href');
+      href = href.replace('style.css', 'style-fallback.css');
+      cfStyle.setAttribute('href', href);
+    }
+  }</script>
   <script src="https://jonneal.dev/svg4everybody/svg4everybody.min.js"></script>
   <title>{{title}}</title>
   <meta content="{{description}}" name="description">
   <meta content="{{settings.get('meta', {}).get('keywords', '')}}" name="keywords">
 
-  <link rel="shortcut icon" href="{{favicon}}" type="image/x-icon">
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
   {{!settings.get('meta', {}).get('google', '')}}
   {{!settings.get('meta', {}).get('yandex', '')}}
 
 </head>
+<body data-theme="default">
+<header class="f-header position-relative js-f-header">
+  <div class="f-header__mobile-content container max-width-lg">
 
-<body>
-  <header class="f-header js-f-header position-relative">
-    <div class="f-header__mobile-content container max-width-lg">
-      <a class="f-header__logo" href="/">
-        % if logo:
-        <img src="{{logo}}" alt="Icon">
-        % else:
-        <svg height="30" viewBox="0 0 104 30" width="104">
-          <path
-            d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z"
-            fill="var(--color-contrast-higher)" />
-          <circle cx="15" cy="15" fill="var(--color-primary)" r="15" />
-        </svg>
-        % end
-      </a>
-
-      <button aria-label="Toggle menu" class="reset anim-menu-btn js-anim-menu-btn f-header__nav-control js-tab-focus">
-        <i aria-hidden="true" class="anim-menu-btn__icon anim-menu-btn__icon--close"></i>
-      </button>
-    </div>
-
-    <div class="f-header__nav" role="navigation">
-      <div class="f-header__nav-grid justify-between@md container max-width-lg">
-        <div class="f-header__nav-logo-wrapper flex-grow flex-basis-0">
-          <a class="f-header__logo" href="/">
-            % if logo:
-            <img src="{{logo}}" alt="Icon">
-            % else:
-            <svg height="30" viewBox="0 0 104 30" width="104">
-              <path
+    <a class="f-header__logo" href="/">
+      % if logo:
+      <img alt="Логотип" src="{{logo}}">
+      % else:
+      <svg aria-label="Логотип" height="30" viewBox="0 0 104 30" width="104">
+        <path
                 d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z"
-                fill="var(--color-contrast-higher)" />
-              <circle cx="15" cy="15" fill="var(--color-primary)" r="15" />
-            </svg>
-            % end
-          </a>
-        </div>
+                fill="var(--color-contrast-higher)"/>
+        <circle cx="15" cy="15" fill="var(--color-primary)" r="15"/>
+      </svg>
+      % end
+    </a>
 
-        <ul class="f-header__list flex-grow flex-basis-0 justify-center@md">
-          % for raw_h in header:
-          % h = raw_h.value
-          % a = ('', 'aria-current="page"')[active_header == raw_h]
-          <li class="f-header__item"><a {{!a}} class="f-header__link" href="{{h['link']}}">{{h['name']}}</a></li>
+    <button aria-label="Toggle menu" class="reset anim-menu-btn js-anim-menu-btn js-tab-focus f-header__nav-control">
+      <i aria-hidden="true" class="anim-menu-btn__icon anim-menu-btn__icon--close"></i>
+    </button>
+  </div>
+
+  <div class="f-header__nav" role="navigation">
+    <div class="f-header__nav-grid container max-width-lg">
+      <div class="f-header__nav-logo-wrapper margin-right-lg@md">
+
+        <a class="f-header__logo" href="/">
+          % if logo:
+          <img alt="Логотип" src="{{logo}}">
+          % else:
+          <svg aria-label="Логотип" height="30" viewBox="0 0 104 30" width="104">
+            <path
+                    d="M37.54 24.08V3.72h4.92v16.37h8.47v4zM60.47 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8 8 0 015.64-2.18 8.07 8.07 0 015.68 2.2 8.49 8.49 0 012 5.69 8.63 8.63 0 01-1.78 5.38 7.6 7.6 0 01-5.89 2.49zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.79 3-2.79 4.26.32 4.23 2.82 4.23zM95.49 24.37a7.82 7.82 0 01-5.73-2.25 8.36 8.36 0 01-2-5.62 8.32 8.32 0 012.08-5.71 8.4 8.4 0 0111.31 0 8.43 8.43 0 012 5.69 8.6 8.6 0 01-1.77 5.38 7.6 7.6 0 01-5.89 2.51zm0-3.67c2.42 0 2.73-3 2.73-4.23s-.31-4.26-2.73-4.26-2.8 3-2.8 4.26.31 4.23 2.83 4.23zM77.66 30c-5.74 0-7-3.25-7.23-4.52l4.6-.26c.41.91 1.17 1.41 2.76 1.41a2.45 2.45 0 002.82-2.53v-2.68a7 7 0 01-1.7 1.75 6.12 6.12 0 01-5.85-.08c-2.41-1.37-3-4.25-3-6.66 0-.89.12-3.67 1.45-5.42a5.67 5.67 0 014.64-2.4c1.2 0 3 .25 4.46 2.82V8.81h4.85v15.33a5.2 5.2 0 01-2.12 4.32A9.92 9.92 0 0177.66 30zm.15-9.66c2.53 0 2.81-2.69 2.81-3.91s-.31-4-2.81-4-2.81 2.8-2.81 4 .27 3.91 2.81 3.91zM55.56 3.72h9.81v2.41h-9.81z"
+                    fill="var(--color-contrast-higher)"/>
+            <circle cx="15" cy="15" fill="var(--color-primary)" r="15"/>
+          </svg>
           % end
-        </ul>
+        </a>
+      </div>
 
-        <ul class="f-header__list flex-grow flex-basis-0 justify-end@md">
-          <li class="f-header__item"><a class="f-header__btn btn btn--primary" href="/bookform">Записаться</a></li>
+      <ul class="f-header__list">
+        <li class="f-header__item"><a class="f-header__link" href="#0">About</a></li>
+        <li class="f-header__item"><a aria-current="page" class="f-header__link" href="#0">Resources</a></li>
+        <li class="f-header__item"><a class="f-header__link" href="#0">Pricing</a></li>
+        <li class="f-header__item"><a class="f-header__link" href="#0">Contact</a></li>
+      </ul>
+
+      <ul class="f-header__list margin-left-auto@md">
+        % if admin_user:
+        <li class="f-header__item"><a class="f-header__link" href="/admin">Админ-панель</a></li>
+        % end
+
+        <li class="f-header__item">
+          <button aria-controls="sidebar" class="f-header__btn btn btn--primary">Навигация</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<aside aria-labelledby="sidebarTitle"
+       class="sidebar position-relative js-sidebar"
+       data-static-class="sidebar--sticky-on-desktop z-index-1 bg-contrast-lower"
+       id="sidebar">
+  <div class="sidebar__panel">
+    <header class="sidebar__header z-index-2">
+      <h1 class="text-md text-truncate" id="sidebarTitle">Sidebar title</h1>
+
+      <button class="reset sidebar__close-btn js-sidebar__close-btn js-tab-focus">
+        <svg class="icon" viewBox="0 0 16 16"><title>Close panel</title>
+          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+             stroke-width="1">
+            <line x1="13.5" x2="2.5" y1="2.5" y2="13.5"></line>
+            <line x1="2.5" x2="13.5" y1="2.5" y2="13.5"></line>
+          </g>
+        </svg>
+      </button>
+    </header>
+
+    <div class="position-relative z-index-1">
+      <!-- start sidebar content -->
+      <div class="text-component padding-md">
+        <p>Sidebar Example</p>
+
+        <ul>
+          <li>List Item</li>
+          <li>List Item</li>
+          <li>List Item</li>
+          <li>List Item</li>
+          <li>List Item</li>
+          <li>List Item</li>
         </ul>
       </div>
+      <!-- end sidebar content -->
     </div>
-  </header>
+  </div>
+</aside>
 
-
+<main class="position-relative z-index-1">
   % include(including_page, *args, **kwargs)
+</main>
 
 
-  <footer class="main-footer padding-y-lg">
-    <div class="container max-width-lg">
+<footer class="main-footer padding-y-lg">
+  <div class="container max-width-lg">
 
-      <div class="main-footer__colophon border-top padding-top-xs margin-top-lg">
-        <div class="text-sm text-xs@md color-contrast-medium flex flex-wrap gap-xs">
-          <span>&copy; Домашний психолог</span>
-        </div>
+    <div class="main-footer__colophon border-top padding-top-xs margin-top-lg">
+      <div class="text-sm text-xs@md color-contrast-medium flex flex-wrap gap-xs">
+        <span>&copy; Молодёжный Портал Пензенской области</span>
+      </div>
 
-        <div class="flex items-center gap-xs">
-          % soc = settings.get('socials', {})
+      <div class="flex items-center gap-xs">
+        % soc = settings.get('socials', {})
+        % if soc.get('vk'):
+        <a aria-label="ВКонтакте" class="main-footer__social" href="{{soc.get('vk')}}">
+          {{!icons('vk')}}
+        </a>
+        % end
 
-          % if soc.get('vk'):
-          <a class="main-footer__social" href="{{soc.get('vk')}}">
-            {{!brands('vk')}}
-          </a>
-          % end
+        % if soc.get('viber'):
+        <a aria-label="Viber" class="main-footer__social" href="viber://chat?number=+{{soc.get('viber')}}">
+          {{!icons('viber')}}
+        </a>
+        % end
 
-          % if soc.get('viber'):
-          <a class="main-footer__social" href="viber://chat?number=+{{soc.get('viber')}}">
-            {{!brands('viber')}}
-          </a>
-          % end
+        % if soc.get('whatsapp'):
+        <a aria-label="WhatsApp" class="main-footer__social" href="https://wa.me/{{soc.get('whatsapp')}}">
+          {{!icons('whatsapp')}}
+        </a>
+        % end
 
-          % if soc.get('whatsapp'):
-          <a class="main-footer__social" href="https://wa.me/{{soc.get('whatsapp')}}">
-            {{!brands('whatsapp')}}
-          </a>
-          % end
+        % if soc.get('mail'):
+        <a aria-label="Электронная почта" class="main-footer__social" href="mailto:{{soc.get('mail')}}">
+          {{!icons('envelope')}}
+        </a>
+        % end
 
-          % if soc.get('mail'):
-          <a class="main-footer__social" href="mailto:{{soc.get('mail')}}">
-            {{!regular('envelope')}}
-          </a>
-          % end
-
-          % if soc.get('tel'):
-          <a class="main-footer__social" href="tel:+{{soc.get('tel')}}">
-            {{!solid('phone-alt')}}
-          </a>
-          % end
-        </div>
+        % if soc.get('tel'):
+        <a aria-label="Телефон" class="main-footer__social" href="tel:+{{soc.get('tel')}}">
+          {{!icons('phone-alt')}}
+        </a>
+        % end
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>svg4everybody()</script>
-  <script src="/js/scripts.min.js"></script>
+<script>svg4everybody()</script>
+<script src="/js/scripts.min.js"></script>
 </body>
 
 </html>

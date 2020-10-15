@@ -110,8 +110,7 @@ Usage: codyhouse.co/license
   input[type="radio"]:checked + label,
   input[type="checkbox"]:checked + label {
     /* checked state */
-    //@extend .btns__btn--selected;
-    @extend .simple_btn--selected;
+    @extend .btns__btn--selected;
   }
 }
 

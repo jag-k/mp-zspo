@@ -1,5 +1,4 @@
 :root {
-  --shadow: #0000001c;
   --max-lines: 5;
 }
 
@@ -37,7 +36,7 @@
 .big-card {
   background: var(--color-bg);
   border-radius: var(--radius-lg);
-  box-shadow: 0 8px 30px var(--shadow);
+  box-shadow: var(--shadow-md);
   padding: 64px 80px;
 }
 
@@ -59,8 +58,6 @@
 
 
 .simple_btn {
-  @extend .bg-secondary;
-
   text-decoration: none;
   padding: val(--space-xs);
   text-align: center;
@@ -75,10 +72,6 @@
     z-index: 1;
     outline: none;
     box-shadow: 0 0 0 2px alpha(var(--color-primary), 0.2);
-  }
-
-  &:checked {
-    @extend .simple_btn--selected;
   }
 }
 

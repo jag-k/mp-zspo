@@ -1,8 +1,4 @@
 {
-  "name": "vera-safina",
-  "author": "onewhosayjack",
-  "description": "Site",
-  "version": "0.0.1",
   "private": true,
   "devDependencies": {
     "@ckeditor/ckeditor5-adapter-ckfinder": "^19.0.1",
@@ -46,12 +42,14 @@
     "gulp-sass": "^4.0.2",
     "gulp-sass-glob": "^1.1.0",
     "gulp-uglify": "^3.0.2",
+    "jsdom": "^16.4.0",
     "postcss-calc": "^7.0.1",
     "postcss-css-variables": "git+https://github.com/CodyHouse/postcss-css-variables.git",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.2",
+    "through2": "^4.0.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },

@@ -35,20 +35,20 @@
 
       <td class="tbl__cell" role="cell">
         <button aria-controls="menu-blog-cat-{{d['id']}}" class="menu-bar__item reset">
-          {{!solid('ellipsis-h', classes='menu-bar__icon')}}
+          {{!icons('ellipsis-h', classes='menu-bar__icon')}}
         </button>
 
         <menu class="menu js-menu" id="menu-blog-cat-{{d['id']}}">
           <li aria-controls="modal-edit-{{d['id']}}" role="menuitem">
             <span class="menu__content js-menu__content">
-              {{!solid('pen', classes='menu__icon')}}
+              {{!icons('pen', classes='menu__icon')}}
               <span>Редактировать</span>
             </span>
           </li>
 
           <li aria-controls="modal-del-{{d['id']}}" role="menuitem">
             <span class="menu__content js-menu__content">
-              {{!solid('trash-alt', classes='menu__icon')}}
+              {{!icons('trash-alt', classes='menu__icon')}}
               <span>Удалить</span>
             </span>
           </li>
@@ -57,7 +57,7 @@
 
           <li role="menuitem">
             <a class="menu__content js-menu__content" href="/blog/cat/{{d.get('link')}}" target="_blank">
-              {{!solid('external-link-alt', classes='menu__icon')}} Открыть категорию
+              {{!icons('external-link-alt', classes='menu__icon')}} Открыть категорию
             </a>
           </li>
         </menu>
