@@ -554,9 +554,9 @@ package-lock.json
 # If we use Vercel
 
 public/
-!public/css/style-fallback.css
-!public/css/style.css
-!public/js/editor.js.map
-!public/js/editor.js
-!public/js/scripts.js
-!public/js/scripts.min.js
+#!public/css/style-fallback.css
+#!public/css/style.css
+#!public/js/editor.js.map
+#!public/js/editor.js
+#!public/js/scripts.js
+#!public/js/scripts.min.js

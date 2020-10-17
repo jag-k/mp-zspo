@@ -54,7 +54,7 @@ gulp.task('svg', function () {
     .on('end', svg.build('src/sprites/icons.svg', 'public/sprites/icons.svg', icons));
 });
 
-gulp.task('codyframe', gulp.series(['sass', 'scripts', 'svg']));
+gulp.task('codyframe', gulp.parallel(['sass', 'scripts', 'svg']));
 
 gulp.task('watch', gulp.series(['codyframe'], function () {
   gulp.watch(scssFilesPath, gulp.series(['sass'])).on('change', reload);

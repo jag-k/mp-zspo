@@ -1,5 +1,5 @@
 var through = require('through2');
-var fs = require('fs');
+var fs = require('fs-extra');
 var {JSDOM} = require("jsdom");
 
 var reg = /\{\{ icon[s]?\(['"]([-a-z]+)["']/g
@@ -24,8 +24,12 @@ module.exports.build = (svgPath, svgOut, icons) => () => {
       if (symbol === null) console.error('Icon "' + i + '" does not exist!');
       else doc.appendChild(symbol);
     }
-    fs.writeFile(svgOut, headline + newDom.serialize().replace(/\n */g, ''), 'utf8', (err) => {
-      if (err) throw err;
+
+    fs.outputFile(svgOut, headline + newDom.serialize().replace(/\n */g, ''), function (err) {
+      if (err) {
+        console.error(err);
+        // throw err
+      }
       console.log('The file has been saved!');
     });
   })
