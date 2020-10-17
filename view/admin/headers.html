@@ -1,158 +1,119 @@
-<div class="text-component text-center margin-bottom-sm">
-  <h1>Шапка сайта</h1>
-</div>
+{% extends 'layout/admin.html' %}
+{% from 'layout/components.html' import alert as alert_macro, icons, modal %}
 
-% print(data)
-% if get('data'):
-<button aria-controls="modal-new" class="btn btn--primary text-right">Создать ссылку в шапке</button>
+{% block content %}
+  <div class="text-component text-center margin-bottom-sm">
+    <h1>Шапка сайта</h1>
+  </div>
 
-<div class="tbl margin-y-sm">
-  <table aria-label="Ссылки в шапке" class="tbl__table border-bottom border-2">
-    <thead class="tbl__header border-bottom border-2">
-    <tr class="tbl__row">
-      <th class="tbl__cell text-left" scope="col">
-        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Название</span>
-      </th>
+  {% if data %}
+    <button aria-controls="modal-new" class="btn btn--primary text-right">Создать ссылку в шапке</button>
 
-      <th class="tbl__cell text-left" scope="col">
-        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Ссылка</span>
-      </th>
+    <div class="tbl margin-y-sm">
+      <table aria-label="Ссылки в шапке" class="tbl__table border-bottom border-2">
+        <thead class="tbl__header border-bottom border-2">
+        <tr class="tbl__row">
+          <th class="tbl__cell text-left" scope="col">
+            <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Название</span>
+          </th>
 
-      <th class="tbl__cell text-left" scope="col">
-        <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Действия</span>
-      </th>
+          <th class="tbl__cell text-left" scope="col">
+            <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Ссылка</span>
+          </th>
 
-    </tr>
-    </thead>
+          <th class="tbl__cell text-left" scope="col">
+            <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Действия</span>
+          </th>
 
-    <tbody class="tbl__body">
-    % for d in data:
-    <tr class="tbl__row">
-      <td class="tbl__cell" role="cell">{{d.get('name')}}?</td>
+        </tr>
+        </thead>
 
-      <td class="tbl__cell" role="cell">
-        <a aria-label="Ссылка на '{{d.get('name')}}'" href="/{{d.get('url')}}" target="_blank">
-          /{{d.get('url')}}
-        </a>
-      </td>
+        <tbody class="tbl__body">
+        {% for d in data %}
+          <tr class="tbl__row">
+            <td class="tbl__cell" role="cell">{{ d.name }}</td>
 
-      <td class="tbl__cell" role="cell">
-        <button aria-controls="menu-faq-{{d['id']}}" class="menu-bar__item reset">
-          {{!icons('ellipsis-h', classes='menu-bar__icon')}}
-        </button>
+            <td class="tbl__cell" role="cell">
+              <a aria-label="Ссылка на '{{ d.name }}'" href="/{{ d.url }}" target="_blank">
+                /{{ d.url }}
+              </a>
+            </td>
 
-        <menu class="menu js-menu" id="menu-faq-{{d['id']}}" type="toolbar">
-          <li aria-controls="modal-edit-{{d['id']}}" role="menuitem">
-            <span class="menu__content js-menu__content">
-              {{!icons('pen', classes='menu__icon')}}
-              <span>Редактировать</span>
-            </span>
-          </li>
+            <td class="tbl__cell" role="cell">
+              <button aria-controls="menu-faq-{{ d.id }}" class="menu-bar__item reset">
+                {{ icons('ellipsis-h', classes='menu-bar__icon') }}
+              </button>
 
-          <li aria-controls="modal-del-{{d['id']}}" role="menuitem">
-            <span class="menu__content js-menu__content">
-              {{!icons('trash-alt', classes='menu__icon')}}
-              <span>Удалить</span>
-            </span>
-          </li>
-        </menu>
+              <menu class="menu js-menu" id="menu-faq-{{ d.id }}" type="toolbar">
+                <li aria-controls="modal-edit-{{ d.id }}" role="menuitem">
+                  <span class="menu__content js-menu__content">
+                    {{ icons('pen', classes='menu__icon') }}
+                    <span>Редактировать</span>
+                  </span>
+                </li>
 
-      </td>
-    </tr>
-    % end
-    </tbody>
-  </table>
-</div>
-% else:
-<h3 class="text-component margin-bottom-sm text-center">Вы ещё не создали ни одной категории</h3>
-% end
+                <li aria-controls="modal-del-{{ d.id }}" role="menuitem">
+                  <span class="menu__content js-menu__content">
+                    {{ icons('trash-alt', classes='menu__icon') }}
+                    <span>Удалить</span>
+                  </span>
+                </li>
+              </menu>
 
-% for d in data:
-<div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
-     id="modal-edit-{{d['id']}}">
-  <div aria-describedby="modal-form-description" aria-labelledby="modal-edit-{{d['id']}}-title"
-       class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
-    <div class="text-component margin-bottom-md">
-      <h3 id="modal-edit-{{d['id']}}-title">Редактировать ссылку в шапке</h3>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <form action="/admin/headers/edit/{{d['id']}}" class="margin-bottom-sm" enctype="multipart/form-data"
-          method="post">
 
-      <div class="margin-bottom-md">
-        <label class="form-label margin-bottom-xxxs" for="edit-{{d['id']}}-name">Название</label>
-        <input class="form-control width-100%" id="edit-{{d['id']}}-name" name="name"
-               placeholder="{{d.get('name')}}" required type="text" value="{{d.get('name')}}">
-      </div>
+    {% for d in data %}
+      {% call modal('edit-' ~ d.id, "Редактировать ссылку в шапке") %}
+        <form action="/admin/headers/edit/{{ d.id }}" class="margin-bottom-sm" enctype="multipart/form-data"
+              method="post">
+
+          <div class="margin-bottom-md">
+            <label class="form-label margin-bottom-xxxs" for="edit-{{ d.id }}-name">Название</label>
+            <input class="form-control width-100%" id="edit-{{ d.id }}-name" name="name"
+                   placeholder="{{ d.name }}" required type="text" value="{{ d.name }}">
+          </div>
 
 
-      <div class="margin-bottom-sm">
-        <label class="form-label margin-bottom-xxxs" for="edit-{{d['id']}}-url">Ссылка</label>
-        <div class="input-group">
-          <div class="input-group__tag">https://mp.zspo.ru/</div>
-          <input class="form-control flex-grow" id="edit-{{d['id']}}-url" inputmode="url"
-                 name="url" pattern="([a-z0-9_\-.#?&/=]*)" placeholder="{{d.get('url')}}" type="text"
-                 value="{{d.get('url')}}">
+          <div class="margin-bottom-sm">
+            <label class="form-label margin-bottom-xxxs" for="edit-{{ d.id }}-url">Ссылка</label>
+            <div class="input-group">
+              <div class="input-group__tag">https://mp.zspo.ru/</div>
+              <input class="form-control flex-grow" id="edit-{{ d.id }}-url" inputmode="url"
+                     name="url" pattern="([a-z0-9_\-.#?&/=]*)" placeholder="{{ d.url }}" type="text"
+                     value="{{ d.url }}">
+            </div>
+          </div>
+
+          <div class="flex flex-column flex-row@xs gap-xs">
+            <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+            <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+          </div>
+
+        </form>
+      {% endcall %}
+
+      {% call modal('del-' ~ d.id, "Удалить ссылку", "Вы уверены, что хотите удалить данную ссылку?") %}
+        <div class="flex flex-column flex-row@xs gap-xs">
+          <a class="btn btn--primary btn--md width-100%" href="/admin/headers/del/{{ d.id }}">Удалить</a>
+          <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
         </div>
-      </div>
+      {% endcall %}
 
-      <div class="flex flex-column flex-row@xs gap-xs">
-        <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
-        <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
-      </div>
-
-    </form>
-  </div>
-
-  <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
-    <svg class="icon icon--sm" viewBox="0 0 24 24">
-      <title>Закрыть модальное окно</title>
-      <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
-        <line x1="3" x2="21" y1="3" y2="21"/>
-        <line x1="21" x2="3" y1="3" y2="21"/>
-      </g>
-    </svg>
-  </button>
-</div>
-
-<div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
-     id="modal-del-{{d['id']}}">
-  <div aria-describedby="modal-form-description" aria-labelledby="modal-del-{{d['id']}}-title"
-       class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
-    <div class="text-component margin-bottom-md">
-      <h3 id="modal-del-{{d['id']}}-title">Удалить ссылку?</h3>
-      <p>Вы уверены, что хотите удалить данную ссылку?</p>
-    </div>
+    {% endfor %}
+  {% else %}
+    <h3 class="text-component margin-bottom-sm text-center">Вы ещё не создали ни одной категории</h3>
+  {% endif %}
 
 
-    <div class="flex flex-column flex-row@xs gap-xs">
-      <a class="btn btn--primary btn--md width-100%" href="/admin/headers/del/{{d['id']}}">Удалить</a>
-      <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
-    </div>
-  </div>
+  <button aria-controls="modal-new" class="btn btn--primary text-right">Создать ссылку в шапке</button>
 
-  <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
-    <svg class="icon icon--sm" viewBox="0 0 24 24">
-      <title>Закрыть модальное окно</title>
-      <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
-        <line x1="3" x2="21" y1="3" y2="21"/>
-        <line x1="21" x2="3" y1="3" y2="21"/>
-      </g>
-    </svg>
-  </button>
-</div>
-% end
-
-<button aria-controls="modal-new" class="btn btn--primary text-right">Создать ссылку в шапке</button>
-
-<div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
-     id="modal-new">
-  <div aria-describedby="modal-form-description" aria-labelledby="modal-form-title"
-       class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
-    <div class="text-component margin-bottom-md">
-      <h3 id="modal-form-title">Создать ссылку в шапке</h3>
-    </div>
-
+  {% call modal('new', "Создать ссылку в шапке") %}
     <form action="" class="margin-bottom-sm" enctype="multipart/form-data" method="post">
 
       <div class="margin-bottom-md">
@@ -178,15 +139,5 @@
       </div>
 
     </form>
-  </div>
-
-  <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
-    <svg class="icon icon--sm" viewBox="0 0 24 24">
-      <title>Закрыть модальное окно</title>
-      <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
-        <line x1="3" x2="21" y1="3" y2="21"/>
-        <line x1="21" x2="3" y1="3" y2="21"/>
-      </g>
-    </svg>
-  </button>
-</div>
+  {% endcall %}
+{% endblock %}

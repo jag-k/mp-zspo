@@ -24,7 +24,7 @@ var scriptsJsPath = 'public/js'; //folder for final scripts.js/scripts.min.js fi
 // css file paths
 var cssFolder = 'public/css'; // folder for final style.css/style-custom-prop-fallbac.css files
 var scssFilesPath = 'src/scss/**/*.scss'; // scss files to watch
-var htmlFilesPath = 'jview/**/*.html'; // scss files to watch
+var htmlFilesPath = 'view/**/*.html'; // scss files to watch
 
 
 gulp.task('sass', function () {

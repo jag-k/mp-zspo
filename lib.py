@@ -31,7 +31,7 @@ Jinja2Template.settings = {
     # 'autoescape': True,
 }
 
-bottle.TEMPLATE_PATH.insert(0, './jview')
+bottle.TEMPLATE_PATH.insert(0, './view')
 public_path = "./public"
 images_path = join(public_path, 'img')
 paths = [p[len(images_path):] or "/" for p, d, f in os.walk(images_path)]

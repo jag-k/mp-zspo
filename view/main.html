@@ -1,224 +1,221 @@
-<!--
+{% extends 'layout/index.html' %}
+{#
 hero
 about
 directions
 Q&A
 Blog
--->
+#}
+{% block content %}
+  {# Hero #}
+  <section class="hero padding-y-xxl margin-bottom-sm" style="background-image: url(/img/main_page/background.jpg);">
+    <div class="container max-width-adaptive-lg">
+      <div class="max-width-xs">
+        <div class="text-component margin-bottom-sm">
+          <h1>{{ main_settings.header }}</h1>
+          <p>{{ main_settings.subheader }}</p>
+        </div>
 
-<!--Hero-->
-<section class="hero padding-y-xxl margin-bottom-sm" style="background-image: url(/img/main_page/background.jpg);">
-  <div class="container max-width-adaptive-lg">
-    <div class="max-width-xs">
-      <div class="text-component margin-bottom-sm">
-        <h1>{{!main_settings.get('header', '')}}</h1>
-        <p>{{!main_settings.get('subheader', '')}}</p>
-      </div>
+        <div class="flex flex-wrap items-center gap-sm">
+          <ul class="socials__btns flex flex-center gap-sm flex-wrap">
+            {% set soc = settings.get('socials', {}) %}
 
-      <div class="flex flex-wrap items-center gap-sm">
-        <ul class="socials__btns flex flex-center gap-sm flex-wrap">
-
-          % soc = settings.get('socials', {})
-
-          % if soc.get('vk'):
-          <li>
-
-            <a href="{{soc.get('vk')}}">
-              {{!icons('vk')}}
-            </a>
-          </li>
-          % end
-
-          % if soc.get('viber'):
-          <li>
-
-            <a href="viber://chat?number=+{{soc.get('viber')}}">
-              {{!icons('viber')}}
-            </a>
-          </li>
-          % end
-
-          % if soc.get('whatsapp'):
-          <li>
-
-            <a href="https://wa.me/{{soc.get('whatsapp')}}">
-              {{!icons('whatsapp')}}
-            </a>
-          </li>
-          % end
-
-          % if soc.get('mail'):
-          <li>
-
-            <a href="mailto:{{soc.get('mail')}}">
-              {{!icons('envelope')}}
-            </a>
-          </li>
-          % end
-
-          % if soc.get('tel'):
-          <li>
-
-            <a href="tel:+{{soc.get('tel')}}">
-              {{!icons('phone-alt')}}
-            </a>
-          </li>
-          % end
-        </ul>
-
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!--Last News-->
-% if news:
-% ln = news[-1]
-<section class="container max-width-adaptive margin-bottom-0 big-card choose-block
-        zindex-1 position-relative" style="transform: translate(0, -40%);">
-  <div class="flex flex-column flex-row@sm flex-gap-md">
-    <div class="col-4@lg col-12 margin-bottom-md">
-      <h2 class="text-bold text-lg margin-bottom-sm">Последняя новость</h2>
-      <a class="choose-btn width-100%" href="/news">Все новости</a>
-    </div>
-    <div class="col-3@lg col-12">
-      <a aria-label="{{ln['title']}}" class="block text-decoration-none aspect-ratio__16-9"
-         href="/news/{{ln.get('link', ln['id'])}}">
-        <img alt="{{ln['title']}}" src="{{ln['img']}}">
-      </a>
-    </div>
-    <div class="col-5@lg col-12">
-      <a aria-label="{{ln['title']}}" class="block text-decoration-none color-contrast-high"
-         href="/news/{{ln.get('link', ln['id'])}}">
-        <h3 class="text-bold text-lg margin-bottom-sm">{{ln['title']}}</h3>
-        <p>{{ln['description']}}</p>
-      </a>
-    </div>
-  </div>
-</section>
-% end
-
-<!--About Me-->
-<section class="container max-width-adaptive margin-bottom-md">
-  <div class="flex flex-column-reverse flex-column">
-    <h3 class="max-width-adaptive-sm margin-bottom-xs">{{!about.get("header", "Обо мне")}}</h3>
-    <h4 class="color-contrast-low margin-bottom-xs">{{!about.get("subheader", "asdawd")}}</h4>
-  </div>
-  <div class="container max-width-adaptive text-component">
-    {{!about.get("content")}}
-  </div>
-</section>
-<!------------>
-
-
-<!--Directions-->
-% if get('tabs'):
-<section class="container max-width-adaptive margin-bottom-md">
-  <h4 class="color-contrast-low margin-bottom-xs">Любая проблема решаема</h4>
-  <h3 class="max-width-adaptive-sm margin-bottom-xs">Направления онлайн
-    консультаций и психотерапии</h3>
-  <div class="tabs js-tabs">
-    <div class="s-tabs">
-      <ul aria-label="Tabs Interface" class="s-tabs__list js-tabs__controls">
-        <li><a aria-selected="true" class="s-tabs__link" href="#tab1Panel0">{{tabs[0]}}</a></li>
-        % for t_index in range(1, len(tabs)):
-        <li><a class="s-tabs__link" href="#tab1Panel{{t_index}}">{{tabs[t_index]}}</a></li>
-        % end
-      </ul>
-    </div>
-
-
-    <div class="js-tabs__panels">
-      % for cards_index in range(len(tab_cards)):
-      <section class="padding-top-md js-tabs__panel" id="tab1Panel{{cards_index}}">
-        <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
-             data-navigation-class="carousel__navigation order-2">
-          <div class="carousel__wrapper order-1 overflow-hidden">
-            <ol class="carousel__list">
-              % for card in tab_cards[cards_index]:
-              <li class="carousel__item flex">
-                <div class="card margin-xs width-100%">
-                  <a class="card__link" href="{{card['link']}}">
-                    <div class="card__content">
-                      <div class="text-component flex flex-column padding-sm">
-                        <h4 class="order-2">{{card["text"]}}</h4>
-                        <p class="arrow color-contrast-medium order-1">
-                          {{!icons('arrow-right', classes='icon--sm color-contrast-medium')}}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </li>
-              % end
-            </ol>
-          </div>
-
-          <nav class="margin-bottom-xs order-3 no-js:is-hidden">
-            <ul class="flex gap-xxxs justify-start">
+            {% if soc.vk %}
               <li>
-                <button class="reset carousel__control carousel__control--prev js-carousel__control js-tab-focus">
-                  <svg class="icon" viewBox="0 0 20 20">
-                    <title>Пред.</title>
-                    <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
-                              stroke-width="2"/>
-                  </svg>
-                </button>
-              </li>
-
-              <li>
-                <button class="reset carousel__control carousel__control--next js-carousel__control js-tab-focus">
-                  <svg class="icon" viewBox="0 0 20 20">
-                    <title>След.</title>
-                    <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
-                              stroke-width="2"/>
-                  </svg>
-                </button>
-              </li>
-
-              <li>
-                <a class="link-fx-1 color-contrast-higher" href="#0">
-                  <span>Смотреть все</span>
-                  <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
-                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="16" cy="16" r="15.5"/>
-                      <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
-                      <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
-                    </g>
-                  </svg>
+                <a href="{{ soc.vk }}">
+                  {{ icons('vk') }}
+                  {{ soc.vk }}
+                  {{ soc.vk.adwad }}
+                  {{ soc.vk.adwad.dawdaw }}
                 </a>
               </li>
-            </ul>
-          </nav>
+            {% endif %}
 
+            {% if soc.viber %}
+              <li>
+                <a href="viber://chat?number=+{{ soc.viber }}">
+                  {{ icons('viber') }}
+                </a>
+              </li>
+            {% endif %}
+
+            {% if soc.whatsapp %}
+              <li>
+                <a href="https://wa.me/{{ soc.whatsapp }}">
+                  {{ icons('whatsapp') }}
+                </a>
+              </li>
+            {% endif %}
+
+            {% if soc.mail %}
+              <li>
+                <a href="mailto:{{ soc.mail }}">
+                  {{ icons('envelope') }}
+                </a>
+              </li>
+            {% endif %}
+
+            {% if soc.tel %}
+              <li>
+                <a href="tel:+{{ soc.tel }}">
+                  {{ icons('phone-alt') }}
+                </a>
+              </li>
+            {% endif %}
+
+          </ul>
         </div>
-      </section>
-      % end
+      </div>
     </div>
-  </div>
-</section>
-% end
+  </section>
 
-<!--Q&A-->
-% if get('faq'):
-<section class="container max-width-adaptive big-card margin-y-lg margin-x-auto flex flex-column flex-row@sm gap-md">
-  <div class="col-5@sm col-12">
-    <h3 class="text-bold margin-bottom-sm">Как записаться на прием?</h3>
-    <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
-      <div class="faq-step">Перейдите в раздел онлайн-записи или позвоните по телефону</div>
-      <div class="faq-step">Выберите удобное для вас время</div>
-      <div class="faq-step">Оплатите консультацию</div>
-      <a class="faq-btn" href="/bookform">Записаться на прием</a>
-    </div>
-  </div>
-  <div class="col-7@sm col-12">
-    <div class="margin-bottom-lg">
-      <h1 class="text-center">Частые вопросы</h1>
-    </div>
+  {# Last News #}
+  {% if news %}
+    % ln = news[-1]
+    <section class="container max-width-adaptive margin-bottom-0 big-card choose-block
+        zindex-1 position-relative" style="transform: translate(0, -40%);">
+      <div class="flex flex-column flex-row@sm flex-gap-md">
+        <div class="col-4@lg col-12 margin-bottom-md">
+          <h2 class="text-bold text-lg margin-bottom-sm">Последняя новость</h2>
+          <a class="choose-btn width-100%" href="/news">Все новости</a>
+        </div>
+        <div class="col-3@lg col-12">
+          <a aria-label="{{ ln['title'] }}" class="block text-decoration-none aspect-ratio__16-9"
+             href="/news/{{ ln.get('link', ln['id']) }}">
+            <img alt="{{ ln['title'] }}" src="{{ ln['img'] }}">
+          </a>
+        </div>
+        <div class="col-5@lg col-12">
+          <a aria-label="{{ ln['title'] }}" class="block text-decoration-none color-contrast-high"
+             href="/news/{{ ln.get('link', ln['id']) }}">
+            <h3 class="text-bold text-lg margin-bottom-sm">{{ ln['title'] }}</h3>
+            <p>{{ ln['description'] }}</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  {% endif %}
 
-    <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
-      <!--
+  {# About Me #}
+  <section class="container max-width-adaptive margin-bottom-md">
+    <div class="flex flex-column-reverse flex-column">
+      <h2 class="max-width-adaptive-sm margin-bottom-xs">{{ about.get("header", "Обо мне") }}</h2>
+      <h3 class="color-contrast-low margin-bottom-xs">{{ about.get("subheader", "asdawd") }}</h3>
+    </div>
+    <div class="container max-width-adaptive text-component">
+      {{ about.get("content") }}
+    </div>
+  </section>
+  {# -------- #}
+
+
+  {# Directions #}
+  {% if tabs %}
+    <section class="container max-width-adaptive margin-bottom-md">
+      <h4 class="color-contrast-low margin-bottom-xs">Любая проблема решаема</h4>
+      <h3 class="max-width-adaptive-sm margin-bottom-xs">Направления онлайн-консультаций и психотерапии</h3>
+      <div class="tabs js-tabs">
+        <div class="s-tabs">
+          <ul aria-label="Tabs Interface" class="s-tabs__list js-tabs__controls">
+            <li><a aria-selected="true" class="s-tabs__link" href="#tab1Panel0">{{ tabs[0] }}</a></li>
+            {% for t_index in range(1, len(tabs)) %}
+              <li><a class="s-tabs__link" href="#tab1Panel{{ t_index }}">{{ tabs[t_index] }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+
+        <div class="js-tabs__panels">
+          {% for cards_index in range(len(tab_cards)) %}
+            <section class="padding-top-md js-tabs__panel" id="tab1Panel{{ cards_index }}">
+              <div class="carousel flex flex-column js-carousel" data-drag="on" data-loop="off" data-navigation="on"
+                   data-navigation-class="carousel__navigation order-2">
+                <div class="carousel__wrapper order-1 overflow-hidden">
+                  <ol class="carousel__list">
+                    {% for card in tab_cards[cards_index] %}
+                      <li class="carousel__item flex">
+                        <div class="card margin-xs width-100%">
+                          <a class="card__link" href="{{ card['link'] }}">
+                            <div class="card__content">
+                              <div class="text-component flex flex-column padding-sm">
+                                <h4 class="order-2">{{ card["text"] }}</h4>
+                                <p class="arrow color-contrast-medium order-1">
+                                  {{ icons('arrow-right', classes='icon--sm color-contrast-medium') }}
+                                </p>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                </div>
+
+                <nav class="margin-bottom-xs order-3 no-js:is-hidden">
+                  <ul class="flex gap-xxxs justify-start">
+                    <li>
+                      <button class="reset carousel__control carousel__control--prev js-carousel__control js-tab-focus">
+                        <svg class="icon" viewBox="0 0 20 20">
+                          <title>Пред.</title>
+                          <polyline fill="none" points="13 18 5 10 13 2" stroke="currentColor" stroke-miterlimit="10"
+                                    stroke-width="2"/>
+                        </svg>
+                      </button>
+                    </li>
+
+                    <li>
+                      <button class="reset carousel__control carousel__control--next js-carousel__control js-tab-focus">
+                        <svg class="icon" viewBox="0 0 20 20">
+                          <title>След.</title>
+                          <polyline fill="none" points="7 18 15 10 7 2" stroke="currentColor" stroke-miterlimit="10"
+                                    stroke-width="2"/>
+                        </svg>
+                      </button>
+                    </li>
+
+                    <li>
+                      <a class="link-fx-1 color-contrast-higher" href="#0">
+                        <span>Смотреть все</span>
+                        <svg aria-hidden="true" class="icon" viewBox="0 0 32 32">
+                          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="16" cy="16" r="15.5"/>
+                            <line stroke-width="1" x1="10" x2="16" y1="18" y2="12"/>
+                            <line stroke-width="1" x1="16" x2="22" y1="12" y2="18"/>
+                          </g>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </div>
+            </section>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# Q&A #}
+  {% if faq %}
+    <section
+            class="container max-width-adaptive big-card margin-y-lg margin-x-auto flex flex-column flex-row@sm gap-md">
+      <div class="col-5@sm col-12">
+        <h3 class="text-bold margin-bottom-sm">Как записаться на прием?</h3>
+        <div class="padding-md radius-md margin-bottom-sm bg-contrast-lower">
+          <div class="faq-step">Перейдите в раздел онлайн-записи или позвоните по телефону</div>
+          <div class="faq-step">Выберите удобное для вас время</div>
+          <div class="faq-step">Оплатите консультацию</div>
+          <a class="faq-btn" href="/bookform">Записаться на прием</a>
+        </div>
+      </div>
+      <div class="col-7@sm col-12">
+        <div class="margin-bottom-lg">
+          <h1 class="text-center">Частые вопросы</h1>
+        </div>
+
+        <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
+          {#
             <div class="dir-items">
 
               <div class="payment-block">
@@ -234,65 +231,68 @@ Blog
                 <div class="payment-block-price">2 900 ₽ / 60 минут</div>
               </div>
 
-            </div> -->
+            </div>  #}
 
-      % for f in faq:
-      <li class="accordion__item  js-accordion__item">
-        <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">{{f['question']}}?</span>
+          {% for f in faq %}
+            <li class="accordion__item  js-accordion__item">
+              <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
+                <span class="faq-header text-md">{{ f['question'] }}?</span>
 
-          <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
-            <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
-              <path d="M2 2l12 12"/>
-              <path d="M14 2L2 14"/>
-            </g>
-          </svg>
-        </button>
+                <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
+                  <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square"
+                     stroke-miterlimit="10">
+                    <path d="M2 2l12 12"/>
+                    <path d="M14 2L2 14"/>
+                  </g>
+                </svg>
+              </button>
 
-        <div class="accordion__panel js-accordion__panel">
-          <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>{{f['answer']}}</p>
+              <div class="accordion__panel js-accordion__panel">
+                <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
+                  <p>{{ f['answer'] }}</p>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if blog %}
+    <section class="container max-width-adaptive margin-y-md">
+      <h4 class="color-contrast-low margin-bottom-xs">О том, что действительно важно</h4>
+      <h3 class="max-width-adaptive-sm margin-bottom-xs">
+        Статьи
+      </h3>
+      <div class="grid gap-md margin-x-auto">
+        {% for story in blog %}
+          {% set category = story['category'] %}
+          % print(story, category)
+          <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
+               data-filter="category-{{ category['id'] }}">
+            <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
+              <a class="block square" href="/blog/{{ story.link or story.id }}">
+                <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
+              </a>
+            </div>
+
+            <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
+              <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.link or story.id }}">
+                <h4 class="stories__headline font-bold underline-animate">
+                  {{ story['title'] }}
+                </h4>
+                <p class="line-clamp">
+                  {{ story['description'] }}
+                </p>
+              </a>
+              <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
+                 href="/blog#{{ category['id'] }}">{{ category['name'] }}</a>
+            </div>
           </div>
-        </div>
-      </li>
-      % end
-    </ul>
-  </div>
-</section>
-% end
-
-% if get('blog'):
-<section class="container max-width-adaptive margin-y-md">
-  <h4 class="color-contrast-low margin-bottom-xs">О том, что действительно важно</h4>
-  <h3 class="max-width-adaptive-sm margin-bottom-xs">
-    Статьи
-  </h3>
-  <div class="grid gap-md margin-x-auto">
-    % for story in blog:
-    % category = story['category']
-    % print(story, category)
-    <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
-         data-filter="category-{{category['id']}}">
-      <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
-        <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
-          <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
-        </a>
+        {% endfor %}
       </div>
+    </section>
+  {% endif %}
 
-      <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
-        <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
-          <h4 class="stories__headline font-bold underline-animate">
-            {{story['title']}}
-          </h4>
-          <p class="line-clamp">
-            {{story['description']}}
-          </p>
-        </a>
-        <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
-           href="/blog#{{ category['id'] }}">{{ category['name'] }}</a>
-      </div>
-    </div>
-    % end
-  </div>
-</section>
-% end
+{% endblock %}
