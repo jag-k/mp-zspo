@@ -4,7 +4,7 @@
   <div class="alert alert--{{ type }} alert--is-visible js-alert margin-md" role="alert">
     <div class="flex items-center justify-between">
       <div class="flex items-center">
-        <p>{{ alert }}</p>
+        <p>{{ content }}</p>
       </div>
 
       <button class="reset alert__close-btn js-alert__close-btn">
@@ -32,8 +32,8 @@
         {% if subtitle %}
           <p>{{ subtitle }}</p>
         {% endif %}
+        {% block modal_head %}{% endblock %}
       </div>
-
       {{ caller() }}
     </div>
 
@@ -56,4 +56,18 @@
     {% if caller %}{{ caller() }}{% endif %}
     <use xlink:href="/sprites/icons.svg#{{ icon_type }}"></use>
   </svg>
+{% endmacro %}
+
+{% macro image_input(id, name, src=None, required=True, placeholder="Загрузить изображение",
+               mime_type="image/svg+xml,image/jpeg,image/png") %}
+  {% set req = '' if required and not src else 'required' %}
+
+  <label class="form-label margin-bottom-xxxs" for="{{ id }}">{{ name }}</label>
+  <div class="file-upload">
+    <label class="file-upload__label btn btn--subtle" for="{{ id }}">
+      <span class="file-upload__text">{{ placeholder }}</span>
+    </label>
+    <input accept="{{ mime }}" class="file-upload__input" id="{{ id }}" name="{{ id }}"
+           type="file" {{ req }}>{{ img }}
+  </div>
 {% endmacro %}

@@ -1,6 +1,5 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
 // import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor.js';
-
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave';
@@ -23,6 +22,7 @@ import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
+import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
 import Link from '@ckeditor/ckeditor5-link/src/link.js';
 import List from '@ckeditor/ckeditor5-list/src/list.js';
@@ -38,95 +38,97 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize.js";
 import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter.js';
 
-class Editor extends ClassicEditor {}
+class Editor extends ClassicEditor {
+}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
-    Autosave,
-    Alignment,
-    Autoformat,
-    BlockQuote,
-    Bold,
-    SimpleUploadAdapter,
-    Code,
-    CodeBlock,
-    Essentials,
-    ExportToPDF,
-    FontBackgroundColor,
-    FontColor,
-    FontFamily,
-    FontSize,
-    Heading,
-    Highlight,
-    HorizontalLine,
-    Image,
-    ImageCaption,
-    ImageStyle,
-    ImageToolbar,
-    ImageUpload,
-    ImageResize,
-    Indent,
-    Italic,
-    Link,
-    List,
-    MediaEmbed,
-    Paragraph,
-    PasteFromOffice,
-    Table,
-    TableCellProperties,
-    TableProperties,
-    TableToolbar,
-    TextTransformation,
-    Underline,
+  Autosave,
+  Alignment,
+  Autoformat,
+  BlockQuote,
+  Bold,
+  SimpleUploadAdapter,
+  Code,
+  CodeBlock,
+  Essentials,
+  ExportToPDF,
+  FontBackgroundColor,
+  FontColor,
+  FontFamily,
+  FontSize,
+  Heading,
+  Highlight,
+  HorizontalLine,
+  Image,
+  ImageCaption,
+  ImageStyle,
+  ImageToolbar,
+  ImageUpload,
+  ImageResize,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  PasteFromOffice,
+  Table,
+  TableCellProperties,
+  TableProperties,
+  TableToolbar,
+  TextTransformation,
+  Underline,
 ];
 
 Editor.defaultConfig = {
-    toolbar: {
-        items: [
-            // 'CKFinder',
-            'undo', 'redo',
-            '|', 'heading',
-            '|', 'bold', 'italic', 'underline', 'highlight',
-            '|', 'imageUpload', 'link', 'bulletedList', 'numberedList',
-            '|', 'indent', 'outdent',
-            '|', 'alignment', 'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontSize',
-            '|', 'blockQuote', 'insertTable', 'mediaEmbed',
-            '|', 'exportPdf', 'codeBlock', 'code', 'horizontalLine',
-        ]
-    },
-    image: {
-        toolbar: [
-            'imageStyle:full', 'imageStyle:side',
-            '|', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
-            '|', 'imageTextAlternative',
-        ],
-        styles: [
-            'full',
-            "side",
-            'alignLeft',
-            'alignCenter',
-            'alignRight',
-        ]
-    },
-    table: {
-        contentToolbar: [
-            'tableColumn', 'tableRow', 'mergeTableCells',
-            '|', 'tableCellProperties', 'tableProperties'
-        ]
-    },
+  toolbar: {
+    items: [
+      // 'CKFinder',
+      'undo', 'redo',
+      '|', 'heading',
+      '|', 'bold', 'italic', 'underline', 'highlight',
+      '|', 'imageUpload', 'link', 'bulletedList', 'numberedList',
+      '|', 'indent', 'outdent',
+      '|', 'alignment', 'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontSize',
+      '|', 'blockQuote', 'insertTable', 'mediaEmbed',
+      '|', 'exportPdf', 'codeBlock', 'code', 'horizontalLine',
+    ]
+  },
+  image: {
+    toolbar: [
+      'imageStyle:full', 'imageStyle:side',
+      '|', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+      '|', 'imageTextAlternative',
+    ],
+    styles: [
+      'full',
+      "side",
+      'alignLeft',
+      'alignCenter',
+      'alignRight',
+    ]
+  },
+  table: {
+    contentToolbar: [
+      'tableColumn', 'tableRow', 'mergeTableCells',
+      '|', 'tableCellProperties', 'tableProperties'
+    ]
+  },
 
-    simpleUpload: {
-      uploadUrl: "/admin/ckeditor/upload_photo/news/media"
-    },
+  simpleUpload: {
+    uploadUrl: "/admin/ckeditor/upload_photo/news/media"
+  },
 
-    autosave: {
-        save( editor ) {
-            editor.updateSourceElement();
-            return editor;
-        }
-    },
+  autosave: {
+    save(editor) {
+      editor.updateSourceElement();
+      return editor;
+    }
+  },
 
-    language: 'ru',
+  language: 'ru',
 
 };
 

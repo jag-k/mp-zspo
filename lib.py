@@ -124,8 +124,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 # MAIN
 
 @htmlmin(remove_comments=True)
-def template(source, template_title="", extension=".html", alert: Alert = None, self_stationary_page=False,
-             *args, **kwargs):
+def template(source, template_title="", extension=".html", alert: Alert = None, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
     if alert:
         alert = alert.conv
@@ -141,23 +140,19 @@ def template(source, template_title="", extension=".html", alert: Alert = None, 
     user = get_admin_by_hash(h)
 
     kwargs.update(db.entities)
-
+    kwargs['alert_data'] = alert
+    print(kwargs['alert_data'])
     return bottle.jinja2_template(
         join(source + extension),
 
         meta_title=template_title,
-        alert=alert,
         settings=get_all_settings(),
         paginator=paginator,
 
         desc=desc,
         select=select,
 
-        # icons=icons,
-
         meta_description=get_settings("description", ""),
-
-        image_form=image_form,
 
         favicon=headers.get('favicon', ''),
         logo=headers.get('logo', ''),
@@ -295,33 +290,6 @@ def icons(icon_name, classes='', **kwargs):
     # language=HTML
     return '<svg class="icon {}" {}><use xlink:href="/sprites/icons.svg#{}"></use></svg>'.format(
         classes, ' '.join(map(lambda k, v: k + '="' + v + '"', kwargs.items())), icon_name
-    )
-
-
-@htmlmin()
-def image_form(name, block_id, required, src=None, placeholder="Загрузить изображение",
-               mime_type="image/svg+xml,image/jpeg,image/png,image/gif"):
-    # type: (str, str, bool, str, str) -> str
-    # language=HTML
-    pattern = """<label class="form-label margin-bottom-xxxs" for="{id}">{name}</label>
-    <div class="file-upload">
-      <label class="file-upload__label btn btn--subtle" for="{id}">
-        <span class="file-upload__text">{placeholder}</span>
-      </label>
-      <input accept="{mime}" class="file-upload__input" id="{id}" name="{id}"
-             type="file"{req}>{img}
-    </div>"""
-    img = '<img alt="Пред-просмотр" class="margin-y-md radius-md shadow-lg" src="{src}">'
-    img = img.format(src=src) if src else ""
-    req = ' required' if required and not src else ""
-
-    return pattern.format(
-        id=block_id,
-        name=name,
-        placeholder=placeholder,
-        req=req,
-        img=img,
-        mime=mime_type,
     )
 
 

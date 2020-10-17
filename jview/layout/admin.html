@@ -20,9 +20,9 @@
 <body>
 {% from 'layout/components.html' import alert as alert_macro, icons, modal %}
 
-{% if alert %}
-  {% set content, type = alert.get('content'), alert.get('type', 'warning') %}
-  {% call alert_macro(content, type) %}{% endcall %}
+{% if alert_data %}
+  {% set content, type = alert_data.get('content'), alert_data.get('type', 'warning') %}
+  {{ alert_macro(content, type) }}
 {% endif %}
 
 <div class="padding-component hide@md no-js:is-hidden">
