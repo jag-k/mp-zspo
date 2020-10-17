@@ -8,15 +8,15 @@
         Все посты
       </label>
     </div>
-    % for c in categories:
+    {% for c in categories %}
     <div>
-      <input id="category-{{c['id']}}" name="category" type="radio">
+      <input id="category-{{ c.id }}" name="category" type="radio">
       <label class="margin-x-sm width-100% block text-decoration-none padding-xs text-center radius-full bg-secondary"
-             for="category-{{c['id']}}">
-        {{c['name']}}
+             for="category-{{ c.id }}">
+        {{ c.name }}
       </label>
     </div>
-    % end
+    {% endfor %}
   </div>
 
   <section class="container max-width-adaptive margin-y-md">
@@ -24,30 +24,30 @@
       Статьи
     </h3>
     <div class="grid gap-md margin-x-auto">
-      % for story in blog:
+      {% for story in blog %}
       % category = story['category']
       <div class="big-card blog margin-y-lg margin-x-auto col-12 col-6@md flex margin-md flex-column flex-row@sm"
-           data-filter="category-{{category['id']}}">
+           data-filter="category-{{ category.id }}">
         <div class="col-12 col-4@sm margin-right-sm margin-bottom-sm">
           <a class="block square" href="/blog/{{ story.get('link', story.get('id')) }}">
-            <img alt="Image description" class="radius-md" src="{{ story['image'] }}">
+            <img alt="Image description" class="radius-md" src="{{ story.image }}">
           </a>
         </div>
 
         <div class="col-12 col-8@sm text-component line-height-md v-space-sm">
           <a class="text-decoration-none color-contrast-higher" href="/blog/{{ story.get('link', story.get('id')) }}">
             <h4 class="stories__headline font-bold underline-animate">
-              {{story['title']}}
+              {{ story.title }}
             </h4>
             <p class="line-clamp">
-              {{story['description']}}
+              {{ story.description }}
             </p>
           </a>
           <a class="block text-decoration-none padding-xs text-center radius-full bg-secondary"
-             href="#{{ category['id'] }}">{{ category['name'] }}</a>
+             href="#{{ category.id }}">{{ category.name }}</a>
         </div>
       </div>
-      % end
+      {% endfor %}
     </div>
   </section>
   <script>
@@ -104,7 +104,7 @@
   </script>
 
   <!--Q&A-->
-  % if get('faq'):
+  {% if faq %}
 <section class="container max-width-adaptive big-card margin-y-lg margin-x-auto flex flex-column flex-row@sm gap-md">
   <div class="col-5@sm col-12">
     <h3 class="text-bold margin-bottom-sm">Как записаться на прием?</h3>
@@ -112,7 +112,6 @@
       <div class="faq-step">Перейдите в раздел онлайн-записи или позвоните по телефону</div>
       <div class="faq-step">Выберите удобное для вас время</div>
       <div class="faq-step">Оплатите консультацию</div>
-      <a class="faq-btn" href="/bookform">Записаться на прием</a>
     </div>
   </div>
   <div class="col-7@sm col-12">
@@ -121,7 +120,7 @@
     </div>
 
     <ul class="accordion  js-accordion" data-animation="on" data-multi-items="on">
-<!-- 
+<!--
       <div class="dir-items">
 
         <div class="payment-block">
@@ -139,10 +138,10 @@
 
       </div>
  -->
-      % for f in faq:
+      {% for f in faq %}
       <li class="accordion__item  js-accordion__item">
         <button class="reset accordion__header padding-y-sm padding-x-md js-tab-focus" type="button">
-          <span class="faq-header text-md">{{f['question']}}?</span>
+          <span class="faq-header text-md">{{ f.question }}?</span>
 
           <svg aria-hidden="true" class="icon accordion__icon-arrow-v2 no-js:is-hidden" viewBox="0 0 16 16">
             <g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10">
@@ -154,13 +153,13 @@
 
         <div class="accordion__panel js-accordion__panel">
           <div class="text-component padding-top-xxxs padding-x-md padding-bottom-md faq-text">
-            <p>{{f['answer']}}</p>
+            <p>{{ f.answer }}</p>
           </div>
         </div>
       </li>
-      % end
+      {% endfor %}
     </ul>
   </div>
 </section>
-% end
+{% endif %}
 </div>

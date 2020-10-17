@@ -1,22 +1,20 @@
 # /usr/bin/python3
 import math
 import os
-import sys
-from threading import Thread
-from types import FunctionType
-from functools import partial
-
-from pony.orm.integration.bottle_plugin import PonyPlugin
-from db.controller import *
 from functools import wraps
 from os.path import join
-from sys import stderr
-from pony.orm.core import Query
-import bottle
-from bottle import response, request
-from enum import Enum
-from htmlmin.decorator import htmlmin
 from re import compile
+from sys import stderr
+from threading import Thread
+from types import FunctionType
+
+import bottle
+from bottle import response, request, Jinja2Template
+from htmlmin.decorator import htmlmin
+from pony.orm.core import Query
+from pony.orm.integration.bottle_plugin import PonyPlugin
+
+from db.controller import *
 
 try:
     from ujson import load, dump, loads, dumps
@@ -29,7 +27,11 @@ GET, POST, DELETE, PATCH = "GET", "POST", "DELETE", "PATCH"
 GET_POST = [GET, POST]
 app = application = bottle.Bottle()
 app.install(PonyPlugin())
+Jinja2Template.settings = {
+    # 'autoescape': True,
+}
 
+bottle.TEMPLATE_PATH.insert(0, './view')
 public_path = "./public"
 images_path = join(public_path, 'img')
 paths = [p[len(images_path):] or "/" for p, d, f in os.walk(images_path)]
@@ -74,6 +76,7 @@ class Alert:
     def __repr__(self):
         return "<Alert(%s) %.10s>" % (self.alert_type.capitalize(), self.content)
 
+
 # ==============================================================================
 # ADMINS
 
@@ -107,7 +110,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
         join("admin", source),
         title + " (Админка)" if title else "Админка",
         extension,
-        index="view/layout/admin.html",
+
         admins=admins,
         user=user,
         request=request,
@@ -121,9 +124,7 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
 # MAIN
 
 @htmlmin(remove_comments=True)
-def template(source, template_title="", extension=".html", including_page=None,
-             alert: Alert = None, self_stationary_page=False, index=join("view", "layout", "index.html"),
-             *args, **kwargs):
+def template(source, template_title="", extension=".html", alert: Alert = None, **kwargs):
     d = loads(request.get_cookie("kwargs", "{}", ADMIN_COOKIE_SECRET))
     if alert:
         alert = alert.conv
@@ -138,36 +139,29 @@ def template(source, template_title="", extension=".html", including_page=None,
     h = request.get_cookie(ADMIN_COOKIE_KEY, None, ADMIN_COOKIE_SECRET)
     user = get_admin_by_hash(h)
 
-    return bottle.template(
-        join("view", source + extension) if self_stationary_page else index,
+    kwargs.update(db.entities)
+    kwargs['alert_data'] = alert
+    print(kwargs['alert_data'])
+    return bottle.jinja2_template(
+        join(source + extension),
 
-        title=template_title,
-        args=args,
-        alert=alert,
-        kwargs=kwargs,
+        meta_title=template_title,
         settings=get_all_settings(),
         paginator=paginator,
 
         desc=desc,
         select=select,
 
-        icons=icons,
-        # brands=brands,
-        # solid=solid,
-        # regular=regular,
-
-        description=get_settings("description", ""),
-
-        image_form=image_form,
+        meta_description=get_settings("description", ""),
 
         favicon=headers.get('favicon', ''),
         logo=headers.get('logo', ''),
 
         admin_user=user,
 
-        including_page=None if self_stationary_page
-        else (including_page or join("view", source + extension)),
-        **db.entities
+        # including_page=None if self_stationary_page
+        # else (including_page or join("view", source + extension)),
+        **kwargs
     )
 
 
@@ -296,32 +290,6 @@ def icons(icon_name, classes='', **kwargs):
     # language=HTML
     return '<svg class="icon {}" {}><use xlink:href="/sprites/icons.svg#{}"></use></svg>'.format(
         classes, ' '.join(map(lambda k, v: k + '="' + v + '"', kwargs.items())), icon_name
-    )
-
-
-@htmlmin()
-def image_form(name, block_id, required, src=None, placeholder="Загрузить изображение", mime_type="image/svg+xml,image/jpeg,image/png,image/gif"):
-    # type: (str, str, bool, str, str) -> str
-    # language=HTML
-    pattern = """<label class="form-label margin-bottom-xxxs" for="{id}">{name}</label>
-    <div class="file-upload">
-      <label class="file-upload__label btn btn--subtle" for="{id}">
-        <span class="file-upload__text">{placeholder}</span>
-      </label>
-      <input accept="{mime}" class="file-upload__input" id="{id}" name="{id}"
-             type="file"{req}>{img}
-    </div>"""
-    img = '<img alt="Пред-просмотр" class="margin-y-md radius-md shadow-lg" src="{src}">'
-    img = img.format(src=src) if src else ""
-    req = ' required' if required and not src else ""
-
-    return pattern.format(
-        id=block_id,
-        name=name,
-        placeholder=placeholder,
-        req=req,
-        img=img,
-        mime=mime_type,
     )
 
 

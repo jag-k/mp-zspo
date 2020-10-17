@@ -1,0 +1,73 @@
+{# Alert #}
+
+{% macro alert(content, type) %}
+  <div class="alert alert--{{ type }} alert--is-visible js-alert margin-md" role="alert">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <p>{{ content }}</p>
+      </div>
+
+      <button class="reset alert__close-btn js-alert__close-btn">
+        <svg class="icon" viewBox="0 0 24 24"><title>Закрыть</title>
+          <g fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="10"
+             stroke-width="3">
+            <line x1="19" x2="5" y1="5" y2="19"></line>
+            <line fill="none" x1="19" x2="5" y1="19" y2="5"></line>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
+{% endmacro %}
+
+{# Modal #}
+
+{% macro modal(id, title, subtitle) %}
+  <div class="modal modal--animate-scale flex flex-center bg-contrast-higher bg-opacity-90% padding-md js-modal"
+       id="modal-{{ id }}">
+    <div aria-describedby="modal-form-description" aria-labelledby="modal-{{ id }}-title"
+         class="modal__content width-100% max-width-xs padding-md bg radius-md shadow-md" role="alertdialog">
+      <div class="text-component margin-bottom-md">
+        <h3 id="modal-{{ id }}-title">{{ title }}</h3>
+        {% if subtitle %}
+          <p>{{ subtitle }}</p>
+        {% endif %}
+        {% block modal_head %}{% endblock %}
+      </div>
+      {{ caller() }}
+    </div>
+
+    <button class="reset modal__close-btn modal__close-btn--outer  js-modal__close js-tab-focus">
+      <svg class="icon icon--sm" viewBox="0 0 24 24">
+        <title>Закрыть модальное окно</title>
+        <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+          <line x1="3" x2="21" y1="3" y2="21"/>
+          <line x1="21" x2="3" y1="3" y2="21"/>
+        </g>
+      </svg>
+    </button>
+  </div>
+{% endmacro %}
+
+{# Icons #}
+
+{% macro icons(icon_type, classes='') %}
+  <svg class="icon {{ classes }}">
+    {% if caller %}{{ caller() }}{% endif %}
+    <use xlink:href="/sprites/icons.svg#{{ icon_type }}"></use>
+  </svg>
+{% endmacro %}
+
+{% macro image_input(id, name, src=None, required=True, placeholder="Загрузить изображение",
+               mime_type="image/svg+xml,image/jpeg,image/png") %}
+  {% set req = '' if required and not src else 'required' %}
+
+  <label class="form-label margin-bottom-xxxs" for="{{ id }}">{{ name }}</label>
+  <div class="file-upload">
+    <label class="file-upload__label btn btn--subtle" for="{{ id }}">
+      <span class="file-upload__text">{{ placeholder }}</span>
+    </label>
+    <input accept="{{ mime }}" class="file-upload__input" id="{{ id }}" name="{{ id }}"
+           type="file" {{ req }}>{{ img }}
+  </div>
+{% endmacro %}

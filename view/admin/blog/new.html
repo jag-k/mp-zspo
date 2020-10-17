@@ -1,89 +1,98 @@
-<script src="/js/editor.js"></script>
-% max_character = 150
+{% extends 'layout/admin.html' %}
+{% from 'layout/components.html' import image_input %}
 
-<form action="" enctype="multipart/form-data" method="post">
+{% block content %}
+  <script src="/js/editor.js"></script>
   <div class="text-component text-center margin-bottom-sm">
-    <h1>{{"Редактирвание" if data.get('title') else "Создание"}} поста</h1>
+    <h1>{{ "Редактирвание" if data.title else "Создание" }} поста</h1>
   </div>
+  {% set max_character = 150 %}
 
-  <div class="margin-bottom-sm">
-    <label class="form-label margin-bottom-xxxs" for="title">Заголовок</label>
-    <input class="form-control width-100%" id="title" name="title" placeholder="Грандиозная новость!"
-           required type="text" value="{{data.get('title', '')}}">
-  </div>
+  {% if not data %}
+    {% set data = {} %}
+  {% endif %}
 
-  <div class="margin-bottom-sm character-count js-character-count">
-    <label class="form-label margin-bottom-xxs" for="description">Краткое описание:</label>
-    <input class="form-control width-100% js-character-count__input" id="description" maxlength="{{max_character}}"
-           name="description" placeholder="Небольшое краткое описание" required type="text"
-           value="{{data.get('description', '')}}">
-
-    <div aria-atomic="true" aria-live="polite"
-         class="character-count__helper character-count__helper--dynamic text-sm margin-top-xxxs">
-      Осталось <span class="js-character-count__counter"></span> символов
+  <form action="" class="margin-y-sm" enctype="multipart/form-data" method="post">
+    <div class="margin-bottom-sm">
+      <label class="form-label margin-bottom-xxxs" for="title">Заголовок</label>
+      <input class="form-control width-100%" id="title" name="title" placeholder="Грандиозная новость!"
+             required type="text" value="{{ data.title }}">
     </div>
 
-    <div class="character-count__helper character-count__helper--static text-sm margin-top-xxxs">
-      Максимально {{max_character}} символов
-    </div>
-  </div>
+    <div class="margin-bottom-sm character-count js-character-count">
+      <label class="form-label margin-bottom-xxs" for="description">Краткое описание:</label>
+      <input class="form-control width-100% js-character-count__input" id="description" maxlength="{{ max_character }}"
+             name="description" placeholder="Небольшое краткое описание" required type="text"
+             value="{{ data.description }}">
 
+      <div aria-atomic="true" aria-live="polite"
+           class="character-count__helper character-count__helper--dynamic text-sm margin-top-xxxs">
+        Осталось <span class="js-character-count__counter"></span> символов
+      </div>
 
-  <div class="margin-bottom-sm">
-    <label class="form-label margin-bottom-xxxs" for="category">Выберите категорию:</label>
-
-    <div class="select">
-      <select class="select__input form-control" id="category" name="category">
-        % for c in categories:
-        % check = ('', 'selected')[data.get('category', {}).get('id') == c['id']]
-        <option value="{{c['id']}}" {{!check}}>{{c['name']}}</option>
-        % end
-      </select>
-
-      <svg aria-hidden="true" class="icon select__icon" viewBox="0 0 16 16">
-        <g stroke="currentColor" stroke-width="1">
-          <polyline fill="none" points="15.5,4.5 8,12 0.5,4.5" stroke="currentColor" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-miterlimit="10"></polyline>
-        </g>
-      </svg>
+      <div class="character-count__helper character-count__helper--static text-sm margin-top-xxxs">
+        Максимально {{ max_character }} символов
+      </div>
     </div>
 
-  </div>
+
+    <div class="margin-bottom-sm">
+      <label class="form-label margin-bottom-xxxs" for="category">Выберите категорию:</label>
+
+      <div class="select">
+        <select class="select__input form-control" id="category" name="category">
+          {% set category = data.category or {} %}
+          {% for c in categories %}
+            {% set check = ('', 'selected')[category.id == c.id] %}
+            <option value="{{ c.id }}" {{ check }}>{{ c.name }}</option>
+          {% endfor %}
+        </select>
+
+        <svg aria-hidden="true" class="icon select__icon" viewBox="0 0 16 16">
+          <g stroke="currentColor" stroke-width="1">
+            <polyline fill="none" points="15.5,4.5 8,12 0.5,4.5" stroke="currentColor" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-miterlimit="10"></polyline>
+          </g>
+        </svg>
+      </div>
+
+    </div>
 
 
-  <div class="margin-bottom-sm">
-    <label class="form-label margin-bottom-xxs" for="content">Контент поста:</label>
-    <textarea class="form-control width-100%" id="content" name="content"
-              required>{{data.get('content', '')}}</textarea>
-  </div>
+    <div class="margin-bottom-sm">
+      <label class="form-label margin-bottom-xxs" for="content">Контент поста:</label>
+      <textarea class="form-control width-100%" id="content" name="content" required>{{ data.content }}</textarea>
+    </div>
 
-  <script>
-    Editor
-      .create(document.querySelector('#content'), {
-        simpleUpload: {
-          uploadUrl: "/admin/ckeditor/upload_photo/blog/media"
-        },})
-      .then(editor => {
-        window.editor = editor;
-      })
-      .catch(error => {
-        console.error('Oops, something gone wrong!');
-        console.error(error);
-      });
-  </script>
+    <script>
+      Editor
+        .create(document.querySelector('#content'), {
+          simpleUpload: {
+            uploadUrl: "/admin/ckeditor/upload_photo/blog/media"
+          },
+        })
+        .then(editor => {
+          window.editor = editor;
+        })
+        .catch(error => {
+          console.error('Oops, something gone wrong!');
+          console.error(error);
+        });
+    </script>
 
-  <div class="margin-bottom-sm">
-    {{!image_form('Изображение публикации', 'image', (not data.get('image')), data.get('image'))}}
-  </div>
+    <div class="margin-bottom-sm">
+      {{ image_input('image', 'Изображение публикации', data.image) }}
+    </div>
 
-  <div class="margin-bottom-sm">
-    <label class="form-label margin-bottom-xxxs" for="date">Дата публикации</label>
-    <input class="form-control width-100%" id="date" name="date" required type="date"
-           value="{{data.get('date', date)}}">
-  </div>
+    <div class="margin-bottom-sm">
+      <label class="form-label margin-bottom-xxxs" for="date">Дата публикации</label>
+      <input class="form-control width-100%" id="date" name="date" required type="date"
+             value="{{ data.get('date', date) }}">
+    </div>
 
-  <div class="flex flex-column flex-row@xs gap-xs">
-    <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
-    <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
-  </div>
-</form>
+    <div class="flex flex-column flex-row@xs gap-xs">
+      <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+      <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+    </div>
+  </form>
+{% endblock %}

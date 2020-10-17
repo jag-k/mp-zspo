@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <script>document.getElementsByTagName("html")[0].className += " js";</script>
   <link href="/css/style.css" id="codyframe" rel="stylesheet">
-  <!-- browsers not supporting CSS variables -->
+  {#  browsers not supporting CSS variables  #}
   <script>if (!('CSS' in window) || !CSS.supports('color', 'var(--color-var)')) {
     var cfStyle = document.getElementById('codyframe');
     if (cfStyle) {
@@ -14,15 +14,19 @@
       cfStyle.setAttribute('href', href);
     }
   }</script>
-  <title>{{title}}</title>
-  <meta content="{{description}}" name="description">
+  <title>{{ template_title }}</title>
+  <meta content="{{ meta_description }}" name="description">
 </head>
 <body>
+{% from 'layout/components.html' import alert as alert_macro, icons, modal %}
 
-% include('view/layout/alert.html', alert=alert)
+{% if alert_data %}
+  {% set content, type = alert_data.get('content'), alert_data.get('type', 'warning') %}
+  {{ alert_macro(content, type) }}
+{% endif %}
 
 <div class="padding-component hide@md no-js:is-hidden">
-  <button aria-controls="sidebar" class="menu-bar__item reset">{{!icons('bars')}}</button>
+  <button aria-controls="sidebar" class="menu-bar__item reset">{{ icons('bars') }}</button>
 </div>
 
 <div class="flex@md">
@@ -46,7 +50,7 @@
       </header>
 
       <div class="position-relative z-index-1">
-        <!-- start sidebar content -->
+        {#  start sidebar content  #}
         <div style="height: 100vh;">
           <nav class="sidenav padding-y-sm text-sm@md js-sidenav">
             <div class="sidenav__label margin-bottom-xxxs">
@@ -56,7 +60,6 @@
             <ul class="sidenav__list">
               <li class="sidenav__item sidenav__item--expanded">
                 <a class="sidenav__link" href="#0">
-                  <!-- language=SVG -->
                   <svg aria-hidden="true" class="icon sidenav__icon" viewBox="0 0 16 16">
                     <g>
                       <path d="M6,0H1C0.4,0,0,0.4,0,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1V1C7,0.4,6.6,0,6,0z M5,5H2V2h3V5z"></path>
@@ -65,14 +68,13 @@
                       <path d="M15,9h-5c-0.6,0-1,0.4-1,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1v-5C16,9.4,15.6,9,15,9z M14,14h-3v-3h3V14z"></path>
                     </g>
                   </svg>
-                  <!-- language=HTML -->
                   <span class="sidenav__text">Страницы</span>
                 </a>
 
                 <button aria-label="Toggle sub navigation"
                         class="reset sidenav__sublist-control js-sidenav__sublist-control js-tab-focus">
                   <svg class="icon" viewBox="0 0 12 12">
-                    <polygon points="4 3 8 6 4 9 4 3"/>
+                    <polygon points="4 3 8 6 4 9 4 3"></polygon>
                   </svg>
                 </button>
 
@@ -182,14 +184,14 @@
             </ul>
           </nav>
         </div>
-        <!-- end sidebar content -->
+        {#  end sidebar content  #}
       </div>
     </div>
   </aside>
 
   <main class="position-relative z-index-1 flex-grow">
     <div class="padding-lg container max-width-adaptive-md height-100vh">
-      % include(including_page, *args, **kwargs)
+      {% block content %}{% endblock %}
     </div>
   </main>
 </div>

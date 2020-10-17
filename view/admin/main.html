@@ -1,5 +1,12 @@
-<div class="container max-width-adaptive margin-bottom-md">
-  <form action="" enctype="multipart/form-data" method="post">
+{% extends 'layout/admin.html' %}
+{% from 'layout/components.html' import image_input %}
+
+{% block content %}
+  <div class="text-component text-center margin-bottom-sm">
+    <h1>Главная страница</h1>
+  </div>
+
+  <form action="" class="margin-y-sm" enctype="multipart/form-data" method="post">
     <fieldset class="margin-bottom-md">
       <legend class="form-legend">Редактирование текстовой информации заглавия основной страницы</legend>
 
@@ -7,57 +14,22 @@
         <div class="col-6@md">
           <label class="form-label margin-bottom-xxs" for="header">Главный заголовок</label>
           <input class="form-control width-100% margin-bottom-xxs" id="header" name="header"
-            placeholder="Опытные психологи онлайн" type="text" value="{{data.get('header', '')}}">
+                 placeholder="Опытные психологи онлайн" type="text" value="{{ data.header }}">
         </div>
 
         <div class="col-6@md">
           <label class="form-label margin-bottom-xxs" for="subheader">Подзаголовок</label>
           <input class="form-control width-100% margin-bottom-xxs" id="subheader" name="subheader"
-            placeholder="Видео и аудио сессии с психологом" type="text" value="{{data.get('subheader', '')}}">
+                 placeholder="Видео и аудио сессии с психологом" type="text" value="{{ data.subheader }}">
         </div>
       </div>
     </fieldset>
 
     <fieldset class="margin-bottom-md">
-
       <legend class="form-legend">Редактирование фоновых изображений заглавия основной страницы</legend>
       <div class="grid gap-sm">
         <div class="col-12@md">
-          {{!image_form('Картинка для заднего фона', 'background', False, data.get('background'))}}
-        </div>
-      </div>
-    </fieldset>
-
-    <fieldset class="margin-bottom-md">
-      <legend class="form-legend">Редактирование иконок добавочной информации</legend>
-
-      <div class="grid gap-sm">
-
-        <div class="col-6@md">
-          {{!image_form('Картинка для первой иконки', 'feature_img', False, data.get('feature_img'))}}
-        </div>
-        <div class="col-6@md">
-          <label class="form-label margin-bottom-xxs" for="feature_txt">Краткое описание</label>
-          <input class="form-control width-100%" id="feature_txt" name="feature_txt"
-            placeholder="Общение и оплата<br>на сайте" required type="text" value="{{data.get('feature_txt', '')}}">
-        </div>
-
-        <div class="col-6@md">
-          {{!image_form('Картинка для второй иконки', 'feature_img2', False, data.get('feature_img2'))}}
-        </div>
-        <div class="col-6@md">
-          <label class="form-label margin-bottom-xxs" for="feature_txt2">Краткое описание</label>
-          <input class="form-control width-100%" id="feature_txt2" name="feature_txt2"
-            placeholder="Общение и оплата<br>на сайте" required type="text" value="{{data.get('feature_txt2', '')}}">
-        </div>
-
-        <div class="col-6@md">
-          {{!image_form('Картинка для третьей иконки', 'feature_img3', False, data.get('feature_img3'))}}
-        </div>
-        <div class="col-6@md">
-          <label class="form-label margin-bottom-xxs" for="feature_txt3">Краткое описание</label>
-          <input class="form-control width-100%" id="feature_txt3" name="feature_txt3"
-            placeholder="Общение и оплата<br>на сайте" required type="text" value="{{data.get('feature_txt3', '')}}">
+          {{ image_input('background', 'Картинка для заднего фона', data.background, False) }}
         </div>
       </div>
     </fieldset>
@@ -67,4 +39,5 @@
       <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить</button>
     </div>
   </form>
-</div>
+
+{% endblock %}
