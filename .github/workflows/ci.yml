@@ -17,8 +17,7 @@ jobs:
           node-version: '12.x'
 
       - name: Installing node_modules
-        run: |
-          npm сi
+        run: npm install
 
       - name: Build and Remove src
         run: |
