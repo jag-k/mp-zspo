@@ -1,12 +1,16 @@
 """
 docs: https://docs.ponyorm.org/
 """
-from sys import argv
 from datetime import date
+from sys import argv
 
 from pony.orm import *
+
+from config import DATABASE
+
 CREATE_DB = True
-db = Database("sqlite", "db.sqlite3", create_db=CREATE_DB or "-c" in argv or "--create-db" in argv)
+
+db = Database()
 
 
 # ===== MODELS =====
@@ -30,7 +34,7 @@ class Post(db.Entity):
     description = Optional(str)
     category = Optional("Category")
     date = Required(date)
-    draft = Optional(bool, default=True)
+    hidden = Optional(bool, default=False)
     content = Required(str)
 
 
@@ -43,6 +47,7 @@ class Category(db.Entity):
     name = Required(str)
     link = Optional(str)
     block = Optional("Block")
+    hidden = Optional(bool, default=False)
     posts = Set(Post, cascade_delete=True)
 
 
@@ -60,10 +65,16 @@ class Header(db.Entity):
 
 
 # ===== END MODELS =====
-db.generate_mapping(
-    create_tables=True
+
+db.migrate(
+    command="make",
+    create_tables=True,
+    allow_auto_upgrade=True,
+    migration_dir='migration',
+    **DATABASE
 )
 
 if __name__ == '__main__':
     from pprint import pprint
+
     pprint(db.entities)

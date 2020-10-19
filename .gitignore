@@ -554,6 +554,7 @@ package-lock.json
 # If we use Vercel
 
 public/
+#db/migration/*.py
 #!public/css/style-fallback.css
 #!public/css/style.css
 #!public/js/editor.js.map
