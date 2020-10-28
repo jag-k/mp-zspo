@@ -8,7 +8,7 @@
 
 
   {% if data %}
-    <a class="btn btn--primary" href="/admin/blog/new">Создать пост</a>
+    <a class="btn btn--primary" href="/admin/news/new">Создать пост</a>
 
     <div class="tbl margin-y-sm">
       <table aria-label="Посты блога" class="tbl__table border-bottom border-2">
@@ -52,13 +52,13 @@
             <td class="tbl__cell" role="cell">pass</td>
 
             <td class="tbl__cell" role="cell">
-              <button aria-controls="menu-blog-{{ d.id }}" class="menu-bar__item reset">
+              <button aria-controls="menu-news-{{ d.id }}" class="menu-bar__item reset">
                 {{ icons('ellipsis-h', classes='menu-bar__icon') }}
               </button>
 
-              <menu class="menu js-menu" id="menu-blog-{{ d.id }}">
+              <menu class="menu js-menu" id="menu-news-{{ d.id }}">
                 <li role="menuitem">
-                  <a class="menu__content js-menu__content" href="/admin/blog/edit/{{ d.id }}">
+                  <a class="menu__content js-menu__content" href="/admin/news/edit/{{ d.id }}">
                     {{ icons('pen', classes='menu__icon') }}
                     <span>Редактировать</span>
                   </a>
@@ -74,7 +74,7 @@
                 <li class="menu__separator" role="separator"></li>
 
                 <li role="menuitem">
-                  <a class="menu__content js-menu__content" href="/blog/{{ d.id }}" target="_blank">
+                  <a class="menu__content js-menu__content" href="/news/{{ d.id }}" target="_blank">
                     {{ icons('external-link-alt', classes='menu__icon') }} Открыть пост
                   </a>
                 </li>
@@ -90,7 +90,7 @@
     {% for d in data %}
       {% call modal('del-' ~ d.id, "Удалить пост в новостях", 'Вы уверены, что хотите удалить пост "' ~ d.title ~ '"?') %}
         <div class="flex flex-column flex-row@xs gap-xs">
-          <a class="btn btn--primary btn--md width-100%" href="/admin/blog/del/{{ d.id }}">Удалить</a>
+          <a class="btn btn--primary btn--md width-100%" href="/admin/news/del/{{ d.id }}">Удалить</a>
           <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
         </div>
       {% endcall %}
@@ -100,5 +100,5 @@
     <h3 class="text-component margin-bottom-sm text-center">Вы ещё не создали ни одного поста</h3>
   {% endif %}
 
-  <a class="btn btn--primary" href="/admin/blog/new">Создать пост</a>
+  <a class="btn btn--primary" href="/admin/news/new">Создать пост</a>
 {% endblock %}

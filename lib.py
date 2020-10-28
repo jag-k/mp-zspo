@@ -14,6 +14,7 @@ from htmlmin.decorator import htmlmin
 from pony.orm.core import Query
 from pony.orm.integration.bottle_plugin import PonyPlugin
 
+import config
 from db.controller import *
 
 try:
@@ -141,7 +142,6 @@ def template(source, template_title="", extension=".html", alert: Alert = None, 
 
     kwargs.update(db.entities)
     kwargs['alert_data'] = alert
-    print(kwargs['alert_data'])
     return bottle.jinja2_template(
         join(source + extension),
 
@@ -158,7 +158,8 @@ def template(source, template_title="", extension=".html", alert: Alert = None, 
         logo=headers.get('logo', ''),
 
         admin_user=user,
-
+        config=config,
+        is_current_page=is_current_page,
         # including_page=None if self_stationary_page
         # else (including_page or join("view", source + extension)),
         **kwargs
@@ -304,6 +305,16 @@ def save_settings_from_form(settings_key: str):
 
     # print("=============", par)
     update_settings(settings_key, par)
+
+
+def is_current_page(url: str) -> bool:
+    if url == "":
+        return request.path == '/'
+
+    if url.startswith("/"):
+        return request.path.startswith(url)
+
+    return request.path.endswith(url)
 
 
 if __name__ == '__main__':

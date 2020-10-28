@@ -41,8 +41,8 @@
       <svg class="icon icon--sm" viewBox="0 0 24 24">
         <title>Закрыть модальное окно</title>
         <g fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
-          <line x1="3" x2="21" y1="3" y2="21"/>
-          <line x1="21" x2="3" y1="3" y2="21"/>
+          <line x1="3" x2="21" y1="3" y2="21"></line>
+          <line x1="21" x2="3" y1="3" y2="21"></line>
         </g>
       </svg>
     </button>
@@ -51,8 +51,14 @@
 
 {# Icons #}
 
-{% macro icons(icon_type, classes='') %}
-  <svg class="icon {{ classes }}">
+{% macro icons(icon_type, classes='', kwargs={}) %}
+  {% if classes %}{% set classes = ' ' + classes %}{% endif %}
+  {% set attrs = '' %}
+  {% for k, v in (kwargs if kwargs else {}).items() %}
+    {% set attrs = attrs + ' ' + k + '="' + v + '"' %}
+  {% endfor %}
+
+  <svg class="icon{{ classes }}"{{ attrs }}>
     {% if caller %}{{ caller() }}{% endif %}
     <use xlink:href="/sprites/icons.svg#{{ icon_type }}"></use>
   </svg>
@@ -60,14 +66,48 @@
 
 {% macro image_input(id, name, src=None, required=True, placeholder="Загрузить изображение",
                mime_type="image/svg+xml,image/jpeg,image/png") %}
-  {% set req = '' if required and not src else 'required' %}
+  {% set req = 'required' if required and not src else '' %}
 
   <label class="form-label margin-bottom-xxxs" for="{{ id }}">{{ name }}</label>
   <div class="file-upload">
     <label class="file-upload__label btn btn--subtle" for="{{ id }}">
-      <span class="file-upload__text">{{ placeholder }}</span>
+      <span class="file-upload__text">{{ src or placeholder }}</span>
     </label>
-    <input accept="{{ mime }}" class="file-upload__input" id="{{ id }}" name="{{ id }}"
+    <input accept="{{ mime_type }}" class="file-upload__input" id="{{ id }}" name="{{ id }}"
            type="file" {{ req }}>{{ img }}
+    {% if src %}
+      <img alt="Изображение поста" src="{{ src }}"
+           class="aspect-ratio__16-9 radius-md shadow-md text-center margin-top-sm">
+    {% endif %}
   </div>
+{% endmacro %}
+
+{% set df = config.DATE_FORMAT if config else "%d.%m.%Y" %}
+{% macro news_post(story, state=1, date_format=df) %}
+  <article class="card-v10 card-v10--state-{{ state }} margin-bottom-md">
+    <a class="card-v10__img-link radius-lg shadow-lg" href="/news/{{ story.id }}">
+      <img src="{{ story.image }}" alt="Изображение к посту '{{ story.title }}'">
+    </a>
+    <div class="card-v10__content-wrapper">
+      <div class="card-v10__content bg-contrast-lower shadow-xs radius-lg">
+        <div class="card-v10__body">
+          <div class="text-component">
+            <time datetime="{{ story.date.isoformat() }}">{{ story.date.strftime(date_format) }}</time>
+            <h2 class="card-v10__title">
+              <a class="color-contrast-higher" href="/news/{{ story.id }}">
+                {{ story.title }}
+              </a>
+            </h2>
+            <p class="card-v10__excerpt color-contrast-medium">
+              {{ story.description }}
+            </p>
+          </div>
+        </div>
+        <a class="card-v10__footer text-center block text-decoration-none color-contrast-medium"
+           href="/news/{{ story.id }}">
+          {{ icons('newspaper') }} Читать далее
+        </a>
+      </div>
+    </div>
+  </article>
 {% endmacro %}

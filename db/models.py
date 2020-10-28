@@ -2,11 +2,10 @@
 docs: https://docs.ponyorm.org/
 """
 from datetime import date
-from sys import argv
+from os.path import join
 
 from pony.orm import *
-
-from config import DATABASE
+from config import DATABASE, MIGRATION_DIR
 
 CREATE_DB = True
 
@@ -66,13 +65,18 @@ class Header(db.Entity):
 
 # ===== END MODELS =====
 
-db.migrate(
-    command="make",
-    create_tables=True,
-    allow_auto_upgrade=True,
-    migration_dir='migration',
-    **DATABASE
-)
+def migration():
+    db.migrate(
+        command="apply",
+        create_tables=True,
+        allow_auto_upgrade=True,
+        migration_dir=migration_dir,
+        **DATABASE
+    )
+
+
+migration_dir = MIGRATION_DIR if __name__ == "__main__" else join('db', MIGRATION_DIR)
+migration()
 
 if __name__ == '__main__':
     from pprint import pprint

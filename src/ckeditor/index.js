@@ -91,9 +91,10 @@ Editor.defaultConfig = {
       '|', 'bold', 'italic', 'underline', 'highlight',
       '|', 'imageUpload', 'link', 'bulletedList', 'numberedList',
       '|', 'indent', 'outdent',
-      '|', 'alignment', 'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontSize',
       '|', 'blockQuote', 'insertTable', 'mediaEmbed',
-      '|', 'exportPdf', 'codeBlock', 'code', 'horizontalLine',
+      // '|', 'alignment', 'fontFamily', 'fontSize',
+      '|', 'fontColor', 'fontBackgroundColor',
+      '|', 'exportPdf', /*'codeBlock', 'code', */ 'horizontalLine',
     ]
   },
   image: {

@@ -9,6 +9,7 @@ var calc = require('postcss-calc');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var gzip = require('gulp-gzip');
 
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
@@ -35,6 +36,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(cssFolder))
     .pipe(rename('style-fallback.css'))
     .pipe(postcss([cssvariables(), calc()]))
+    .pipe(gzip())
     .pipe(gulp.dest(cssFolder));
 });
 
@@ -44,6 +46,7 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest(scriptsJsPath))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
+    .pipe(gzip())
     .pipe(gulp.dest(scriptsJsPath))
 });
 
@@ -68,7 +71,7 @@ gulp.task('watch', gulp.series(['codyframe'], function () {
 
 gulp.task('browser-sync', gulp.series(function () {
   browserSync({
-    notify: true,
+    notify: false,
     proxy: "127.0.0.1:8080",
   })
 }));

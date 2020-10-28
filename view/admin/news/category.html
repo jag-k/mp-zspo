@@ -36,11 +36,11 @@
             <td class="tbl__cell" role="cell">{{ len(d.get('posts')) }}</td>
 
             <td class="tbl__cell" role="cell">
-              <button aria-controls="menu-blog-cat-{{ d.id }}" class="menu-bar__item reset">
+              <button aria-controls="menu-news-cat-{{ d.id }}" class="menu-bar__item reset">
                 {{ icons('ellipsis-h', classes='menu-bar__icon') }}
               </button>
 
-              <menu class="menu js-menu" id="menu-blog-cat-{{ d.id }}">
+              <menu class="menu js-menu" id="menu-news-cat-{{ d.id }}">
                 <li aria-controls="modal-edit-{{ d.id }}" role="menuitem">
             <span class="menu__content js-menu__content">
               {{ icons('pen', classes='menu__icon') }}
@@ -58,7 +58,7 @@
                 <li class="menu__separator" role="separator"></li>
 
                 <li role="menuitem">
-                  <a class="menu__content js-menu__content" href="/blog/cat/{{ d.link }}" target="_blank">
+                  <a class="menu__content js-menu__content" href="/news/cat/{{ d.link }}" target="_blank">
                     {{ icons('external-link-alt', classes='menu__icon') }} Открыть категорию
                   </a>
                 </li>
@@ -72,7 +72,7 @@
 
     {% for d in data %}
       {% call modal('edit-' ~ d.id, "Редактировать категорию в новостях") %}
-        <form action="/admin/blog/category/edit/{{ d.id }}" class="margin-bottom-sm"
+        <form action="/admin/news/category/edit/{{ d.id }}" class="margin-bottom-sm"
               enctype="multipart/form-data"
               method="post">
           <div class="margin-bottom-sm">
@@ -98,7 +98,7 @@
 
         <div class="flex flex-column flex-row@xs gap-xs">
           <a class="btn btn--primary btn--md width-100%"
-             href="/admin/blog/category/del/{{ d.id }}">Удалить</a>
+             href="/admin/news/category/del/{{ d.id }}">Удалить</a>
           <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
         </div>
       {% endcall %}
