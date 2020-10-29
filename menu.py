@@ -1,42 +1,143 @@
 from enum import Enum
-from typing import Iterable, Any
+from typing import Iterable, Any, Tuple, Dict
 
 
-class IconType(Enum):
-    brands = "brands"
-    regular = "regular"
-    solid = "solid"
-
-
-class Icon:
-    def __init__(self, icon: str, icon_type: IconType = IconType.brands, **kwargs):
-        self.icon = icon,
-        self.icon_type = icon_type
-        self.kwargs = kwargs
-
-    def __str__(self):
-        return icon(self.icon, self.icon_type.name, **self.kwargs)
-
-
-class MenuTab:
-    def __init__(self, name: str, groups_or_items: Iterable[Any[MenuGroup, MenuItem]] = None):
-        if groups_or_items is None:
-            groups_or_items = []
-
+class MenuItem:
+    def __init__(self, name: str, url: str):
         self.name = name
-        self.goi = list(groups_or_items)
+        self._url = url.lstrip('/')
+        self.group = None
+        self.current = False
+
+    @property
+    def url(self):
+        if isinstance(self.group, MenuGroup) and getattr(self.group, "url", False):
+            return "%s/%s" % (self.group.name.lstrip('/'), self._url)
+        return self._url
+
+    def default(self):
+        self.current = False
 
 
 class MenuGroup:
-    def __init__(self, name: str, items: Iterable[MenuItem] = None, icon: Icon = None):
-        if items is None:
-            items = []
-
+    def __init__(self, name: str, *items: MenuItem, icon: str = None, expanded: bool = False):
         for i in items:
-            i.group(self)
+            i.group = self
 
         self.name = name
-        self.items = items
+        self.items = tuple(items)
         self.icon = icon
-        self.expanded = False
+        self._default_expanded = expanded
+        self._expanded = expanded
 
+    @property
+    def expanded(self):
+        return self._default_expanded or self._expanded
+
+    @expanded.setter
+    def expanded(self, value: bool):
+        self._expanded = value
+
+    def __iter__(self) -> Iterable[MenuItem]:
+        return iter(self.items)
+
+    def default(self):
+        self._expanded = self._default_expanded
+        for i in self.items:
+            i.default()
+
+
+class MenuTab:
+    def __init__(self, name: str, *groups_or_items: MenuGroup or MenuItem):
+        self.name = name
+        self.goi = tuple(groups_or_items)  # type: Iterable[Any[MenuGroup, MenuItem]]
+        self._enter = False
+
+    @property
+    def urls(self) -> Dict[str, Tuple[MenuGroup, MenuItem]]:
+        urls = {}
+        for g in self.goi:
+            if isinstance(g, MenuItem):
+                urls[g.url] = (None, g)
+            elif isinstance(g, MenuGroup):
+                for i in g:
+                    urls[i.url] = (g, i)
+        print(urls)
+        return urls
+
+    def __enter__(self):
+        if not self._enter:
+            raise BufferError("%s must be called!" % self)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self._enter = False
+        for i in self.goi:
+            i.default()
+
+    def __call__(self, url: str):
+        group, item = self.urls.get(url, (None, None))  # type: MenuGroup, MenuItem
+        if group is not None:
+            group.expanded = True
+        if item is not None:
+            item.current = True
+        self._enter = True
+        return self
+
+    def __iter__(self) -> Iterable[MenuGroup or MenuItem]:
+        return iter(self.goi)
+
+
+ADMIN_TAB = MenuTab(
+    "Админ-панель",
+    MenuGroup(
+        "Страницы",
+        MenuItem(
+            "Главная",
+            "main_page"
+        ),
+        MenuItem(
+            "Шапка сайта",
+            "headers"
+        ),
+        # MenuItem(
+        #     "Блоки",
+        #     "blocks"
+        # ),
+        icon="file-alt",
+        expanded=True,
+    ),
+    MenuGroup(
+        "Новости",
+        MenuItem(
+            "Создать новость",
+            "news/new"
+        ),
+        MenuItem(
+            "Категории",
+            "news/category"
+        ),
+        MenuItem(
+            "Все новости",
+            "news"
+        ),
+        icon="newspaper",
+        expanded=True,
+    ),
+    MenuGroup(
+        "Настройки",
+        MenuItem(
+            "Частые Вопросы",
+            "faq"
+        ),
+        MenuItem(
+            "Соц. сети",
+            "socials"
+        ),
+        MenuItem(
+            "SEO",
+            "meta"
+        ),
+        icon="wrench",
+    ),
+)

@@ -51,7 +51,11 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('svg', function () {
-  var icons = {}
+  var icons = {
+    "wrench": true,
+    "newspaper": true,
+    "file-alt": true,
+  }
   return gulp.src(htmlFilesPath)
     .pipe(svg.count(icons))
     .on('end', svg.build('src/sprites/icons.svg', 'public/sprites/icons.svg', icons));

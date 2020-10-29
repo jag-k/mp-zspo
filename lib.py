@@ -16,6 +16,7 @@ from pony.orm.integration.bottle_plugin import PonyPlugin
 
 import config
 from db.controller import *
+from menu import ADMIN_TAB
 
 try:
     from ujson import load, dump, loads, dumps
@@ -107,18 +108,21 @@ def admin_temp(source, title="", extension=".html", *args, **kwargs):
     user = get_admin_by_hash(h)
     if not user:
         redirect("/logout")
-    return template(
-        join("admin", source),
-        title + " (Админка)" if title else "Админка",
-        extension,
+    url = request.path[len(ADMIN_ROUTE):].lstrip('/')
+    with ADMIN_TAB(url):
+        return template(
+            join("admin", source),
+            title + " (Админка)" if title else "Админка",
+            extension,
 
-        admins=admins,
-        user=user,
-        request=request,
-        # url=request.urlparts.path.split(ADMIN_ROUTE + "/", 1)[1],
-        today=date.today().isoformat(),
-        db_session=db_session,
-        *args, **kwargs)
+            admins=admins,
+            user=user,
+            request=request,
+            url=url,
+            tab=ADMIN_TAB,
+            today=date.today().isoformat(),
+            db_session=db_session,
+            *args, **kwargs)
 
 
 # ==============================================================================

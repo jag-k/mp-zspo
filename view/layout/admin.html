@@ -36,154 +36,57 @@
          id="sidebar">
     <div class="sidebar__panel">
       <header class="sidebar__header z-index-2">
-        <h1 class="text-md text-truncate" id="sidebarTitle">Админка</h1>
+        <h1 class="text-md text-truncate" id="sidebarTitle">{{ tab.name }}</h1>
 
         <button class="reset sidebar__close-btn js-sidebar__close-btn js-tab-focus">
-          <svg class="icon" viewBox="0 0 16 16"><title>Закрыть панель</title>
-            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-               stroke-width="1">
-              <line x1="13.5" x2="2.5" y1="2.5" y2="13.5"></line>
-              <line x1="2.5" x2="13.5" y1="2.5" y2="13.5"></line>
-            </g>
-          </svg>
+          {{ icons('times', '', {'title': 'Закрыть панель'}) }}
         </button>
       </header>
 
-      <div class="position-relative z-index-1">
+      <div aria-label="{{ tab.name }}" class="position-relative z-index-1">
         {#  start sidebar content  #}
-        <div style="height: 100vh;">
-          <nav class="sidenav padding-y-sm text-sm@md js-sidenav">
-            <div class="sidenav__label margin-bottom-xxxs">
-              <span class="text-sm color-contrast-medium">Меню</span>
-            </div>
+        <nav class="sidenav padding-y-sm text-sm@md js-sidenav">
+          <div class="sidenav__label margin-bottom-xxxs">
+            <span class="text-sm color-contrast-medium">{{ tab.name }}</span>
+          </div>
 
-            <ul class="sidenav__list">
-              <li class="sidenav__item sidenav__item--expanded">
-                <a class="sidenav__link" href="#0">
-                  <svg aria-hidden="true" class="icon sidenav__icon" viewBox="0 0 16 16">
-                    <g>
-                      <path d="M6,0H1C0.4,0,0,0.4,0,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1V1C7,0.4,6.6,0,6,0z M5,5H2V2h3V5z"></path>
-                      <path d="M15,0h-5C9.4,0,9,0.4,9,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1V1C16,0.4,15.6,0,15,0z M14,5h-3V2h3V5z"></path>
-                      <path d="M6,9H1c-0.6,0-1,0.4-1,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1v-5C7,9.4,6.6,9,6,9z M5,14H2v-3h3V14z"></path>
-                      <path d="M15,9h-5c-0.6,0-1,0.4-1,1v5c0,0.6,0.4,1,1,1h5c0.6,0,1-0.4,1-1v-5C16,9.4,15.6,9,15,9z M14,14h-3v-3h3V14z"></path>
-                    </g>
-                  </svg>
-                  <span class="sidenav__text">Страницы</span>
-                </a>
+          {% macro sidenav_item(item) %}
+            <li class="sidenav__item">
+              <a class="sidenav__link" href="/admin/{{ item.url }}"
+                 aria-current="{{ 'page' if item.current else 'false' }}">
+                <span class="sidenav__text">{{ item.name }}</span>
+              </a>
+            </li>
+          {% endmacro %}
 
-                <button aria-label="Toggle sub navigation"
-                        class="reset sidenav__sublist-control js-sidenav__sublist-control js-tab-focus">
-                  <svg class="icon" viewBox="0 0 12 12">
-                    <polygon points="4 3 8 6 4 9 4 3"></polygon>
-                  </svg>
-                </button>
+          <ul class="sidenav__list">
+            {% for g in tab %}
+              {% if g.items %}
+                <li class="sidenav__item{{ ' sidenav__item--expanded' if g.expanded else '' }}">
+                  <a class="sidenav__link">
+                    {% if g.icon %}
+                      {{ icons(g.icon, 'sidenav__icon', {'aria-hidden': "true"}) }}
+                    {% endif %}
+                    <span class="sidenav__text">{{ g.name }}</span>
+                  </a>
 
-                <ul class="sidenav__list">
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/main_page">
-                      <span class="sidenav__text">Главная</span>
-                    </a>
-                  </li>
+                  <button aria-label="Toggle sub navigation"
+                          class="reset sidenav__sublist-control sidenav__item--expanded js-sidenav__sublist-control js-tab-focus">
+                    {{ icons("caret-right") }}
+                  </button>
 
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/headers">
-                      <span class="sidenav__text">Шапка сайта</span>
-                    </a>
-                  </li>
-
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/blocks">
-                      <span class="sidenav__text">Блоки</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="sidenav__item sidenav__item--expanded">
-                <a class="sidenav__link" href="#0">
-                  <svg aria-hidden="true" class="icon sidenav__icon" viewBox="0 0 16 16">
-                    <g>
-                      <path d="M14,7H2v7c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V7z"></path>
-                      <rect height="4" width="16" y="1"></rect>
-                    </g>
-                  </svg>
-                  <span class="sidenav__text">Блог</span>
-                </a>
-
-                <button aria-label="Toggle sub navigation"
-                        class="reset sidenav__sublist-control js-sidenav__sublist-control js-tab-focus">
-                  <svg class="icon" viewBox="0 0 12 12">
-                    <polygon points="4 3 8 6 4 9 4 3"/>
-                  </svg>
-                </button>
-
-                <ul class="sidenav__list">
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/blog/new">
-                      <span class="sidenav__text">Создать новый пост</span>
-                    </a>
-                  </li>
-
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/blog/category">
-                      <span class="sidenav__text">Категории блога</span>
-                    </a>
-                  </li>
-
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/blog">
-                      <span class="sidenav__text">Все посты</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li class="sidenav__item sidenav__item--expanded">
-                <a class="sidenav__link" href="#0">
-                  <svg aria-hidden="true" class="icon sidenav__icon" viewBox="0 0 16 16">
-                    <g>
-                      <circle cx="6" cy="8" r="2"></circle>
-                      <path d="M10,2H6C2.7,2,0,4.7,0,8s2.7,6,6,6h4c3.3,0,6-2.7,6-6S13.3,2,10,2z M10,12H6c-2.2,0-4-1.8-4-4s1.8-4,4-4h4 c2.2,0,4,1.8,4,4S12.2,12,10,12z"></path>
-                    </g>
-                  </svg>
-                  <span class="sidenav__text">Настройки</span>
-                </a>
-
-                <button aria-label="Toggle sub navigation"
-                        class="reset sidenav__sublist-control js-sidenav__sublist-control js-tab-focus">
-                  <svg class="icon" viewBox="0 0 12 12">
-                    <polygon points="4 3 8 6 4 9 4 3"/>
-                  </svg>
-                </button>
-
-                <ul class="sidenav__list">
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/faq">
-                      <span class="sidenav__text">ЧаВо</span>
-                    </a>
-                  </li>
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/socials">
-                      <span class="sidenav__text">Ссылки на соцсети</span>
-                    </a>
-                  </li>
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/logo">
-                      <span class="sidenav__text">Логотип</span>
-                    </a>
-                  </li>
-
-
-                  <li class="sidenav__item">
-                    <a class="sidenav__link" href="/admin/meta">
-                      <span class="sidenav__text">Аналитика</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
+                  <ul class="sidenav__list">
+                    {% for i in g %}
+                      {{ sidenav_item(i) }}
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                {{ sidenav_item(g) }}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
         {#  end sidebar content  #}
       </div>
     </div>
