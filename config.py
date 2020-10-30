@@ -7,7 +7,7 @@ DATABASE = {
     "host": 'localhost',
     "user": 'mp_zspo',
     "passwd": 'VjKGfhK2020',
-    "db": 'mp_zspo',
+    "database": 'mp_zspo',
 }
 """
 Variation DATABASE
