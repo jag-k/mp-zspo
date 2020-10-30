@@ -4,7 +4,8 @@ DEBUG = True
 
 DATABASE = {
     "provider": 'sqlite',
-    "filename": 'db.sqlite3'
+    "filename": 'db.sqlite3',
+    "create_db": True,
 }
 """
 Variation DATABASE
