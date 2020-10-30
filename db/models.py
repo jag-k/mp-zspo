@@ -67,7 +67,7 @@ class Header(db.Entity):
 
 def migration():
     db.migrate(
-        command="apply",
+        command="make",
         create_tables=True,
         allow_auto_upgrade=True,
         migration_dir=migration_dir,

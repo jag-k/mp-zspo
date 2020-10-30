@@ -46,7 +46,7 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest(scriptsJsPath))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    .pipe(gzip())
+    // .pipe(gzip())
     .pipe(gulp.dest(scriptsJsPath))
 });
 
