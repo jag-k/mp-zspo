@@ -6,7 +6,7 @@ DATABASE = {
     "provider": 'mysql',
     "host": 'localhost',
     "user": 'mp_zspo',
-    "passwd": 'VjKGfhK2020',
+    "passwd": 'Vjkgfhk2020@',
     "database": 'mp_zspo',
 }
 """
