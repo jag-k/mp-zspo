@@ -1,3 +1,3 @@
 #!/bin/bash
 source /var/www/mp_zspo/env/bin/activate
-exec gunicorn -c "/var/www/mp_zspo/gunicorn_config.py" wsgi
+gunicorn -c "/var/www/mp_zspo/gunicorn_config.py" wsgi
