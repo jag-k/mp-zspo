@@ -3,9 +3,11 @@ import locale
 DEBUG = True
 
 DATABASE = {
-    "provider": 'sqlite',
-    "filename": 'db.sqlite3',
-    "create_db": True,
+    "provider": 'mysql',
+    "host": 'localhost',
+    "user": 'mp_zspo',
+    "passwd": 'VjKGfhK2020',
+    "db": 'mp_zspo',
 }
 """
 Variation DATABASE
