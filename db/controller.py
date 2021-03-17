@@ -29,7 +29,7 @@ def is_admin(login, pwd):
 
 @db_session
 def is_hash_admin(h):
-    return h and get(h == a.hash for a in Admin)
+    return h and select(a for a in Admin if h == a.hash)
 
 
 @db_session
