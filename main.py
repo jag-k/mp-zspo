@@ -1,6 +1,7 @@
 from bottle import HTTPResponse, static_file, run
-from router import route, template, app
+
 import config
+from router import route, template, app
 
 
 @route("/<file:path>")
