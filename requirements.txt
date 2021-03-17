@@ -3,3 +3,4 @@ htmlmin~=0.1.12
 pony
 gunicorn
 pymysql
+jinja2

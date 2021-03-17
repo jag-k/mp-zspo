@@ -17,8 +17,7 @@ from pony.orm.integration.bottle_plugin import PonyPlugin
 import config
 from db.controller import *
 from menu import ADMIN_TAB
-
-BASE_DIR = os.path.dirname(__file__)
+from config import PUBLIC_PATH, BASE_DIR
 
 try:
     from ujson import load, dump, loads, dumps
@@ -37,8 +36,7 @@ Jinja2Template.settings = {
 
 
 bottle.TEMPLATE_PATH.insert(0, os.path.join(BASE_DIR, 'view'))
-public_path = os.path.join(BASE_DIR, 'public')
-images_path = join(public_path, 'img')
+images_path = join(PUBLIC_PATH, 'img')
 paths = [p[len(images_path):] or "/" for p, d, f in os.walk(images_path)]
 images = [
     {
@@ -221,7 +219,7 @@ def save_file(file: bottle.FileUpload, filename="", file_path="", overwrite=True
         filename = file.raw_filename.split(".", 1)[0]
     save_path = os.path.join(file_path, filename + "." + extension)
     file.save(save_path, overwrite=overwrite)
-    return save_path[len(public_path.rstrip('/')):]
+    return save_path[len(PUBLIC_PATH.rstrip('/')):]
 
 
 @db_session

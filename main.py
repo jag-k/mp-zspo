@@ -5,7 +5,7 @@ import config
 
 @route("/<file:path>")
 def static(file):
-    f = static_file(file, "./public")
+    f = static_file(file, config.PUBLIC_PATH)
     if f.status_code == 404:
         return HTTPResponse(
             body=template(

@@ -1,6 +1,9 @@
 import locale
+import os
 
 DEBUG = True
+BASE_DIR = os.path.dirname(__file__)
+PUBLIC_PATH = os.path.join(BASE_DIR, 'public')
 
 DATABASE = {
     "provider": 'mysql',
