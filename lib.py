@@ -18,6 +18,8 @@ import config
 from db.controller import *
 from menu import ADMIN_TAB
 
+BASE_DIR = os.path.dirname(__file__)
+
 try:
     from ujson import load, dump, loads, dumps
 except ImportError:
@@ -33,8 +35,9 @@ Jinja2Template.settings = {
     # 'autoescape': True,
 }
 
-bottle.TEMPLATE_PATH.insert(0, './view')
-public_path = "./public"
+
+bottle.TEMPLATE_PATH.insert(0, os.path.join(BASE_DIR, 'view'))
+public_path = os.path.join(BASE_DIR, 'public')
 images_path = join(public_path, 'img')
 paths = [p[len(images_path):] or "/" for p, d, f in os.walk(images_path)]
 images = [
@@ -322,5 +325,6 @@ def is_current_page(url: str) -> bool:
 
 
 if __name__ == '__main__':
+    import pprint
     with db_session:
         pprint(get_json(Blog[1]))
