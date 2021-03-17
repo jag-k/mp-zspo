@@ -549,7 +549,6 @@ $RECYCLE.BIN/
 *.msp
 *.lnk
 
-package-lock.json
 .vscode/
 # If we use Vercel
 
