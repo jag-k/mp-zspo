@@ -36,6 +36,28 @@ def admin_pages_main():
     )
 
 
+@admin_route("/other", GET_POST)
+def admin_pages_other_settings():
+    if request.method == POST:
+        par = dict(request.params)
+        for filename in request.files:
+            par[filename] = save_img(filename, '', filename)
+
+        for key, value in list(par.items()):
+            if isinstance(value, bytes):
+                del par[key]
+
+        update_settings("other", par)
+        redirect("/admin/other", alert=Alert("Настройки сохранены!"))
+
+    data = get_settings("other")
+
+    return admin_temp(
+        "other",
+        data=data
+    )
+
+
 @admin_route("/meta", GET_POST)
 def admin_pages_meta():
     if request.method == POST:

@@ -93,7 +93,9 @@ def edit_admin_data(admin: Admin, name: str = None, login: str = None, password:
 
 
 @db_session
-def get_settings(key, default={}):
+def get_settings(key, default=None):
+    if default is None:
+        default = {}
     s = select(s for s in Settings if s.key == key).first()
     return s.value if s else default
 

@@ -140,6 +140,10 @@ ADMIN_TAB = MenuTab(
             "SEO",
             "meta"
         ),
+        MenuItem(
+            "Прочее",
+            "other"
+        ),
         icon="wrench",
     ),
 )

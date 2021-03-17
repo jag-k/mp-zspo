@@ -160,7 +160,7 @@ def template(source, template_title="", extension=".html", alert: Alert = None, 
         meta_description=get_settings("description", ""),
 
         favicon=headers.get('favicon', ''),
-        logo=headers.get('logo', ''),
+        logo=get_settings('other').get('logo', ''),
 
         admin_user=user,
         config=config,

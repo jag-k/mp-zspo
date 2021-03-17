@@ -9,7 +9,7 @@ def main_page():
 
     return template(
         "main",
-        template_title=headers.get('main', "Молодёжный портал"),
+        template_title=headers.get('main', "Молодёжный Парламент"),
         template_description=headers.get('description_main', ""),
 
         posts=get_json_list(Post),

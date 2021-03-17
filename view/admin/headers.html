@@ -67,7 +67,6 @@
       </table>
     </div>
 
-
     {% for d in data %}
       {% call modal('edit-' ~ d.id, "Редактировать ссылку в шапке") %}
         <form action="/admin/headers/edit/{{ d.id }}" class="margin-bottom-sm" enctype="multipart/form-data"

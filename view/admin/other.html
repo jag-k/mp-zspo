@@ -1,0 +1,24 @@
+{% extends 'layout/admin.html' %}
+{% from 'layout/components.html' import image_input %}
+
+{% block content %}
+  <form action="" enctype="multipart/form-data" method="post">
+    <div class="text-component text-center margin-bottom-sm">
+      <h1>Прочие настройки</h1>
+    </div>
+
+    <fieldset class="margin-bottom-md">
+      <legend class="form-legend">Изображения</legend>
+      <div class="grid gap-sm">
+        <div class="col-12@md">
+          {{ image_input('logo', 'Логотип', data.logo, False) }}
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="flex flex-column flex-row@xs gap-xs">
+      <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
+      <button class="btn btn--secondary btn--md width-100%" type="reset">Сбросить изменения</button>
+    </div>
+  </form>
+{% endblock %}
