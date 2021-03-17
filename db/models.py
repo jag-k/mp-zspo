@@ -65,18 +65,21 @@ class Header(db.Entity):
 
 # ===== END MODELS =====
 
-def migration():
-    db.migrate(
-        command="make",
-        create_tables=True,
-        allow_auto_upgrade=True,
-        migration_dir=migration_dir,
-        **DATABASE
-    )
+# def migration():
+#     db.migrate(
+#         command="make",
+#         create_tables=True,
+#         allow_auto_upgrade=True,
+#         migration_dir=migration_dir,
+#         **DATABASE
+#     )
+#
+#
+# migration_dir = MIGRATION_DIR if __name__ == "__main__" else join('db', MIGRATION_DIR)
+# migration()
 
-
-migration_dir = MIGRATION_DIR if __name__ == "__main__" else join('db', MIGRATION_DIR)
-migration()
+db.bind(provider='sqlite', filename='db.sqlite', create_db=True)
+db.generate_mapping(create_tables=True)
 
 if __name__ == '__main__':
     from pprint import pprint
