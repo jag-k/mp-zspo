@@ -46,7 +46,7 @@
     "gulp-uglify": "^3.0.2",
     "jsdom": "^16.4.0",
     "postcss-calc": "^7.0.1",
-    "postcss-css-variables": "git+https://github.com/CodyHouse/postcss-css-variables.git",
+    "postcss-css-variables": "^0.17.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",
     "style-loader": "^1.2.1",
