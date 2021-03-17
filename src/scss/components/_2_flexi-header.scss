@@ -43,7 +43,7 @@ Usage: codyhouse.co/license
 
   svg, img {
     display: block;
-    height: calc(var(--f-header-height - 20px));
+    height: calc(var(--f-header-height) - 20px);
   }
 }
 
