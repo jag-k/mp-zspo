@@ -1,6 +1,8 @@
 from enum import Enum
-from typing import Iterable, Any, Tuple, Dict
-
+try:
+    from typing import Iterable, Any, Tuple, Dict
+except ImportError:
+    Iterable, Any, Tuple, Dict = None, None, None, None
 
 class MenuItem:
     def __init__(self, name: str, url: str):
@@ -38,7 +40,7 @@ class MenuGroup:
     def expanded(self, value: bool):
         self._expanded = value
 
-    def __iter__(self) -> Iterable[MenuItem]:
+    def __iter__(self):
         return iter(self.items)
 
     def default(self):
@@ -54,7 +56,7 @@ class MenuTab:
         self._enter = False
 
     @property
-    def urls(self) -> Dict[str, Tuple[MenuGroup, MenuItem]]:
+    def urls(self):
         urls = {}
         for g in self.goi:
             if isinstance(g, MenuItem):
@@ -84,7 +86,7 @@ class MenuTab:
         self._enter = True
         return self
 
-    def __iter__(self) -> Iterable[MenuGroup or MenuItem]:
+    def __iter__(self):
         return iter(self.goi)
 
 
