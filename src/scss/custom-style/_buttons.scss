@@ -66,6 +66,19 @@
   }
 }
 
+.btn--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+
+  &:hover {
+    background-color: var(--color-secondary-dark);
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 2px alpha(var(--color-secondary), 0.2);
+  }
+}
+
 // feedback
 .btn--disabled {
   opacity: 0.6;

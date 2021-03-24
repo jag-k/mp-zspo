@@ -561,3 +561,4 @@ public/
 #!public/js/scripts.js
 #!public/js/scripts.min.js
 !public/js/svg4everybody.min.js
+!public/fonts/*
