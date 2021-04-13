@@ -4,7 +4,7 @@
 {% block content %}
   <script src="/js/editor.js"></script>
   <div class="text-component text-center margin-bottom-sm">
-    <h1>{{ "Редактирвание" if data.title else "Создание" }} поста</h1>
+    <h1>{{ "Редактирвание" if data.title else "Создание" }} страницы</h1>
   </div>
   {% set max_character = 150 %}
 
@@ -18,13 +18,8 @@
       <input class="form-control width-100%" id="title" name="title" placeholder="Грандиозная новость!"
              required type="text" value="{{ data.title }}">
     </div>
-    <div class="col-6@md">
-      <label class="form-label margin-bottom-xxxs" for="date">Дата публикации</label>
-      <input class="form-control width-100%" id="date" name="date" required type="date"
-             value="{{ data.get('date', date) }}">
-    </div>
 
-    <div class="col-12 character-count js-character-count">
+    <div class="col-6@md character-count js-character-count">
       <label class="form-label margin-bottom-xxs" for="description">Краткое описание:</label>
       <input class="form-control width-100% js-character-count__input" id="description" maxlength="{{ max_character }}"
              name="description" placeholder="Небольшое краткое описание" required type="text"
@@ -40,15 +35,37 @@
       </div>
     </div>
 
+    <div class="col-6@md">
+      <label class="form-label margin-bottom-xxs" for="custom_link">Добавить страницу в заголовок?</label>
+      {% set checked = data.header or false %}
+      <ul class="radio-switch">
+        <li class="radio-switch__item">
+          <input class="radio-switch__input sr-only" type="radio" name="header" id="radio-1"
+                 value="/pages/{{ data.id }}"
+                  {{ "checked" if checked else "" }}>
+          <label class="radio-switch__label" for="radio-1">Да</label>
+        </li>
+
+        <li class="radio-switch__item">
+          <input class="radio-switch__input sr-only" type="radio" name="header" id="radio-2" value=""
+                  {{ "checked" if not checked else "" }}>
+          <label class="radio-switch__label" for="radio-2">Нет</label>
+          <div aria-hidden="true" class="radio-switch__marker"></div>
+        </li>
+      </ul>
+    </div>
+
+
     <div class="col-12">
-      <label class="form-label margin-bottom-xxs" for="content">Контент поста:</label>
+      <label class="form-label margin-bottom-xxs" for="content">Контент страницы:</label>
       <textarea class="form-control width-100%" id="content" name="content" required>{{ data.content }}</textarea>
     </div>
+
     <script>
       Editor
         .create(document.querySelector('#content'), {
           simpleUpload: {
-            uploadUrl: "/admin/ckeditor/upload_photo/news/media"
+            uploadUrl: "/admin/ckeditor/upload_photo/pages/media"
           },
         })
         .then(editor => {
@@ -60,13 +77,9 @@
         });
     </script>
 
-    <div class="col-6@md">
-      {{ image_input('image', 'Изображение публикации', data.image) }}
-    </div>
-
     <div class="col-12 flex flex-column flex-row@xs gap-xs gap-xxs@xs">
       <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
-      <button class="btn btn--subtle btn--md width-100%" type="reset">Отменить изменения</button>
+      <button class="btn btn-subtle btn--md width-100%" type="reset">Отменить изменения</button>
     </div>
   </form>
 {% endblock %}

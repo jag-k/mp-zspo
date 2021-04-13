@@ -1,6 +1,6 @@
 bottle~=0.12.18
 htmlmin~=0.1.12
-pony
+git+git://github.com/ponyorm/pony.git@migrations_dev
 gunicorn
 pymysql
 jinja2

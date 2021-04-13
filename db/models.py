@@ -1,15 +1,21 @@
 """
 docs: https://docs.ponyorm.org/
 """
+import os
 from datetime import date
-from os.path import join
-
 from pony.orm import *
-from config import DATABASE, MIGRATION_DIR
+from pony.orm.migrations.cli import migrate
 
-CREATE_DB = True
+# CREATE_DB = True
+os.environ["MIGRATIONS_DIR"] = os.path.abspath(os.path.join(__file__, '../migrations'))
 
-db = Database()
+db = Database(provider='sqlite', filename='db.sqlite3', create_db=True)
+
+try:
+    from types import GeneratorType
+    db.Entity.__iter__: GeneratorType
+except ImportError:
+    pass
 
 
 # ===== MODELS =====
@@ -22,7 +28,7 @@ class Admin(db.Entity):
 
 
 class Settings(db.Entity):
-    key = PrimaryKey(str, auto=True)
+    key = PrimaryKey(str)
     value = Required(Json)
 
 
@@ -35,6 +41,7 @@ class Post(db.Entity):
     date = Required(date)
     hidden = Optional(bool, default=False)
     content = Required(str)
+    header = Optional("Header", cascade_delete=True)
 
 
 class News(Post):
@@ -61,6 +68,7 @@ class Header(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str)
     url = Optional(str)
+    post = Optional(Post)
 
 
 # ===== END MODELS =====
@@ -78,8 +86,11 @@ class Header(db.Entity):
 # migration_dir = MIGRATION_DIR if __name__ == "__main__" else join('db', MIGRATION_DIR)
 # migration()
 
-db.bind(provider='sqlite', filename='db.sqlite', create_db=True)
-db.generate_mapping(create_tables=True)
+# db.bind(provider='sqlite', filename='db.sqlite', create_db=True)
+
+db.generate_mapping(check_tables=False)
+migrate(db, 'make')
+migrate(db, 'apply')
 
 if __name__ == '__main__':
     from pprint import pprint

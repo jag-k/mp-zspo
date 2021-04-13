@@ -31,5 +31,39 @@
         <button class="btn btn--primary">Создать администратора</button>
       </div>
     </form>
+
+
+    <div class="tbl margin-y-sm">
+      <h3>Список администраторов</h3>
+      <table aria-label="Администраторы" class="tbl__table border-bottom border-2">
+        <thead class="tbl__header border-bottom border-2">
+        <tr class="tbl__row">
+          <th class="tbl__cell text-left" scope="col">
+            <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Имя</span>
+          </th>
+
+          <th class="tbl__cell text-left" scope="col">
+            <span class="text-xs text-uppercase letter-spacing-lg font-semibold">Логин</span>
+          </th>
+        </tr>
+        </thead>
+
+        <tbody class="tbl__body">
+        {% for d in admins %}
+          <tr class="tbl__row">
+            <td class="tbl__cell" role="cell">
+              {{ d.name }}
+            </td>
+
+            <td class="tbl__cell" role="cell">
+              {{ d.login }}
+            </td>
+          </tr>
+
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
   </div>
 {% endblock %}

@@ -8,7 +8,7 @@ Blog
 #}
 {% block content %}
   {# Hero #}
-  <section class="hero padding-y-xxl margin-bottom-sm" style="background-image: url(/img/main_page/background.jpg);">
+  <section class="hero padding-y-xxl margin-bottom-sm" style="background-image: url('/img/main_page/background.jpg');">
     <div class="container max-width-adaptive-lg">
       <div class="max-width-xs">
         <div class="text-component margin-bottom-sm font-secondary">
@@ -24,7 +24,6 @@ Blog
               <li>
                 <a href="{{ soc.vk }}">
                   {{ icons('vk') }}
-                  {{ soc.vk }}
                 </a>
               </li>
             {% endif %}

@@ -1,11 +1,11 @@
-from enum import Enum
 try:
     from typing import Iterable, Any, Tuple, Dict
 except ImportError:
     Iterable, Any, Tuple, Dict = None, None, None, None
 
+
 class MenuItem:
-    def __init__(self, name: str, url: str):
+    def __init__(self, name: str, url: str = ""):
         self.name = name
         self._url = url.lstrip('/')
         self.group = None
@@ -64,7 +64,6 @@ class MenuTab:
             elif isinstance(g, MenuGroup):
                 for i in g:
                     urls[i.url] = (g, i)
-        print(urls)
         return urls
 
     def __enter__(self):
@@ -102,10 +101,14 @@ ADMIN_TAB = MenuTab(
             "Шапка сайта",
             "headers"
         ),
-        # MenuItem(
-        #     "Блоки",
-        #     "blocks"
-        # ),
+        MenuItem(
+            "Все страницы",
+            "pages"
+        ),
+        MenuItem(
+            "Создать страницу",
+            "pages/new"
+        ),
         icon="file-alt",
         expanded=True,
     ),
@@ -129,8 +132,7 @@ ADMIN_TAB = MenuTab(
     MenuGroup(
         "Настройки",
         MenuItem(
-            "Частые Вопросы",
-            "faq"
+            "Админы"
         ),
         MenuItem(
             "Соц. сети",

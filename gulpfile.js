@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var fs = require('fs');
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
 var postcss = require('gulp-postcss');
@@ -9,13 +8,12 @@ var calc = require('postcss-calc');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-var gzip = require('gulp-gzip');
 
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 // var through = require('through2');
-var svg = require("./svg_sprites")
+var svg = require("./svg-sprites")
 
 // js file paths
 var utilJsPath = 'src/js'; // util.js path - you may need to update this if including the framework as external node module
@@ -36,7 +34,6 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(cssFolder))
     .pipe(rename('style-fallback.css'))
     .pipe(postcss([cssvariables(), calc()]))
-    .pipe(gzip())
     .pipe(gulp.dest(cssFolder));
 });
 
@@ -46,7 +43,6 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest(scriptsJsPath))
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
-    // .pipe(gzip())
     .pipe(gulp.dest(scriptsJsPath))
 });
 

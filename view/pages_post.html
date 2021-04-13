@@ -1,0 +1,29 @@
+{% extends 'layout/index.html' %}
+
+{% block og %}
+  <meta property="og:type" content="article">
+  <meta property="og:description" content="{{ post.description }}">
+  <meta property="og:title" content="{{ post.title }}">
+  <meta property="og:url" content="{{ domain ~ "/news/" ~ post.id }}">
+
+  <meta name="twitter:title" content="{{ post.title }}">
+  <meta name="twitter:description" content="{{ post.description }}">
+  <meta name="twitter:url" content="{{ domain ~ "/news/" ~ post.id }}">
+{% endblock %}
+
+{% block content %}
+  <article class="container max-width-adaptive margin-y-md text-component">
+    <div class="padding-bottom-md border-contrast-lower">
+      <h1 class="text-xxl@md">
+        {{ post.title }}
+      </h1>
+      <p class="color-contrast-medium text-bold">
+        {{ post.description }}
+      </p>
+    </div>
+
+    <div class="container max-width-adaptive text-component margin-top-lg">
+      {{ post.content }}
+    </div>
+  </article>
+{% endblock %}

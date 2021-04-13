@@ -1,9 +1,9 @@
 import locale
-import os
+from pathlib import Path
 
 DEBUG = True
-BASE_DIR = os.path.dirname(__file__)
-PUBLIC_PATH = os.path.join(BASE_DIR, 'public')
+BASE_DIR = Path(__file__).resolve().parent.parent
+PUBLIC_PATH = BASE_DIR / 'public'
 
 DATABASE = {
     "provider": 'mysql',

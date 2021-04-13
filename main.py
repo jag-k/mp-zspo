@@ -1,6 +1,6 @@
 from bottle import HTTPResponse, static_file, run
 
-import config
+from misc import config
 from router import route, template, app
 
 

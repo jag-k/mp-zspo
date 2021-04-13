@@ -1,12 +1,13 @@
 from os import listdir
-from os.path import join
 from re import compile
+
+from misc import BASE_DIR
 
 icon = compile(r'id="([a-z\-]+)"')
 
-path = join("public", "sprites")
+path = BASE_DIR / "src" / "sprites"
 
-FILES = list(map(lambda x: join(path, x), listdir(path)))
+FILES = list(map(lambda x: path / x, listdir(path)))
 
 for f in FILES:
     with open(f, 'r') as file:

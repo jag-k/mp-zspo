@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:es5/no-es2015"
+  ],
+  "ignorePatterns": [
+    "webpack.config.js",
+    "gulpfile.js",
+    "svg-sprites.js",
+    "public/js/*"
+  ],
+  "rules": {
+    "no-undef": "off"
+  }
+}

@@ -91,7 +91,7 @@
 
           <div class="flex flex-column flex-row@xs gap-xs">
             <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
-            <button class="btn btn--secondary btn--md width-100%" type="reset">Отменить изменения</button>
+            <button class="btn btn-subtle btn--md width-100%" type="reset">Отменить изменения</button>
           </div>
 
         </form>
@@ -100,7 +100,7 @@
       {% call modal('del-' ~ d.id, "Удалить ссылку", "Вы уверены, что хотите удалить данную ссылку?") %}
         <div class="flex flex-column flex-row@xs gap-xs">
           <a class="btn btn--primary btn--md width-100%" href="/admin/headers/del/{{ d.id }}">Удалить</a>
-          <button class="btn btn--secondary btn--md width-100% js-modal__close" type="reset">Закрыть</button>
+          <button class="btn btn-subtle btn--md width-100% js-modal__close" type="reset">Закрыть</button>
         </div>
       {% endcall %}
 
@@ -125,7 +125,7 @@
       <div class="margin-bottom-sm">
         <label class="form-label margin-bottom-xxxs" for="new-url">Ссылка</label>
         <div class="input-group">
-          <div class="input-group__tag">mp.zspo.ru/</div>
+          <div class="input-group__tag">{{ domain }}/</div>
           <input class="form-control flex-grow" id="new-url" inputmode="url"
                  name="url" pattern="([a-z0-9_\-.#?&/=]*)" placeholder="about" type="text">
         </div>
@@ -134,7 +134,7 @@
 
       <div class="flex flex-column flex-row@xs gap-xs">
         <button class="btn btn--primary btn--md width-100%" type="submit">Сохранить</button>
-        <button class="btn btn--secondary btn--md width-100%" type="reset">Сбросить форму</button>
+        <button class="btn btn-subtle btn--md width-100%" type="reset">Сбросить форму</button>
       </div>
 
     </form>
