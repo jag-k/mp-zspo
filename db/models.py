@@ -16,7 +16,8 @@ try:
     db.Entity.__iter__: GeneratorType
 except ImportError:
     pass
-
+except SyntaxError:
+    pass
 
 # ===== MODELS =====
 
