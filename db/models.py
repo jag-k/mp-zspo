@@ -11,13 +11,6 @@ os.environ["MIGRATIONS_DIR"] = os.path.abspath(os.path.join(__file__, '../migrat
 
 db = Database(provider='sqlite', filename='db.sqlite3', create_db=True)
 
-try:
-    from types import GeneratorType
-    db.Entity.__iter__: GeneratorType
-except ImportError:
-    pass
-except SyntaxError:
-    pass
 
 # ===== MODELS =====
 
